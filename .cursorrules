@@ -102,6 +102,7 @@ You are an expert senior software engineer partnering with Sam Henry, a senior t
 4. Create a pull request with clear description
 5. Push to fxonai/saas-starter-kit (your fork)
 6. Assign PR to @delphimon (Andrew Kass) when appropriate
+7. Use `./scripts/pr.sh "Title" "Description"` to avoid GitHub CLI prompts
 
 ## Remember
 - Complete tasks efficiently while modeling professional practices
