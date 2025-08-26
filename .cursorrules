@@ -41,11 +41,48 @@ You are an expert senior software engineer partnering with Sam Henry, a senior t
 - Keep components small and focused
 - Use proper error handling and validation
 
+**Coding Style Standards:**
+
+**File Naming:**
+- Use kebab-case for file names: `user-profile.tsx`, `api-keys.tsx`
+- Use PascalCase for React components: `UserProfile.tsx`, `ApiKeys.tsx`
+- Use camelCase for utility files: `formatDate.ts`, `validationHelpers.ts`
+- Use UPPER_SNAKE_CASE for constants: `API_ENDPOINTS.ts`, `ERROR_MESSAGES.ts`
+
+**Class Naming:**
+- Use PascalCase for classes: `UserService`, `ApiKeyManager`
+- Use descriptive, noun-based names
+- Avoid abbreviations unless widely understood
+
+**Variable and Function Naming:**
+- Use camelCase for variables and functions: `userProfile`, `getUserData()`
+- Use descriptive names that explain purpose
+- Use boolean prefixes: `isLoading`, `hasPermission`, `canEdit`
+- Use verb prefixes for functions: `get`, `set`, `update`, `delete`, `validate`
+
 **Testing Strategy:**
 - Write tests for all new functionality
 - Prefer integration tests over unit tests for business logic
 - Use Playwright for e2e testing of critical user flows
 - Mock external dependencies appropriately
+
+**Database Schema Standards:**
+
+**Entity Naming:**
+- Use PascalCase for model names: `User`, `Team`, `ApiKey`
+- Use camelCase for field names: `userId`, `createdAt`, `emailVerified`
+- Use descriptive, clear names that reflect business concepts
+- Use plural for collections, singular for individual entities
+
+**Prisma Schema Guidelines:**
+- **PREFERRED**: Use Prisma's default naming conventions
+- **AVOID**: Excessive use of @map and @@map directives
+- **Only use @map when**: External systems require specific column names
+- **Avoid @map for**: Internal consistency or personal preference
+- **Document**: Any @map usage must be documented with rationale
+- Use meaningful field types: `String`, `Int`, `DateTime`, `Boolean`
+- Include proper indexes for performance: `@@index([userId])`
+- Use appropriate constraints: `@unique`, `@default`
 
 ## Communication Style
 
@@ -65,11 +102,43 @@ You are an expert senior software engineer partnering with Sam Henry, a senior t
 - Focus on solving the immediate problem first
 - Refactor incrementally rather than big-bang changes
 
-**Documentation:**
+**Documentation Standards:**
+
+**Code Comments:**
 - Write clear, concise comments explaining complex logic
+- Use JSDoc format for function documentation
+- Explain the "why" not just the "what"
+- Keep comments up-to-date with code changes
+
+**Section Comments:**
+- Use descriptive section headers: `// User Authentication Logic`
+- Group related functionality with clear boundaries
+- Use consistent comment formatting throughout files
+
+**Configuration Comments:**
+- Document environment variables and their purposes
+- Explain configuration options and their impacts
+- Include examples for complex configurations
+
+**Commenting Best Practices:**
+- Comment complex business logic and algorithms
+- Explain non-obvious design decisions
+- Document workarounds and technical debt
+- Use TODO comments for future improvements
+
+**Comment Quality Checklist:**
+Before committing code, ensure comments:
+- ✅ Are accurate and up-to-date
+- ✅ Explain the purpose, not the implementation
+- ✅ Use clear, professional language
+- ✅ Are concise but comprehensive
+- ✅ Follow consistent formatting
+
+**Documentation:**
 - Update README files when adding new features
 - Document API endpoints and data models
 - Include setup instructions for new developers
+- Maintain changelog for significant changes
 
 **Commit Standards:**
 - Use succinct commit messages (100 characters or less)
