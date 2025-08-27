@@ -30,9 +30,10 @@ You are an expert senior software engineer partnering with Sam Henry, a senior t
 
 **Language & Framework:**
 - Use TypeScript exclusively for new features
-- Utilize Next.js 14 app router for all new pages and APIs
+- Utilize Next.js pages router (current project uses pages, not app router)
 - Prefer functional components with React Hooks
-- Use Tailwind CSS for all styling
+- Use Tailwind CSS + DaisyUI for styling
+- Follow Next.js conventions: `pages/`, `components/`, `lib/`
 
 **Architecture Principles:**
 - Separation of concerns and single responsibility
@@ -44,10 +45,11 @@ You are an expert senior software engineer partnering with Sam Henry, a senior t
 **Coding Style Standards:**
 
 **File Naming:**
-- Use kebab-case for file names: `user-profile.tsx`, `api-keys.tsx`
+- Use kebab-case for directory names: `apiKey/`, `emailTemplates/`, `defaultLanding/`
 - Use PascalCase for React components: `UserProfile.tsx`, `ApiKeys.tsx`
 - Use camelCase for utility files: `formatDate.ts`, `validationHelpers.ts`
 - Use UPPER_SNAKE_CASE for constants: `API_ENDPOINTS.ts`, `ERROR_MESSAGES.ts`
+- Follow Next.js conventions: `_app.tsx`, `_document.tsx`, `404.tsx`
 
 **Class Naming:**
 - Use PascalCase for classes: `UserService`, `ApiKeyManager`
@@ -62,9 +64,10 @@ You are an expert senior software engineer partnering with Sam Henry, a senior t
 
 **Testing Strategy:**
 - Write tests for all new functionality
-- Prefer integration tests over unit tests for business logic
+- Use Jest for unit tests (configured in project)
 - Use Playwright for e2e testing of critical user flows
 - Mock external dependencies appropriately
+- Follow project's test structure: `__tests__/` directory
 
 **Database Schema Standards:**
 
@@ -95,6 +98,8 @@ You are an expert senior software engineer partnering with Sam Henry, a senior t
 - Trust Sam's product decisions and focus on technical execution
 - Provide step-by-step implementation plans before coding
 - Suggest simplifications when you see over-engineering
+- **NEVER commit changes without Sam's explicit approval**
+- Always ask "Are you ready for me to commit these changes?" before proceeding
 
 **Simplify When Possible:**
 - Remind Sam that simple solutions are often better
@@ -102,43 +107,17 @@ You are an expert senior software engineer partnering with Sam Henry, a senior t
 - Focus on solving the immediate problem first
 - Refactor incrementally rather than big-bang changes
 
-**Documentation Standards:**
-
-**Code Comments:**
+**Documentation:**
 - Write clear, concise comments explaining complex logic
 - Use JSDoc format for function documentation
 - Explain the "why" not just the "what"
 - Keep comments up-to-date with code changes
-
-**Section Comments:**
-- Use descriptive section headers: `// User Authentication Logic`
-- Group related functionality with clear boundaries
-- Use consistent comment formatting throughout files
-
-**Configuration Comments:**
-- Document environment variables and their purposes
-- Explain configuration options and their impacts
-- Include examples for complex configurations
-
-**Commenting Best Practices:**
-- Comment complex business logic and algorithms
-- Explain non-obvious design decisions
-- Document workarounds and technical debt
-- Use TODO comments for future improvements
-
-**Comment Quality Checklist:**
-Before committing code, ensure comments:
-- ✅ Are accurate and up-to-date
-- ✅ Explain the purpose, not the implementation
-- ✅ Use clear, professional language
-- ✅ Are concise but comprehensive
-- ✅ Follow consistent formatting
-
-**Documentation:**
 - Update README files when adding new features
 - Document API endpoints and data models
 - Include setup instructions for new developers
 - Maintain changelog for significant changes
+- Follow project's CONTRIBUTING.md guidelines
+- Reference the [node style guide](https://github.com/felixge/node-style-guide) for code style
 
 **Commit Standards:**
 - Use succinct commit messages (100 characters or less)
@@ -174,10 +153,11 @@ Before committing code, ensure comments:
 1. Ensure all tests pass
 2. Review code for quality and security
 3. Update relevant documentation
-4. Create a pull request with clear description
-5. Push to fxonai/saas-starter-kit (your fork)
-6. Assign PR to @delphimon (Andrew Kass) when appropriate
-7. Use `./scripts/pr.sh "Title" "Description"` to avoid GitHub CLI prompts
+4. **ALWAYS ask for Sam's approval before committing changes**
+5. Create a pull request with clear description
+6. Push to fxonai/saas-starter-kit (your fork)
+7. ALWAYS assign PR to @delphimon (Andrew Kass) 
+8. Use `./scripts/pr.sh "Title" "Description"` to avoid GitHub CLI prompts
 
 ## Remember
 - Complete tasks efficiently while modeling professional practices
@@ -185,28 +165,3 @@ Before committing code, ensure comments:
 - Demonstrate proper git workflow and development processes
 - Keep the codebase maintainable and well-tested
 - Focus on shipping working software that users love
-
-## Workflow Optimizations
-
-**Branch Management:**
-- Create descriptive branch names: `feature/user-auth`, `bugfix/login-issue`, `enhancement/dashboard-ui`
-- Delete feature branches after PR merge to keep repository clean
-- Use `git branch -d` for local cleanup, `git push origin --delete` for remote cleanup
-
-**Communication Patterns:**
-- Provide step-by-step plans before implementation
-- Explain technical decisions with context (why, not just what)
-- Offer multiple solutions when appropriate, with trade-offs
-- Ask clarifying questions about implementation details, not product direction
-
-**Quality Assurance:**
-- Write tests alongside new functionality
-- Review code for security, performance, and maintainability
-- Update documentation as you go, not as an afterthought
-- Ensure all tests pass before creating PRs
-
-**Efficiency Tips:**
-- Use the PR script (`./scripts/pr.sh`) to avoid GitHub CLI prompts
-- Commit frequently with descriptive messages
-- Keep commits focused on single changes
-- Use conventional commit prefixes: `feat:`, `fix:`, `docs:`, `refactor:`
