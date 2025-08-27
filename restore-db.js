@@ -1,35 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-import { hash } from 'bcryptjs';
+const { PrismaClient } = require('@prisma/client');
+const { hash } = require('bcryptjs');
 
 const client = new PrismaClient();
 
 // Type definitions for better TypeScript support
-type UserWithName = {
-  name: string;
-  email: string;
-  role: string;
-};
-
-type UserWithoutName = {
-  email: string;
-  role: string;
-};
-
-type TeamData = {
-  name: string;
-  slug: string;
-  isMainTeam: boolean;
-  users: (UserWithName | UserWithoutName)[];
-};
-
-type TenantData = {
-  name: string;
-  domain: string | null;
-  teams: TeamData[];
-};
-
-// CSV data converted to structured format
-const TENANT_DATA: TenantData[] = [
+const TENANT_DATA = [
   {
     name: 'Super Life Group',
     domain: null, // Independent agency
@@ -245,55 +220,33 @@ const TENANT_DATA: TenantData[] = [
   }
 ];
 
-// Helper function to create slug from team name
-const createSlug = (name: string) => {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w-]+/g, '')
-    .replace(/--+/g, '-')
-    .replace(/^-+/, '')
-    .replace(/-+$/, '');
-};
-
-async function main() {
-  console.log('🌱 Starting seed...');
-
-  // Clear existing data
-  await client.teamMember.deleteMany();
-  await client.invitation.deleteMany();
-  await client.team.deleteMany();
-  await client.user.deleteMany();
-
-  console.log('🗑️  Cleared existing data');
-  
-  // Check that database is empty
-  const users = await client.user.count();
-  const teams = await client.team.count();
-  const teamMembers = await client.teamMember.count();
-  const invitations = await client.invitation.count();
-  
-  console.log('🔍 Database state after clearing:');
-  console.log(`- Users: ${users}`);
-  console.log(`- Teams: ${teams}`);
-  console.log(`- Team Members: ${teamMembers}`);
-  console.log(`- Invitations: ${invitations}`);
-  
-  if (users === 0 && teams === 0 && teamMembers === 0 && invitations === 0) {
-    console.log('✅ Database is EMPTY - ready to restore data\n');
-  } else {
-    console.log('❌ Database still has data - clearing failed\n');
-  }
-
-  // Track created users by email for multi-team assignment
-  const userMap = new Map<string, any>();
-
-  // Create teams and users
-  for (const tenant of TENANT_DATA) {
-    console.log(`🏢 Creating tenant: ${tenant.name}`);
+async function restoreDatabase() {
+  try {
+    console.log('🌱 Starting database restore...\n');
     
-          // Create all teams for this tenant first
-      const teamMap = new Map<string, any>();
+    // Check initial state
+    const initialUsers = await client.user.count();
+    const initialTeams = await client.team.count();
+    const initialTeamMembers = await client.teamMember.count();
+    
+    console.log('📊 Initial database state:');
+    console.log(`- Users: ${initialUsers}`);
+    console.log(`- Teams: ${initialTeams}`);
+    console.log(`- Team Members: ${initialTeamMembers}\n`);
+    
+    if (initialUsers > 0 || initialTeams > 0 || initialTeamMembers > 0) {
+      console.log('⚠️  Warning: Database has existing data. Consider clearing first.\n');
+    }
+    
+    // Track created users by email for multi-team assignment
+    const userMap = new Map();
+
+    // Create teams and users
+    for (const tenant of TENANT_DATA) {
+      console.log(`🏢 Creating tenant: ${tenant.name}`);
+      
+      // Create all teams for this tenant first
+      const teamMap = new Map();
       
       for (const teamData of tenant.teams) {
         console.log(`  📋 Creating team: ${teamData.name}`);
@@ -313,65 +266,74 @@ async function main() {
         teamMap.set(teamData.name, team);
       }
 
-    // First, create all users from main teams (which have names)
-    for (const teamData of tenant.teams) {
-      if (teamData.isMainTeam) {
-        for (const userData of teamData.users) {
-          // Type guard to ensure userData has a name
-          if ('name' in userData) {
-            console.log(`👤 Creating user: ${userData.name}`);
-            
-            const user = await client.user.create({
-              data: {
-                name: userData.name,
-                email: userData.email,
-                password: await hash('password123', 12),
-                emailVerified: new Date(),
-              },
-            });
-            
-            userMap.set(userData.email, user);
+      // First, create all users from main teams (which have names)
+      for (const teamData of tenant.teams) {
+        if (teamData.isMainTeam) {
+          for (const userData of teamData.users) {
+            // Type guard to ensure userData has a name
+            if ('name' in userData) {
+              console.log(`👤 Creating user: ${userData.name}`);
+              
+              const user = await client.user.create({
+                data: {
+                  name: userData.name,
+                  email: userData.email,
+                  password: await hash('password123', 12),
+                  emailVerified: new Date(),
+                },
+              });
+              
+              userMap.set(userData.email, user);
+            }
           }
         }
       }
-    }
 
-    // Then assign all users to their teams
-    for (const teamData of tenant.teams) {
-      for (const userData of teamData.users) {
-        const user = userMap.get(userData.email);
-        
-        if (!user) {
-          console.error(`❌ User not found: ${userData.email}`);
-          continue;
+      // Then assign all users to their teams
+      for (const teamData of tenant.teams) {
+        for (const userData of teamData.users) {
+          const user = userMap.get(userData.email);
+          
+          if (!user) {
+            console.error(`❌ User not found: ${userData.email}`);
+            continue;
+          }
+
+          // Create team membership
+          const team = teamMap.get(teamData.name);
+          await client.teamMember.create({
+            data: {
+              teamId: team.id,
+              userId: user.id,
+              role: userData.role,
+            },
+          });
         }
-
-        // Create team membership
-        const team = teamMap.get(teamData.name);
-        await client.teamMember.create({
-          data: {
-            teamId: team.id,
-            userId: user.id,
-            role: userData.role as any,
-          },
-        });
       }
     }
-  }
 
-  console.log('✅ Seed completed successfully!');
-  console.log('\n📋 Summary:');
-  console.log(`- ${TENANT_DATA.length} tenants created`);
-  console.log(`- ${TENANT_DATA.reduce((acc, tenant) => acc + tenant.teams.length, 0)} teams created`);
-  console.log(`- ${userMap.size} unique users created`);
-  console.log(`- Default password for all users: password123`);
+    // Check final state
+    const finalUsers = await client.user.count();
+    const finalTeams = await client.team.count();
+    const finalTeamMembers = await client.teamMember.count();
+    
+    console.log('\n✅ Database restore completed successfully!');
+    console.log('\n📋 Summary:');
+    console.log(`- ${TENANT_DATA.length} tenants created`);
+    console.log(`- ${TENANT_DATA.reduce((acc, tenant) => acc + tenant.teams.length, 0)} teams created`);
+    console.log(`- ${userMap.size} unique users created`);
+    console.log(`- Default password for all users: password123`);
+    
+    console.log('\n📊 Final database state:');
+    console.log(`- Users: ${finalUsers}`);
+    console.log(`- Teams: ${finalTeams}`);
+    console.log(`- Team Members: ${finalTeamMembers}`);
+    
+  } catch (error) {
+    console.error('❌ Error restoring database:', error);
+  } finally {
+    await client.$disconnect();
+  }
 }
 
-main()
-  .catch((e) => {
-    console.error('❌ Seed failed:', e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await client.$disconnect();
-  });
+restoreDatabase();

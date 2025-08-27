@@ -13,6 +13,52 @@ enum Role {
   MEMBER
 }
 
+enum ProgramStatus {
+  DRAFT
+  PUBLISHED
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum EnrollmentType {
+  AUTOMATIC
+  MANAGER_ASSIGNED
+  SELF_SELECT
+  SCHEDULED
+}
+
+enum OutcomeType {
+  REVENUE_TARGET
+  RESOURCE_TARGET
+  EFFICIENCY_METRIC
+  QUALITY_STANDARD
+  OPERATIONAL_TARGET
+}
+
+enum MeasurementFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  YEARLY
+}
+
+enum ProgramRole {
+  EXECUTIVE
+  PROGRAM_MANAGER
+  PARTICIPANT
+  HIRING_MANAGER
+  SUPPORTER
+}
+
+enum ParticipantStatus {
+  ENROLLED
+  IN_PROGRESS
+  COMPLETED
+  DROPPED
+}
+
 model Account {
   id                String  @id @default(uuid())
   userId            String
@@ -67,6 +113,8 @@ model User {
   accounts    Account[]
   sessions    Session[]
   invitations Invitation[]
+  programUsers ProgramUser[]
+  programAssignments ProgramUser[] @relation("ProgramAssignment")
 }
 
 model Team {
@@ -82,8 +130,78 @@ model Team {
   members         TeamMember[]
   invitations     Invitation[]
   apiKeys         ApiKey[]
+  programs        Program[]
 
   @@index([billingId])
+}
+
+model Program {
+  id                    String   @id @default(uuid())
+  name                  String   // Published name
+  subtitle              String   @db.VarChar(100)  // ~10 words max
+  description           String   @db.VarChar(350)  // ~35 words max
+  programBenefits       String[] // Bulleted list of benefits
+  programLogo           String?  // Program logo image
+  bannerImage           String?  // Banner image for program
+  teamId                String   // Which team owns this program
+  status                ProgramStatus @default(DRAFT)
+  
+  // Enrollment
+  enrollmentType        EnrollmentType @default(MANAGER_ASSIGNED)
+  enrollmentStartDate   DateTime?
+  enrollmentEndDate     DateTime?
+  publishDate           DateTime?
+  activeDate            DateTime?
+  endDate               DateTime?
+  
+  // Outcomes
+  expectedOutcomeType   OutcomeType?
+  
+  // Time
+  timeExpectations      Int?     // Duration in hours
+  measurementFrequency  MeasurementFrequency @default(DAILY)
+  
+  // Eligibility & Prerequisites
+  eligibilityCriteria   Json?    // Structured JSON rules
+  prerequisites         Json?    // Structured JSON requirements
+  
+  // UI/UX
+  consentLabel          String   @db.VarChar(100)  // ~10 words max
+  ctaButtonText         String   @db.VarChar(50)   // Call-to-action button text
+  
+  // Lifecycle
+  isActive              Boolean  @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @default(now())
+  
+  // Relations
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  participants ProgramUser[] // Individual participants
+  
+  @@index([teamId])
+}
+
+model ProgramUser {
+  id          String   @id @default(uuid())
+  programId   String
+  userId      String
+  role        ProgramRole @default(PARTICIPANT)
+  status      ParticipantStatus @default(ENROLLED)
+  assignedBy  String   // Who assigned them (Program Manager, Hiring Manager, etc.)
+  assignedAt  DateTime @default(now())
+  startedAt   DateTime?
+  completedAt DateTime?
+  notes       String?  // Additional notes about participation
+  
+  // Relations
+  program Program @relation(fields: [programId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignedByUser User @relation("ProgramAssignment", fields: [assignedBy], references: [id])
+  
+  @@unique([programId, userId])
+  @@index([programId])
+  @@index([userId])
+  @@index([assignedBy])
 }
 
 model TeamMember {

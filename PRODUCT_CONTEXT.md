@@ -72,6 +72,22 @@ Participants have questions like:
 **Current State Team**:
 Based on the current database structure, tenants are supported through the Team entity.  The data structure supports both **Independent Agencies** (small businesses without shared infrastructure) and **Enterprises** (large organizations with centralized IT) through a flat organization (all teams are at the same level). Independent agencies can use social sign-ons and self-service management, while enterprises leverage SAML SSO and domain-based access control. 
 
+Enterprises are distinguished by domain restriction
+{
+  name: "Fortune Corp",
+  slug: "fortune-corp",
+  domain: "fortunecorp.com",  // ← Domain restriction
+  defaultRole: "MEMBER"
+}
+
+Independents have no domain
+{
+  name: "Acme Consulting",
+  slug: "acme-consulting", 
+  domain: null,  // ← No domain restriction
+  defaultRole: "MEMBER"
+}
+
 **Future Evolution: Multiple Organizations**
 Enterprises have multiple business functions and multiple subsidiaries. To support multiple organizations per tenant with minimal schema changes, a hierarchy Teams can be implemented using the Team entity with parent-child relationships.  
 
@@ -137,10 +153,10 @@ Based on the current database structure, there are **no existing entities** that
 **MVP: Simple Programs**
 The existing Team entity can scope programs to organizations, and User/TeamMember entities can support program managers. Recommend creating new entities for program users and tasks. Support onboarding workflows with a set of tasks that need to be completed within a time frame.
 
-- `Program` - Onboarding templates with program type (time-oriented or outcome-based) scoped to teams
+- `Program` - Onboarding templates with program type scoped to Teams
 - `Stage` - Logical groupings of tasks for better organization
 - `Task` - Individual actionable items with verifiable outcomes, expected time frames, and parent-child relationships for grouping
-- `ProgramUser` - Links users to programs with roles (participant, hiring_manager, mentor, buddy) and progress tracking
+- `ProgramUser` - Links users to programs with roles (program_manager, participant, hiring_manager, supporter) and progress tracking
 - `UserProgress` - Tracks completion status and notes for tasks, stages, and programs for each ProgramUser
 - `Prerequisites & Dependencies` - Define prerequisites and dependencies between tasks
 

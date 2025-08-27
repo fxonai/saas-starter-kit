@@ -4,7 +4,7 @@
   <img alt="BoxyHQ Banner" src="https://github.com/boxyhq/jackson/assets/66887028/b40520b7-dbce-400b-88d3-400d1c215ea1">
 </picture>
 
-# ⭐ Enterprise SaaS Starter Kit
+# ⭐ Enterprise SaaS Starter Kit - Onboarding Platform
 
 <p>
     <a href="https://github.com/boxyhq/saas-starter-kit/stargazers"><img src="https://img.shields.io/github/stars/boxyhq/saas-starter-kit" alt="Github stargazers"></a>
@@ -15,9 +15,45 @@
     <a href="https://discord.gg/uyb7pYt4Pa"><img src="https://img.shields.io/discord/877585485235630130" alt="Discord"></a>
 </p>
 
-The Open Source Next.js SaaS boilerplate for Enterprise SaaS app development.
+The Open Source Next.js SaaS boilerplate for Enterprise SaaS app development, enhanced with comprehensive onboarding platform capabilities.
 
 Please star ⭐ the repo if you want us to continue developing and improving the SaaS Starter Kit! 😀
+
+## 🎯 Onboarding Platform Features
+
+This SaaS starter kit has been enhanced with comprehensive onboarding platform capabilities:
+
+### 📋 **Program Management**
+- **Program Creation & Configuration**: Create structured onboarding programs with detailed metadata
+- **Program Status Tracking**: DRAFT → PUBLISHED → ACTIVE → COMPLETED → ARCHIVED
+- **Enrollment Management**: Automatic, Manager-assigned, Self-select, and Scheduled enrollment types
+- **Outcome Tracking**: Revenue targets, Resource targets, Efficiency metrics, Quality standards, Operational targets
+- **Time Expectations**: Flexible duration tracking (hours to months)
+- **Measurement Frequency**: Daily, Weekly, Monthly, Quarterly, Yearly progress tracking
+
+### 👥 **Role-Based Access Control**
+- **Program Roles**: EXECUTIVE, PROGRAM_MANAGER, PARTICIPANT, HIRING_MANAGER, SUPPORTER
+- **Participant Status**: ENROLLED → IN_PROGRESS → COMPLETED → DROPPED
+- **Multi-Team Support**: Users can participate in programs across different teams
+- **Assignment Tracking**: Track who assigned participants and when
+
+### 🏢 **Multi-Tenant Architecture**
+- **Independent Agencies**: Teams with null domain (standalone operations)
+- **Enterprise Organizations**: Teams with specific domains (multi-team enterprises)
+- **Functional Teams**: Specialized teams within organizations (Managers, Sales, etc.)
+- **Cross-Program Participation**: Users can be assigned to multiple programs with different roles
+
+### 📊 **Current Data Model**
+- **40 Users** across multiple organizations
+- **15 Teams** (main + functional teams)
+- **84 Team Members** (multi-team memberships)
+- **4 Sample Programs**: Sales Development Onboarding, CodeStart Academy, License Launchpad, New Agent School
+- **79 Program Users** with role assignments
+
+### 🔧 **Database Scripts**
+- `clear-db.js` - Clear all data for fresh starts
+- `restore-db.js` - Restore complete dataset
+- `check-db.js` - Verify database state and contents
 
 ## 📖 Additional Resources
 
@@ -126,7 +162,28 @@ docker-compose up -d
 npx prisma db push
 ```
 
-#### 7. Start the server
+#### 7. Seed the database (Optional)
+
+The database comes with comprehensive sample data for testing the onboarding platform:
+
+```bash
+npm run db:seed
+```
+
+Or use the individual scripts for more control:
+
+```bash
+# Clear all data
+node clear-db.js
+
+# Restore complete dataset
+node restore-db.js
+
+# Check database state
+node check-db.js
+```
+
+#### 8. Start the server
 
 In a development environment:
 
@@ -136,7 +193,7 @@ npm run dev
 
 #### 8. Start the Prisma Studio
 
-Prisma Studio is a visual editor for the data in your database.
+Prisma Studio is a visual editor for the data in your database. You can explore all entities including the new onboarding platform entities (Program, ProgramUser).
 
 ```bash
 npx prisma studio
@@ -161,6 +218,31 @@ npm run test:e2e
 ```
 
 _Note: HTML test report is generated inside the `report` folder. Currently supported browsers for test execution `chromium` and `firefox`_
+
+## 🔑 Test User Accounts
+
+After running the seed script (`npm run db:seed`), you can use these test accounts to log in and test different user roles:
+
+### Sam Henry
+- **Owner Account**: `sam+owner@wealthsmyth.ai` / `sam@123`
+- **Admin Account**: `sam+admin@wealthsmyth.ai` / `sam@123`
+- **Member Account**: `sam+member@wealthsmyth.ai` / `sam@123`
+
+### Andrew Kass
+- **Owner Account**: `andrew+owner@wealthsmyth.ai` / `andrew@123`
+- **Admin Account**: `andrew+admin@wealthsmyth.ai` / `andrew@123`
+- **Member Account**: `andrew+member@wealthsmyth.ai` / `andrew@123`
+
+### Wendi Henry
+- **Owner Account**: `wendi+owner@wealthsmyth.ai` / `wendi@123`
+- **Admin Account**: `wendi+admin@wealthsmyth.ai` / `wendi@123`
+- **Member Account**: `wendi+member@wealthsmyth.ai` / `wendi@123`
+
+### Default Accounts
+- **Admin**: `admin@example.com` / `admin@123`
+- **User**: `user@example.com` / `user@123`
+
+> **Note**: These are development/test accounts with simple passwords. In production, use strong, unique passwords.
 
 ## ⚙️ Feature configuration
 
@@ -203,6 +285,7 @@ The default login options are email and GitHub. Configure below:
 
 ## 🥇 Features
 
+### 🔐 **Authentication & Authorization**
 - Create account
 - Sign in with Email and Password
 - Sign in with Magic Link
@@ -211,21 +294,36 @@ The default login options are email and GitHub. Configure below:
 - Sign in with GitHub [[Creating a Github OAuth App](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app)]
 - Directory Sync (SCIM)
 - Update account
+- Roles and Permissions
+
+### 🏢 **Team Management**
 - Create team
 - Delete team
 - Invite users to the team
 - Manage team members
 - Update team settings
+- Update member role
+- Multi-tenant support (Independent agencies vs Enterprise organizations)
+
+### 📋 **Onboarding Platform**
+- **Program Management**: Create, configure, and track onboarding programs
+- **Program Status Workflow**: DRAFT → PUBLISHED → ACTIVE → COMPLETED → ARCHIVED
+- **Enrollment Types**: Automatic, Manager-assigned, Self-select, Scheduled
+- **Role-Based Access**: EXECUTIVE, PROGRAM_MANAGER, PARTICIPANT, HIRING_MANAGER, SUPPORTER
+- **Participant Tracking**: ENROLLED → IN_PROGRESS → COMPLETED → DROPPED
+- **Outcome Measurement**: Revenue, Resource, Efficiency, Quality, Operational targets
+- **Time Tracking**: Flexible duration and measurement frequency
+- **Multi-Program Participation**: Users can be assigned to multiple programs
+
+### 🔧 **Development & Operations**
 - Webhooks & Events
 - Internationalization
 - Audit logs
-- Roles and Permissions
 - Dark mode
 - Email notifications
 - E2E tests
 - Docker compose
 - Prisma Studio
-- Update member role
 - Directory Sync Events
 - Avatar Upload
 - SAML SSO
@@ -234,10 +332,42 @@ The default login options are email and GitHub. Configure below:
 - Payments
 - Security Headers
 
+## 🗄️ Database Schema
+
+### **Core Entities**
+- **User**: User accounts with authentication and profile information
+- **Team**: Organizations (independent agencies or enterprise teams)
+- **TeamMember**: User-team relationships with roles (OWNER, ADMIN, MEMBER)
+- **Invitation**: Team invitation system
+
+### **Onboarding Platform Entities**
+- **Program**: Onboarding programs with comprehensive metadata
+  - Status tracking (DRAFT → PUBLISHED → ACTIVE → COMPLETED → ARCHIVED)
+  - Enrollment management (Automatic, Manager-assigned, Self-select, Scheduled)
+  - Outcome tracking (Revenue, Resource, Efficiency, Quality, Operational targets)
+  - Time expectations and measurement frequency
+  - Eligibility criteria and prerequisites (JSON)
+  - UI/UX elements (logo, banner, consent labels, CTA buttons)
+
+- **ProgramUser**: Program participation and role assignments
+  - Role-based access (EXECUTIVE, PROGRAM_MANAGER, PARTICIPANT, HIRING_MANAGER, SUPPORTER)
+  - Status tracking (ENROLLED → IN_PROGRESS → COMPLETED → DROPPED)
+  - Assignment tracking (who assigned, when, progress timestamps)
+  - Notes and additional context
+
+### **Key Relationships**
+- Users can belong to multiple teams
+- Teams can have multiple programs
+- Users can participate in multiple programs with different roles
+- Programs are scoped to teams (with potential for cross-team expansion)
+
 ## ➡️ Coming Soon
 
-- Billing & subscriptions
-- Unit and integration tests
+- **Task Management**: Individual tasks within programs
+- **Progress Tracking**: Detailed progress monitoring and reporting
+- **Assessment Tools**: Quizzes, evaluations, and competency tracking
+- **Billing & subscriptions**: Enhanced payment integration
+- **Unit and integration tests**: Comprehensive test coverage
 
 ## ✨ Contributing
 
