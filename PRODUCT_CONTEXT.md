@@ -69,7 +69,7 @@ Participants have questions like:
 // MULTI-TENANCY
 // ============================================================================
 
-Current State (**Team**):
+**Current State Team**:
 Based on the current database structure, tenants are supported through the Team entity.  The data structure supports both **Independent Agencies** (small businesses without shared infrastructure) and **Enterprises** (large organizations with centralized IT) through a flat organization (all teams are at the same level). Independent agencies can use social sign-ons and self-service management, while enterprises leverage SAML SSO and domain-based access control. 
 
 **MVP Evolution Path: Multiple Organizations**
@@ -99,16 +99,82 @@ ALTER TABLE "Team" ADD COLUMN "path" String; -- Materialized path for efficient 
 ALTER TABLE "Team" ADD COLUMN "maxLevel" Int DEFAULT 1; -- Tenant-specific depth limit
 ALTER TABLE "Team" ADD COLUMN "depth" Int DEFAULT 0; -- Current nesting level
 
+// ============================================================================
+// USER ROLES AND PERMISSIONS
+// ============================================================================
+
+**Current State (Users, Roles and Permissions):**
+Based on the current database structure, the system has a **basic role-based access control (RBAC)** system with three predefined roles: `OWNER`, `ADMIN`, and `MEMBER`. The current schema uses the `TeamMember` entity with a `role` field to assign roles, and there's an existing permission infrastructure in `lib/permissions.ts` with granular permissions.
+
+**MVP: Users and Roles**
+The existing System Roles OWNER/ADMIN/MEMBER are sufficient for MVP multi-tenancy and program management. The Team and TeamMember entities can support Program Managers (ADMIN role), Hiring Managers (ADMIN role), and Participants (MEMBER role).  Recommend minimal schema changes to prepare for future permission sets.
+
+- Add `permissionSets` JSON field to `TeamMember` model (nullable, unused initially)
+- Extend `lib/permissions.ts` to include onboarding resources (program, task, participant)
+- Keep current role system working unchanged
+
+**Future Evolution: Permission Sets** 
+The current three-role system (OWNER/ADMIN/MEMBER) becomes insufficient for complex multi-tenant hierarchies where different organizations need granular control. Evolution to ADMIN/MEMBER + Permission Sets enables flexible role assignment across parent-child team relationships while maintaining security boundaries.
+
+- Implement permission set checking alongside role checking
+- Add UI for permission set assignment
+- Test with onboarding features
+- Migrate existing roles to new system
+
+**Future Evolution: Role Simplification**
+The current OWNER/ADMIN/MEMBER roles create confusion and complexity in multi-tenant hierarchies where different organizations need distinct permission boundaries.
+
+- Reduce to ADMIN/MEMBER roles with explicit permission sets
+- Convert existing OWNER/ADMIN assignments to ADMIN role with appropriate permission sets
+- Remove backward compatibility layer
 
 // ============================================================================
 // PROGRAMS
 // ============================================================================
 
-Program structures (Programs → Stages → Tasks)
-- Simple Task lists or groups of Tasks called Stages
-- Time-oriented (e.g. 30-60-90 day plan) or Outcome-oriented (Foundational Knowledge → Field Training → Milestone Achievement) 
-- Stages and tasks each have discrete attributes like verifiable outcomes (e.g. upload a file, meet with X person), due date, expected duration, or max duration.  Any hierarchy of tasks are implemented using a single Task entity with parent-child relationships. 
-- Tasks and Stages have attributes like verifiable outcome (e.g. upload a file, meet with X person), due date, expected duration, or max duration.
+**Current State (Program Structure):**
+Based on the current database structure, there are **no existing entities** that directly support program management.
+
+**MVP: Simple Programs**
+The existing Team entity can scope programs to organizations, and User/TeamMember entities can support program managers. Recommend creating new entities for program users and tasks. Support both time-oriented (30-60-90 day plans) and outcome-based (Foundational Knowledge → Field Training → Milestone Achievement) onboarding workflows.
+
+- `Program` - Onboarding templates with program type (time-oriented or outcome-based) scoped to teams
+- `Stage` - Logical groupings of tasks for better organization
+- `Task` - Individual actionable items with verifiable outcomes, due dates, and parent-child relationships for grouping
+- `ProgramUser` - Links users to programs with roles (participant, hiring_manager, mentor, buddy) and progress tracking
+- `UserProgress` - Tracks completion status and notes for tasks, stages, and programs for each ProgramUser
+
+
+// ============================================================================
+// INTEGRATION WITH MCP
+// ============================================================================
+
+**Current State (MCP Integration):**
+Based on the current database structure, there are **no existing entities** that directly support MCP (Model Context Protocol) integrations. The platform currently lacks the infrastructure to connect tenants with LLMs and tools through MCP servers, which is essential for providing AI-powered contextual assistance to onboarding participants.
+
+**MVP: Basic MCP Integration**
+The existing Team entity can scope MCP connections to organizations, and the ApiKey entity can manage MCP server credentials securely. Recommend leveraging existing integration patterns (webhooks, API keys, audit logging) to implement MCP connectivity with minimal schema changes.
+
+- `MCPConnection` - MCP server connections with team scoping and credential management
+- `MCPUsage` - Usage tracking and analytics for MCP API calls with billing integration
+- Extend `ApiKey` model for MCP-specific credential storage
+- Leverage existing webhook patterns for MCP event handling
+
+**Future Evolution: Advanced MCP Management**
+The basic MCP integration becomes insufficient for enterprise customers who need advanced configuration, compliance features, and cross-tenant capability sharing.
+
+- Add MCP capability discovery and management
+- Implement enterprise compliance and audit features
+- Enable MCP connection templates and sharing
+- Add advanced security and encryption features
+
+**Future Evolution: MCP Ecosystem Integration**
+The platform can evolve to become a comprehensive MCP integration hub, enabling tenants to discover, configure, and manage complex MCP workflows across multiple providers.
+
+- MCP marketplace for discovering and connecting to new tools
+- Workflow orchestration across multiple MCP servers
+- Advanced analytics and optimization recommendations
+- Cross-tenant MCP capability sharing and monetization
 
 // ============================================================================
 // User Interfaces
@@ -129,66 +195,6 @@ Three-column layout:
 - **Reporting & Analytics**: Progress reports, completion rates, time-to-productivity metrics
 - **Notification Center**: Configure and manage automated notifications and escalation rules
 
-// ============================================================================
-// DATABASE ENTITIES
-// ============================================================================
-
-**Existing Entities (Modifications Needed):**
-- `User` - No modifications needed
-- `Team` - Add parentId for organization hierarchy
-- `TeamMember` - Add permissionSets JSON field for onboarding roles
-- `ApiKey` - No modifications needed
-- `Invitation` - No modifications needed
-- `Subscription` - No modifications needed
-- `Service` - No modifications needed
-- `Price` - No modifications needed
-
-**New Entities:**
-- `Program` - Standard onboarding programs with team scoping
-- `Task` - Individual tasks with parent-child relationships for hierarchy (Stages → Tasks → Actions)
-- `Notification` - System notifications and alerts with team scoping
-
-// ============================================================================
-// USER ROLES AND PERMISSIONS
-// ============================================================================
-
-### Role System: ADMIN + Permission Sets
-- **ADMIN**: Single admin role (replaces ADMIN/OWNER confusion)
-- **MEMBER**: Base member role
-- **Permission Sets**: Flexible, assignable permission collections
-
-### Permission Sets for Onboarding
-```typescript
-const PERMISSION_SETS = {
-  TEAM_ADMIN: [
-    { resource: 'team', actions: '*' },
-    { resource: 'team_member', actions: '*' },
-    { resource: 'program', actions: '*' },
-    { resource: 'task', actions: '*' },
-    { resource: 'participant', actions: '*' },
-  ],
-  PROGRAM_MANAGER: [
-    { resource: 'program', actions: ['create', 'read', 'update'] },
-    { resource: 'task', actions: ['create', 'read', 'update'] },
-    { resource: 'participant', actions: ['read', 'update'] },
-  ],
-  HIRING_MANAGER: [
-    { resource: 'participant', actions: ['read', 'update'] },
-    { resource: 'program', actions: ['read'] },
-    { resource: 'task', actions: ['read'] },
-  ],
-  PARTICIPANT: [
-    { resource: 'task', actions: ['read', 'update'] },
-    { resource: 'program', actions: ['read'] },
-  ]
-};
-```
-
-### Implementation of User Roles and Permission Sets
-- Extend existing `TeamMember` model with `permissionSets` JSON field
-- Leverage existing permission infrastructure in `lib/permissions.ts`
-- Maintain backward compatibility with current role system
-- Enable granular permissions per feature area
 
 // ============================================================================
 // FEATURE SPECIFICATIONS
