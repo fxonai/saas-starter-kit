@@ -1,7 +1,8 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
+import { hash } from 'bcryptjs';
+import { randomUUID } from 'crypto';
+
 const client = new PrismaClient();
-const { hash } = require('bcryptjs');
-const { randomUUID } = require('crypto');
 
 // Onboarding Platform Seed Data
 async function seedOnboardingPlatform() {
@@ -41,7 +42,7 @@ async function createTenant() {
 }
 
 async function createUsers() {
-  const users = [];
+  const users: any[] = [];
   
   // Admin user
   const adminPassword = await hash('admin123', 12);
@@ -103,8 +104,8 @@ async function createUsers() {
   return users;
 }
 
-async function assignUsersToTenant(tenant, users) {
-  const teamMembers = [];
+async function assignUsersToTenant(tenant: any, users: any[]) {
+  const teamMembers: any[] = [];
   
   for (const user of users) {
     const role = user.role === 'ADMIN' ? 'ADMIN' : 'MEMBER';
@@ -121,7 +122,7 @@ async function assignUsersToTenant(tenant, users) {
   console.log('🔗 Assigned users to tenant:', teamMembers.length);
 }
 
-async function createOnboardingProgram(tenant) {
+async function createOnboardingProgram(tenant: any) {
   // Note: This will need to be updated once we add the Program model
   // For now, we'll create a placeholder
   console.log('📋 Program creation will be implemented after database schema update');
@@ -137,7 +138,7 @@ async function createOnboardingProgram(tenant) {
   return program;
 }
 
-async function createTaskHierarchy(program) {
+async function createTaskHierarchy(program: any) {
   // Note: This will need to be updated once we add the Task model
   // For now, we'll create a placeholder structure
   
@@ -251,7 +252,7 @@ async function createTaskHierarchy(program) {
   return taskHierarchy;
 }
 
-async function assignParticipantsToProgram(program, users) {
+async function assignParticipantsToProgram(program: any, users: any[]) {
   // Note: This will need to be updated once we add the Participant model
   const participants = users.filter(user => 
     user.email.includes('alex') || 
@@ -265,7 +266,7 @@ async function assignParticipantsToProgram(program, users) {
   console.log('   - Taylor Smith (taylor@acme-sales.com)');
 }
 
-async function init() {
+async function initOnboarding() {
   try {
     await seedOnboardingPlatform();
   } catch (error) {
@@ -275,4 +276,4 @@ async function init() {
   }
 }
 
-init();
+initOnboarding();

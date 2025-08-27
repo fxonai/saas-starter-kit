@@ -72,7 +72,7 @@ Participants have questions like:
 **Current State Team**:
 Based on the current database structure, tenants are supported through the Team entity.  The data structure supports both **Independent Agencies** (small businesses without shared infrastructure) and **Enterprises** (large organizations with centralized IT) through a flat organization (all teams are at the same level). Independent agencies can use social sign-ons and self-service management, while enterprises leverage SAML SSO and domain-based access control. 
 
-**MVP Evolution Path: Multiple Organizations**
+**Future Evolution: Multiple Organizations**
 Enterprises have multiple business functions and multiple subsidiaries. To support multiple organizations per tenant with minimal schema changes, a hierarchy Teams can be implemented using the Team entity with parent-child relationships.  
 
 -- Support simple flat and hierarchical structures
@@ -82,7 +82,6 @@ ALTER TABLE "Team" ADD COLUMN "level" Int DEFAULT 0; -- 0=root, 1=child
 
 
 **Future Evolution: Program Sharing**
-
 Enable cross-tenant program sharing
 
 -- Add program sharing capabilities
@@ -90,8 +89,8 @@ ALTER TABLE "Program" ADD COLUMN "sharedAcrossOrganizations" Boolean DEFAULT fal
 ALTER TABLE "Program" ADD COLUMN "tenantId" String; -- Reference to root team
 ALTER TABLE "Program" ADD COLUMN "sourceOrganizationId" String; -- Which org created it
 
-**Future Evolution: Deep Hierarchy**
 
+**Future Evolution: Deep Hierarchy**
 Support unlimited nesting levels for complex enterprise structures (subsidiary -> business functions)
 
 -- Add support for unlimited levels
@@ -106,7 +105,7 @@ ALTER TABLE "Team" ADD COLUMN "depth" Int DEFAULT 0; -- Current nesting level
 **Current State (Users, Roles and Permissions):**
 Based on the current database structure, the system has a **basic role-based access control (RBAC)** system with three predefined roles: `OWNER`, `ADMIN`, and `MEMBER`. The current schema uses the `TeamMember` entity with a `role` field to assign roles, and there's an existing permission infrastructure in `lib/permissions.ts` with granular permissions.
 
-**MVP: Users and Roles**
+**Future Evolution: Users and Roles**
 The existing System Roles OWNER/ADMIN/MEMBER are sufficient for MVP multi-tenancy and program management. The Team and TeamMember entities can support Program Managers (ADMIN role), Hiring Managers (ADMIN role), and Participants (MEMBER role).  Recommend minimal schema changes to prepare for future permission sets.
 
 - Add `permissionSets` JSON field to `TeamMember` model (nullable, unused initially)
@@ -136,17 +135,17 @@ The current OWNER/ADMIN/MEMBER roles create confusion and complexity in multi-te
 Based on the current database structure, there are **no existing entities** that directly support program management.
 
 **MVP: Simple Programs**
-The existing Team entity can scope programs to organizations, and User/TeamMember entities can support program managers. Recommend creating new entities for program users and tasks. Support both time-oriented (30-60-90 day plans) and outcome-based (Foundational Knowledge → Field Training → Milestone Achievement) onboarding workflows.
+The existing Team entity can scope programs to organizations, and User/TeamMember entities can support program managers. Recommend creating new entities for program users and tasks. Support onboarding workflows with a set of tasks that need to be completed within a time frame.
 
 - `Program` - Onboarding templates with program type (time-oriented or outcome-based) scoped to teams
 - `Stage` - Logical groupings of tasks for better organization
-- `Task` - Individual actionable items with verifiable outcomes, due dates, and parent-child relationships for grouping
+- `Task` - Individual actionable items with verifiable outcomes, expected time frames, and parent-child relationships for grouping
 - `ProgramUser` - Links users to programs with roles (participant, hiring_manager, mentor, buddy) and progress tracking
 - `UserProgress` - Tracks completion status and notes for tasks, stages, and programs for each ProgramUser
-
+- `Prerequisites & Dependencies` - Define prerequisites and dependencies between tasks
 
 // ============================================================================
-// INTEGRATION WITH MCP
+// INTEGRATION WITH MCP (all post MVP)
 // ============================================================================
 
 **Current State (MCP Integration):**

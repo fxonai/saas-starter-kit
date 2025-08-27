@@ -1,8 +1,9 @@
-const { faker } = require('@faker-js/faker');
-const { PrismaClient } = require('@prisma/client');
+import { faker } from '@faker-js/faker';
+import { PrismaClient } from '@prisma/client';
+import { hash } from 'bcryptjs';
+import { randomUUID } from 'crypto';
+
 const client = new PrismaClient();
-const { hash } = require('bcryptjs');
-const { randomUUID } = require('crypto');
 
 let USER_COUNT = 10;
 const TEAM_COUNT = 5;
