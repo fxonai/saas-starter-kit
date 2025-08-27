@@ -10,7 +10,7 @@ import EmailProvider from 'next-auth/providers/email';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import type { Provider } from 'next-auth/providers';
+type Provider = any;
 import { setCookie, getCookie } from 'cookies-next';
 import { encode, decode } from 'next-auth/jwt';
 import { randomUUID } from 'crypto';

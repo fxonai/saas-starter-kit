@@ -4,9 +4,9 @@ import { Role } from '@prisma/client';
 
 export const password = z
   .string({
-    required_error: 'Password is required',
-    invalid_type_error: 'Password must be a string',
+    message: 'Password must be a string',
   })
+  .min(1, 'Password is required')
   .max(
     maxLengthPolicies.password,
     `Password should have at most ${maxLengthPolicies.password} characters`
@@ -18,9 +18,9 @@ export const password = z
 
 export const email = z
   .string({
-    required_error: 'Email is required',
-    invalid_type_error: 'Email must be a string',
+    message: 'Email must be a string',
   })
+  .min(1, 'Email is required')
   .email('Enter a valid email address')
   .max(
     maxLengthPolicies.email,
@@ -29,9 +29,9 @@ export const email = z
 
 export const teamName = z
   .string({
-    required_error: 'Team name is required',
-    invalid_type_error: 'Team name must be a string',
+    message: 'Team name must be a string',
   })
+  .min(1, 'Team name is required')
   .min(1, 'Team Name is required')
   .max(
     maxLengthPolicies.team,
@@ -41,17 +41,16 @@ export const teamName = z
 export const name = (length: number = maxLengthPolicies.name) =>
   z
     .string({
-      required_error: 'Name is required',
-      invalid_type_error: 'Name must be a string',
+      message: 'Name must be a string',
     })
     .min(1, 'Name is required')
     .max(length, `Name should have at most ${length} characters`);
 
 export const slug = z
   .string({
-    required_error: 'Slug is required',
-    invalid_type_error: 'Slug must be a string',
+    message: 'Slug must be a string',
   })
+  .min(1, 'Slug is required')
   .min(3, 'Slug must be at least 3 characters')
   .max(
     maxLengthPolicies.slug,
@@ -60,9 +59,9 @@ export const slug = z
 
 export const image = z
   .string({
-    required_error: 'Avatar is required',
-    invalid_type_error: 'Avatar must be a string',
+    message: 'Avatar must be a string',
   })
+  .min(1, 'Avatar is required')
   .url('Enter a valid URL')
   .refine(
     (imageUri) => imageUri.startsWith('data:image/'),
@@ -79,7 +78,7 @@ export const image = z
 
 export const domain = z
   .string({
-    invalid_type_error: 'Domain must be a string',
+    message: 'Domain must be a string',
   })
   .max(
     maxLengthPolicies.domain,
@@ -108,32 +107,29 @@ export const domain = z
 
 export const apiKeyId = z
   .string({
-    required_error: 'API key is required',
-    invalid_type_error: 'API key must be a string',
+    message: 'API key must be a string',
   })
   .min(1, 'API key is required');
 
 export const token = z
   .string({
-    required_error: 'Token is required',
-    invalid_type_error: 'Token must be a string',
+    message: 'Token must be a string',
   })
   .min(1, 'Token is required');
 
 export const role = z.nativeEnum(Role, {
-  required_error: 'Role is required',
-  invalid_type_error: 'Role must be a string',
+  message: 'Role must be a valid role',
 });
 
 export const sentViaEmail = z
   .boolean({
-    invalid_type_error: 'Sent via email must be a boolean',
+    message: 'Sent via email must be a boolean',
   })
   .default(false);
 
 export const domains = z
   .string({
-    invalid_type_error: 'Domains must be a string',
+    message: 'Domains must be a string',
   })
   .optional()
   .refine(
@@ -143,9 +139,9 @@ export const domains = z
 
 export const expiredToken = z
   .string({
-    required_error: 'Expired token is required',
-    invalid_type_error: 'Expired token must be a string',
+    message: 'Expired token must be a string',
   })
+  .min(1, 'Expired token is required')
   .min(1, 'Expired token is required')
   .max(
     maxLengthPolicies.expiredToken,
@@ -154,24 +150,24 @@ export const expiredToken = z
 
 export const sessionId = z
   .string({
-    required_error: 'Session id is required',
-    invalid_type_error: 'Session id must be a string',
+    message: 'Session id must be a string',
   })
+  .min(1, 'Session id is required')
   .min(1, 'Session id is required');
 
 export const priceId = z
   .string({
-    required_error: 'Price Id is required',
-    invalid_type_error: 'Price Id must be a string',
+    message: 'Price Id must be a string',
   })
+  .min(1, 'Price Id is required')
   .min(1, 'PriceId is required');
 
 export const quantity = z.number({
-  invalid_type_error: 'Quantity must be a number',
+  message: 'Quantity must be a number',
 });
 
 export const recaptchaToken = z.string({
-  invalid_type_error: 'Recaptcha token must be a string',
+  message: 'Recaptcha token must be a string',
 });
 
 export const sentViaEmailString = z
@@ -186,8 +182,7 @@ export const sentViaEmailString = z
 
 export const invitationId = z
   .string({
-    required_error: 'Invitation id is required',
-    invalid_type_error: 'Invitation id must be a string',
+    message: 'Invitation id must be a string',
   })
   .min(1, 'Invitation id is required')
   .max(
@@ -197,9 +192,9 @@ export const invitationId = z
 
 export const endpointId = z
   .string({
-    required_error: 'Endpoint id is required',
-    invalid_type_error: 'Endpoint id must be a string',
+    message: 'Endpoint id must be a string',
   })
+  .min(1, 'Endpoint id is required')
   .min(1, `Endpoint id is required`)
   .max(
     maxLengthPolicies.endpointId,
@@ -210,10 +205,9 @@ export const eventTypes = z
   .array(
     z
       .string({
-        invalid_type_error: 'Event type must be a string',
-        required_error: 'Event type is required',
+        message: 'Event type must be a string',
       })
-      .min(1)
+      .min(1, 'Event type is required')
       .max(
         maxLengthPolicies.eventType,
         `Event type should be at most ${maxLengthPolicies.eventType} characters`
@@ -224,7 +218,7 @@ export const eventTypes = z
 
 export const url = z
   .string({
-    invalid_type_error: 'URL must be a string',
+    message: 'URL must be a string',
   })
   .url('Enter a valid URL')
   .min(1, 'URL is required')
@@ -243,9 +237,9 @@ export const url = z
 
 export const inviteToken = z
   .string({
-    required_error: 'Invite token is required',
-    invalid_type_error: 'Invite token must be a string',
+    message: 'Invite token must be a string',
   })
+  .min(1, 'Invite token is required')
   .min(1, 'Invite token is required')
   .max(
     maxLengthPolicies.inviteToken,
@@ -254,9 +248,9 @@ export const inviteToken = z
 
 export const memberId = z
   .string({
-    required_error: 'Member id is required',
-    invalid_type_error: 'Member id must be a string',
+    message: 'Member id must be a string',
   })
+  .min(1, 'Member id is required')
   .min(1)
   .max(
     maxLengthPolicies.memberId,

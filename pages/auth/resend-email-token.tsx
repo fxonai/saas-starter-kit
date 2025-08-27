@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState, type ReactElement, useEffect } from 'react';
 import { Button } from 'react-daisyui';
-import type { ComponentStatus } from 'react-daisyui/dist/types';
+type ComponentStatus = 'info' | 'success' | 'warning' | 'error';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
 import { ApiResponse, NextPageWithLayout } from 'types';
