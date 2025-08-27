@@ -75,10 +75,11 @@ Please follow these simple steps to get a local copy up and running.
 
 ### Prerequisites
 
-- Node.js (Version: >=18.x)
-- PostgreSQL
-- NPM
-- Docker compose
+- **Node.js** (Version: >=22.x) - Currently using v22.18.0
+- **npm** (Version: >=10.x) - Currently using v10.9.3
+- **PostgreSQL** (Version: >=14.x)
+- **Docker & Docker Compose** (for local development)
+- **Git** (for version control)
 
 ### Development
 
