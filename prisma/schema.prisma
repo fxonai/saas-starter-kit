@@ -219,10 +219,10 @@ model Program {
   teamId                String   // Which team owns this program
   status                ProgramStatus @default(DRAFT)
   
-  // Program Lifecycle
-  publishDate           Date?  // When program becomes visible
-  activeDate            Date?  // When program starts accepting participants
-  endDate               Date?  // When program stops accepting participants
+  // Program Lifecycle (date-only, no time precision needed)
+  publishDate           DateTime?  // When program becomes visible (date only)
+  activeDate            DateTime?  // When program starts accepting participants (date only)
+  endDate               DateTime?  // When program stops accepting participants (date only)
   
   // Outcomes
   expectedOutcomeType   OutcomeType?
