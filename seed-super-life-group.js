@@ -59,13 +59,28 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           'professional_branding': 1,
           'business_connections': 1
         },
-        outcomeActuals: {
-          'license_status': 0,
-          'product_knowledge': 0,
-          'commission_knowledge': 0,
-          'professional_branding': 0,
-          'business_connections': 0
-        },
+              outcomeActuals: {
+        'license_status': 0,
+        'product_knowledge': 0,
+        'commission_knowledge': 0,
+        'professional_branding': 0,
+        'business_connections': 0
+      },
+      prerequisites: {
+        requiredStages: [],
+        requiredOutcomes: {}
+      },
+      completionCriteria: {
+        type: 'ALL_TASKS_AND_OUTCOMES',
+        requiredTasksCompleted: true,
+        requiredOutcomeTargets: {
+          'license_status': 1,
+          'product_knowledge': 1,
+          'commission_knowledge': 1,
+          'professional_branding': 1,
+          'business_connections': 1
+        }
+      },
       tasks: [
         {
           name: 'Start Here: Your Week 1 Launch Pad',
@@ -216,6 +231,18 @@ const SUPER_LIFE_GROUP_PROGRAM = {
         'license_status': 0,
         'prospect_names': 0
       },
+      prerequisites: {
+        requiredStages: [],
+        requiredOutcomes: {}
+      },
+      completionCriteria: {
+        type: 'ALL_TASKS_AND_OUTCOMES',
+        requiredTasksCompleted: true,
+        requiredOutcomeTargets: {
+          'license_status': 1,
+          'prospect_names': 160 // 80% of 200 target
+        }
+      },
       tasks: [
         {
           name: 'Start Week 2: Learn the 3-3-60 Game Plan',
@@ -347,6 +374,19 @@ const SUPER_LIFE_GROUP_PROGRAM = {
         'qualified_leads': 0,
         'appointments_scheduled': 0
       },
+      prerequisites: {
+        requiredStages: ['Week 1 Onboarding', 'Week 2 Onboarding'],
+        requiredOutcomes: {}
+      },
+      completionCriteria: {
+        type: 'ALL_TASKS_AND_OUTCOMES',
+        requiredTasksCompleted: true,
+        requiredOutcomeTargets: {
+          'prospect_names': 160, // 80% of 200 target
+          'qualified_leads': 80, // 80% of 100 target
+          'appointments_scheduled': 8 // 80% of 10 target
+        }
+      },
       tasks: [
         {
           name: 'Start Week 3: Field Training Basics',
@@ -446,6 +486,18 @@ const SUPER_LIFE_GROUP_PROGRAM = {
         'client_recommendations': 0,
         'illustrations_designed': 0,
         'applications_submitted': 0
+      },
+      prerequisites: {
+        requiredStages: ['Week 3 Onboarding'],
+        requiredOutcomes: {}
+      },
+      completionCriteria: {
+        type: 'PRIMARY_OUTCOME_FOCUS',
+        requiredTasksCompleted: true,
+        primaryOutcome: 'applications_submitted',
+        requiredOutcomeTargets: {
+          'applications_submitted': 3
+        }
       },
       tasks: [
         {
@@ -705,6 +757,28 @@ const SUPER_LIFE_GROUP_PROGRAM = {
         'premiums_written': 0,
         'points_earned': 0,
         'commissions_earned': 0
+      },
+      prerequisites: {
+        requiredStages: ['Field Training'],
+        requiredOutcomes: {}
+      },
+      completionCriteria: {
+        type: 'PROGRAM_OUTCOMES',
+        requiredTasksCompleted: true,
+        requiredOutcomeTargets: {
+          'prospect_names': 200,
+          'qualified_leads': 100,
+          'appointments_scheduled': 15,
+          'appointments_completed': 10,
+          'client_recommendations': 6,
+          'illustrations_designed': 5,
+          'applications_submitted': 3,
+          'applications_declined': 1,
+          'clients_helped': 2,
+          'premiums_written': 1200,
+          'points_earned': 1200,
+          'commissions_earned': 1000
+        }
       },
       tasks: [
         // Week 1: Funnel Building Foundation (16 hours: 14 productive + 2 admin)
@@ -1075,6 +1149,8 @@ async function seedSuperLifeGroup() {
           desiredOutcomes: stageData.desiredOutcomes,
           outcomeTargets: stageData.outcomeTargets,
           outcomeActuals: stageData.outcomeActuals,
+          prerequisites: stageData.prerequisites,
+          completionCriteria: stageData.completionCriteria,
           totalTasks: stageData.tasks.length
         },
       });
