@@ -49,7 +49,7 @@ const PROGRAM_STRUCTURE = {
               passingScore: 80,
               requiredActions: ['Complete video modules', 'Pass final quiz']
             },
-            outcomeContributions: {
+            taskTarget: {
               'leads': 0,
               'qualified_leads': 0,
               'appointments': 0,
@@ -68,7 +68,7 @@ const PROGRAM_STRUCTURE = {
               type: 'MANUAL',
               requiredActions: ['Complete shadowing session', 'Submit reflection notes']
             },
-            outcomeContributions: {
+            taskTarget: {
               'leads': 0,
               'qualified_leads': 0,
               'appointments': 0,
@@ -88,7 +88,7 @@ const PROGRAM_STRUCTURE = {
               passingScore: 85,
               requiredActions: ['Complete product quiz']
             },
-            outcomeContributions: {
+            taskTarget: {
               'leads': 0,
               'qualified_leads': 0,
               'appointments': 0,
@@ -139,7 +139,7 @@ const PROGRAM_STRUCTURE = {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete training', 'Create 50 prospect lists']
             },
-            outcomeContributions: {
+            taskTarget: {
               'leads': 20,
               'qualified_leads': 5,
               'appointments': 2,
@@ -158,7 +158,7 @@ const PROGRAM_STRUCTURE = {
               type: 'MANUAL',
               requiredActions: ['Complete 5 role-play sessions', 'Receive positive feedback']
             },
-            outcomeContributions: {
+            taskTarget: {
               'leads': 15,
               'qualified_leads': 3,
               'appointments': 2,
@@ -177,7 +177,7 @@ const PROGRAM_STRUCTURE = {
               type: 'MANUAL',
               requiredActions: ['Create templates', 'Get manager approval']
             },
-            outcomeContributions: {
+            taskTarget: {
               'leads': 15,
               'qualified_leads': 2,
               'appointments': 1,
@@ -224,7 +224,7 @@ const PROGRAM_STRUCTURE = {
               type: 'ASSIGNMENT',
               requiredActions: ['Attend workshop', 'Complete practice scenarios']
             },
-            outcomeContributions: {
+            taskTarget: {
               'leads': 10,
               'qualified_leads': 5,
               'appointments': 3,
@@ -248,7 +248,7 @@ const PROGRAM_STRUCTURE = {
               passingScore: 80,
               requiredActions: ['Complete training', 'Pass qualification quiz']
             },
-            outcomeContributions: {
+            taskTarget: {
               'leads': 10,
               'qualified_leads': 5,
               'appointments': 3,
@@ -267,7 +267,7 @@ const PROGRAM_STRUCTURE = {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete training', 'Create sample pipeline report']
             },
-            outcomeContributions: {
+            taskTarget: {
               'leads': 10,
               'qualified_leads': 5,
               'appointments': 2,
@@ -321,7 +321,7 @@ const PROGRAM_STRUCTURE = {
               type: 'ASSIGNMENT',
               requiredActions: ['Install all tools', 'Submit setup verification']
             },
-            outcomeContributions: {
+            taskTarget: {
               'projects_completed': 0,
               'code_reviews_passed': 0,
               'certifications_earned': 0,
@@ -345,7 +345,7 @@ const PROGRAM_STRUCTURE = {
               passingScore: 85,
               requiredActions: ['Complete course', 'Pass JavaScript quiz']
             },
-            outcomeContributions: {
+            taskTarget: {
               'projects_completed': 0,
               'code_reviews_passed': 0,
               'certifications_earned': 0,
@@ -364,7 +364,7 @@ const PROGRAM_STRUCTURE = {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete project', 'Submit code review']
             },
-            outcomeContributions: {
+            taskTarget: {
               'projects_completed': 1,
               'code_reviews_passed': 1,
               'certifications_earned': 0,
@@ -415,7 +415,7 @@ const PROGRAM_STRUCTURE = {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete course', 'Build React component']
             },
-            outcomeContributions: {
+            taskTarget: {
               'projects_completed': 0,
               'code_reviews_passed': 0,
               'certifications_earned': 0,
@@ -438,7 +438,7 @@ const PROGRAM_STRUCTURE = {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete training', 'Create GitHub repository']
             },
-            outcomeContributions: {
+            taskTarget: {
               'projects_completed': 0,
               'code_reviews_passed': 0,
               'certifications_earned': 0,
@@ -457,7 +457,7 @@ const PROGRAM_STRUCTURE = {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete project', 'Present to team']
             },
-            outcomeContributions: {
+            taskTarget: {
               'projects_completed': 1,
               'code_reviews_passed': 1,
               'certifications_earned': 0,
@@ -796,7 +796,7 @@ async function seedStagesAndTasks() {
               startDate: taskData.startDate,
               endDate: taskData.endDate,
               completionCriteria: taskData.completionCriteria,
-              outcomeContributions: taskData.outcomeContributions || null,
+              taskTarget: taskData.taskTarget || null,
               verificationMethod: taskData.verificationMethod,
               autoComplete: taskData.autoComplete || false,
               prerequisites: taskData.prerequisites || null,

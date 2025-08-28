@@ -41,8 +41,8 @@ async function demonstrateOutcomeProgress() {
         
         console.log('  📝 Task Contributions:');
         for (const task of stage.tasks) {
-          if (task.outcomeContributions) {
-            const contributions = task.outcomeContributions;
+                  if (task.taskTarget) {
+          const contributions = task.taskTarget;
             console.log(`    • ${task.name}:`);
             for (const [metric, contribution] of Object.entries(contributions)) {
               if (contribution > 0) {

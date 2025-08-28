@@ -79,7 +79,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Complete Your Profile', 'Watch Now']
           },
-          outcomeContributions: {
+          taskTarget: {
             'profile_completed': 1,
             'course_enrolled': 0,
             'exam_scheduled': 0,
@@ -99,7 +99,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Enroll Now']
           },
-          outcomeContributions: {
+          taskTarget: {
             'profile_completed': 0,
             'course_enrolled': 1,
             'exam_scheduled': 0,
@@ -119,7 +119,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Schedule Exam']
           },
-          outcomeContributions: {
+          taskTarget: {
             'profile_completed': 0,
             'course_enrolled': 0,
             'exam_scheduled': 1,
@@ -143,7 +143,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Get the Quick Notes']
           },
-          outcomeContributions: {
+          taskTarget: {
             'profile_completed': 0,
             'course_enrolled': 0,
             'exam_scheduled': 0,
@@ -163,7 +163,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Schedule Orientation']
           },
-          outcomeContributions: {
+          taskTarget: {
             'profile_completed': 0,
             'course_enrolled': 0,
             'exam_scheduled': 0,
@@ -183,7 +183,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Schedule Coaching']
           },
-          outcomeContributions: {
+          taskTarget: {
             'profile_completed': 0,
             'course_enrolled': 0,
             'exam_scheduled': 0,
@@ -235,7 +235,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Complete Your Snapshot', 'Watch Now']
           },
-          outcomeContributions: {
+          taskTarget: {
             'game_plan_understood': 1,
             'fantasy_team_built': 0,
             'contacts_expanded': 0,
@@ -255,7 +255,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Your Dream Team']
           },
-          outcomeContributions: {
+          taskTarget: {
             'game_plan_understood': 0,
             'fantasy_team_built': 1,
             'contacts_expanded': 0,
@@ -279,7 +279,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Download the App']
           },
-          outcomeContributions: {
+          taskTarget: {
             'game_plan_understood': 0,
             'fantasy_team_built': 0,
             'contacts_expanded': 20,
@@ -299,7 +299,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Pass Your Exam']
           },
-          outcomeContributions: {
+          taskTarget: {
             'game_plan_understood': 0,
             'fantasy_team_built': 0,
             'contacts_expanded': 0,
@@ -319,7 +319,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Schedule Coaching']
           },
-          outcomeContributions: {
+          taskTarget: {
             'game_plan_understood': 0,
             'fantasy_team_built': 0,
             'contacts_expanded': 0,
@@ -368,7 +368,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Watch Now']
           },
-          outcomeContributions: {
+          taskTarget: {
             'field_training_understood': 1,
             'leads_qualified': 0,
             'scripts_practiced': 0,
@@ -391,7 +391,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Start Qualifying']
           },
-          outcomeContributions: {
+          taskTarget: {
             'field_training_understood': 0,
             'leads_qualified': 50,
             'scripts_practiced': 0,
@@ -414,7 +414,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Rehearse Now', 'Schedule Roll Play']
           },
-          outcomeContributions: {
+          taskTarget: {
             'field_training_understood': 0,
             'leads_qualified': 0,
             'scripts_practiced': 1,
@@ -466,7 +466,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Watch the Client Experience', 'Take Notes']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 10,
             'observations_done': 4,
             'co_leading_practiced': 4,
@@ -485,7 +485,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Client Name', 'Add Trainer Name']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 1,
             'observations_done': 1,
             'co_leading_practiced': 0,
@@ -504,7 +504,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Client Name', 'Add Trainer Name']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 1,
             'observations_done': 1,
             'co_leading_practiced': 0,
@@ -523,7 +523,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Client Name', 'Add Trainer Name']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 1,
             'observations_done': 1,
             'co_leading_practiced': 0,
@@ -542,7 +542,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Client Name', 'Add Trainer Name']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 1,
             'observations_done': 1,
             'co_leading_practiced': 0,
@@ -561,7 +561,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Client Name', 'Add Trainer Name']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 1,
             'observations_done': 0,
             'co_leading_practiced': 1,
@@ -580,7 +580,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Client Name', 'Add Trainer Name']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 1,
             'observations_done': 0,
             'co_leading_practiced': 1,
@@ -599,7 +599,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Client Name', 'Add Trainer Name']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 1,
             'observations_done': 0,
             'co_leading_practiced': 1,
@@ -618,7 +618,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Client Name', 'Add Trainer Name']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 1,
             'observations_done': 0,
             'co_leading_practiced': 1,
@@ -637,7 +637,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Client Name', 'Add Trainer Name']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 1,
             'observations_done': 0,
             'co_leading_practiced': 0,
@@ -656,7 +656,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add Client Name', 'Add Trainer Name']
           },
-          outcomeContributions: {
+          taskTarget: {
             'appointments_completed': 1,
             'observations_done': 0,
             'co_leading_practiced': 0,
@@ -709,7 +709,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Set Goals', 'Create Weekly Schedule']
           },
-          outcomeContributions: {
+          taskTarget: {
             'income_system_built': 1,
             'funnel_filled': 0,
             'personas_identified': 0,
@@ -730,7 +730,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Review Marketing Lists', 'Add Call Blocks']
           },
-          outcomeContributions: {
+          taskTarget: {
             'income_system_built': 0,
             'funnel_filled': 100,
             'personas_identified': 0,
@@ -751,7 +751,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Choose Personas']
           },
-          outcomeContributions: {
+          taskTarget: {
             'income_system_built': 0,
             'funnel_filled': 0,
             'personas_identified': 3,
@@ -772,7 +772,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Review Contacts', 'Write ICP Attributes']
           },
-          outcomeContributions: {
+          taskTarget: {
             'income_system_built': 0,
             'funnel_filled': 0,
             'personas_identified': 0,
@@ -793,7 +793,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Watch Now', 'Build a Cold List']
           },
-          outcomeContributions: {
+          taskTarget: {
             'income_system_built': 0,
             'funnel_filled': 0,
             'personas_identified': 0,
@@ -814,7 +814,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Enter Marketing Expenses']
           },
-          outcomeContributions: {
+          taskTarget: {
             'income_system_built': 0,
             'funnel_filled': 0,
             'personas_identified': 0,
@@ -835,7 +835,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Add 3 Cases']
           },
-          outcomeContributions: {
+          taskTarget: {
             'income_system_built': 0,
             'funnel_filled': 0,
             'personas_identified': 0,
@@ -856,7 +856,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             type: 'MANUAL',
             requiredActions: ['Call Stalled Clients', 'Check Pending Deals']
           },
-          outcomeContributions: {
+          taskTarget: {
             'income_system_built': 0,
             'funnel_filled': 0,
             'personas_identified': 0,
@@ -979,7 +979,7 @@ async function seedSuperLifeGroup() {
             resources: taskData.resources || null,
             estimatedDuration: taskData.estimatedDuration,
             completionCriteria: taskData.completionCriteria,
-            outcomeContributions: taskData.outcomeContributions
+            taskTarget: taskData.taskTarget
           },
         });
 

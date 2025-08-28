@@ -80,11 +80,11 @@ export async function updateOutcomeProgress(
       where: { id: taskId }
     });
 
-    if (!task || !task.outcomeContributions) {
+    if (!task || !task.taskTarget) {
       return false;
     }
 
-    const contributions = task.outcomeContributions as Record<string, number>;
+    const contributions = task.taskTarget as Record<string, number>;
     
     // Get current stage actuals
     const stage = await client.stage.findUnique({

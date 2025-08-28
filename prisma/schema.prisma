@@ -315,7 +315,8 @@ model Task {
   dependencies  Json?    // Tasks that depend on this one
   
   // Outcome tracking
-  outcomeContributions Json? // What this task contributes when completed
+  taskTarget Json? // Target values for this task (funnel progression or competency building)
+  taskActual Json? // Actual values achieved for this task
   
   // Metadata
   isActive    Boolean  @default(true)

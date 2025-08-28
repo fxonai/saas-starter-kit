@@ -28,8 +28,8 @@ Today's functional onboarding is:
 - Over time, **AI agents** reduces hiring team support requirements and replaces some supporting roles (e.g. onboarding specialists)
 
 ## Target Customers
-- Independent Teams (e.g. agencies that require social sign on)
-- Enterprises 
+- Independent Teams (e.g. real estate and insurance agencies that require social sign on)
+- Enterprises (e.g. software companies, financial institutions, insurance carriers)
 
 ## Personas & Use Cases
 
