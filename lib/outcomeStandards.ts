@@ -138,3 +138,39 @@ export function getRelevantOutcomes(businessFunction?: string, industry?: string
 
   return outcomes;
 }
+
+// Time availability by participant type
+export const PARTICIPANT_TIME_AVAILABILITY = {
+  // Part-time: up to 20 hours per week
+  PART_TIME: 20,
+  // Full-time: up to 40 hours per week  
+  FULL_TIME: 40,
+  // Champion-time: up to 70 hours per week
+  CHAMPION_TIME: 70
+} as const;
+
+// Helper function to get time availability for participant type
+export function getTimeAvailability(participantType: string): number {
+  if (participantType.includes('PART_TIME')) {
+    return PARTICIPANT_TIME_AVAILABILITY.PART_TIME;
+  } else if (participantType.includes('CHAMPION_TIME')) {
+    return PARTICIPANT_TIME_AVAILABILITY.CHAMPION_TIME;
+  } else {
+    return PARTICIPANT_TIME_AVAILABILITY.FULL_TIME; // Default to full-time
+  }
+}
+
+// Helper function to get business function from participant type
+export function getBusinessFunction(participantType: string): string {
+  if (participantType.includes('INSURANCE')) {
+    return 'insurance';
+  } else if (participantType.includes('REAL_ESTATE')) {
+    return 'real_estate';
+  } else if (participantType.includes('DEVELOPER') || participantType.includes('TEAM_LEAD')) {
+    return 'software_products';
+  } else if (participantType.includes('SALES')) {
+    return 'sales';
+  } else {
+    return 'universal';
+  }
+}

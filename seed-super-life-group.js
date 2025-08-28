@@ -42,7 +42,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       description: 'Essential setup and foundational knowledge for new life insurance agents',
       order: 1,
       status: 'PUBLISHED',
-      timeExpectations: 20,
+      timeExpectations: 3, // 175 minutes = ~3 hours
       startDate: new Date('2024-01-15'),
       endDate: new Date('2024-01-21'),
       desiredOutcomes: [
@@ -198,7 +198,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       description: 'Learn the 3-3-60 Game Plan and build your fantasy team',
       order: 2,
       status: 'PUBLISHED',
-      timeExpectations: 25,
+      timeExpectations: 3, // 175 minutes = ~3 hours
       startDate: new Date('2024-01-22'),
       endDate: new Date('2024-01-28'),
       desiredOutcomes: [
@@ -328,7 +328,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       description: 'Field training basics and lead qualification',
       order: 3,
       status: 'PUBLISHED',
-      timeExpectations: 30,
+      timeExpectations: 1, // 60 minutes = 1 hour
       startDate: new Date('2024-01-29'),
       endDate: new Date('2024-02-04'),
       desiredOutcomes: [
@@ -420,7 +420,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       description: 'Complete 10 field training appointments with your trainer',
       order: 4,
       status: 'PUBLISHED',
-      timeExpectations: 80, // 1-2 weeks
+      timeExpectations: 25, // 10 appointments × 2.5 hours each = 25 hours
       startDate: new Date('2024-02-05'),
       endDate: new Date('2024-02-18'),
       desiredOutcomes: [
@@ -454,7 +454,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 1,
           type: 'SHADOWING',
           priority: 'CRITICAL',
-          estimatedDuration: 80,
+          estimatedDuration: 150, // 2.5 hours total for field training overview
           instructions: 'Complete the full field training program with your assigned trainer.',
           resources: {
             videos: ['https://example.com/client-experience'],
@@ -477,7 +477,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 2,
           type: 'SHADOWING',
           priority: 'HIGH',
-          estimatedDuration: 60,
+          estimatedDuration: 150, // 0.5 prep + 1 appointment + 1 recap = 2.5 hours
           instructions: 'Observe silently; learn flow, take notes, debrief after.',
           completionCriteria: {
             type: 'MANUAL',
@@ -496,7 +496,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 3,
           type: 'SHADOWING',
           priority: 'HIGH',
-          estimatedDuration: 60,
+          estimatedDuration: 150, // 0.5 prep + 1 appointment + 1 recap = 2.5 hours
           instructions: 'Observe silently; learn flow, take notes, debrief after.',
           completionCriteria: {
             type: 'MANUAL',
@@ -515,7 +515,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 4,
           type: 'SHADOWING',
           priority: 'HIGH',
-          estimatedDuration: 60,
+          estimatedDuration: 150, // 0.5 prep + 1 appointment + 1 recap = 2.5 hours
           instructions: 'Observe silently; learn flow, take notes, debrief after.',
           completionCriteria: {
             type: 'MANUAL',
@@ -534,7 +534,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 5,
           type: 'SHADOWING',
           priority: 'HIGH',
-          estimatedDuration: 60,
+          estimatedDuration: 150, // 0.5 prep + 1 appointment + 1 recap = 2.5 hours
           instructions: 'Observe silently; learn flow, take notes, debrief after.',
           completionCriteria: {
             type: 'MANUAL',
@@ -553,7 +553,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 6,
           type: 'SHADOWING',
           priority: 'HIGH',
-          estimatedDuration: 60,
+          estimatedDuration: 150, // 0.5 prep + 1 appointment + 1 recap = 2.5 hours
           instructions: 'Co-lead sections; capture data; trainer supports and coaches.',
           completionCriteria: {
             type: 'MANUAL',
@@ -572,7 +572,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 7,
           type: 'SHADOWING',
           priority: 'HIGH',
-          estimatedDuration: 60,
+          estimatedDuration: 150, // 0.5 prep + 1 appointment + 1 recap = 2.5 hours
           instructions: 'Co-lead sections; capture data; trainer supports and coaches.',
           completionCriteria: {
             type: 'MANUAL',
@@ -591,7 +591,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 8,
           type: 'SHADOWING',
           priority: 'HIGH',
-          estimatedDuration: 60,
+          estimatedDuration: 150, // 0.5 prep + 1 appointment + 1 recap = 2.5 hours
           instructions: 'Co-lead sections; capture data; trainer supports and coaches.',
           completionCriteria: {
             type: 'MANUAL',
@@ -610,7 +610,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 9,
           type: 'SHADOWING',
           priority: 'HIGH',
-          estimatedDuration: 60,
+          estimatedDuration: 150, // 0.5 prep + 1 appointment + 1 recap = 2.5 hours
           instructions: 'Co-lead sections; capture data; trainer supports and coaches.',
           completionCriteria: {
             type: 'MANUAL',
@@ -629,7 +629,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 10,
           type: 'SHADOWING',
           priority: 'HIGH',
-          estimatedDuration: 60,
+          estimatedDuration: 150, // 0.5 prep + 1 appointment + 1 recap = 2.5 hours
           instructions: 'Run full meeting; trainer observes; debrief; schedule next steps.',
           completionCriteria: {
             type: 'MANUAL',
@@ -648,7 +648,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 11,
           type: 'SHADOWING',
           priority: 'HIGH',
-          estimatedDuration: 60,
+          estimatedDuration: 150, // 0.5 prep + 1 appointment + 1 recap = 2.5 hours
           instructions: 'Run full meeting; trainer observes; debrief; schedule next steps.',
           completionCriteria: {
             type: 'MANUAL',
@@ -668,7 +668,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       description: 'Build your system for generating predictable income',
       order: 5,
       status: 'PUBLISHED',
-      timeExpectations: 45,
+      timeExpectations: 6, // 330 minutes = ~5.5 hours
       startDate: new Date('2024-02-19'),
       endDate: new Date('2024-02-25'),
       desiredOutcomes: [
