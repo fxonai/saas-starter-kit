@@ -337,9 +337,7 @@ model Task {
   verificationMethod VerificationMethod?  // How completion is verified
   autoComplete      Boolean  @default(false) // Can be auto-completed
   
-  // Dependencies
-  prerequisites Json?    // Prerequisites for this task
-  dependencies  Json?    // Tasks that depend on this one
+
   
   // Outcome tracking
   taskTarget Json? // Target values for this task (funnel progression or competency building)
