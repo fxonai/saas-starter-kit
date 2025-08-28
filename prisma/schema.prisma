@@ -293,7 +293,7 @@ model Stage {
   
   // Completion criteria
   completionCriteria Json?    // Structured JSON for completion rules
-  prerequisites      Json?    // Prerequisites for this stage
+  dependencies       Json?    // Dependencies for this stage
   desiredOutcomes    String[] // Business goals and outcomes for this stage
   
   // Outcome tracking
