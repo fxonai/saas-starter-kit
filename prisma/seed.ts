@@ -248,11 +248,11 @@ const TENANT_DATA: TenantData[] = [
 // Helper function to create slug from team name
 const createSlug = (name: string) => {
   return name
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w-]+/g, '')
-    .replace(/--+/g, '-')
-    .replace(/^-+/, '')
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w-]+/g, '')
+          .replace(/--+/g, '-')
+          .replace(/^-+/, '')
     .replace(/-+$/, '');
 };
 
