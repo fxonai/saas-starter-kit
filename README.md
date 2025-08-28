@@ -52,15 +52,17 @@ This SaaS starter kit has been enhanced with comprehensive onboarding platform c
 - **Cross-Program Participation**: Users can be assigned to multiple programs with different roles
 
 ### 📊 **Current Data Model**
-- **40 Users** across multiple organizations
-- **15 Teams** (main + functional teams)
-- **40 Team Members** (multi-team memberships)
-- **4 Sample Programs**: Sales Development Onboarding, CodeStart Academy, New Agent School (2 instances)
-- **50 Program Users** with role assignments
-- **7 Stages** with structured learning paths
-- **21 Tasks** with detailed completion criteria
+- **10 Users** in Super Life Group organization
+- **4 Teams** (Super Life Group, Managers Group, Pinnacle, Synergy)
+- **10 Team Members** (multi-team memberships)
+- **1 Sample Program**: New Agent School (life insurance agent onboarding)
+- **7 Program Users** with role assignments (5 PARTICIPANT, 2 SUPPORTER)
+- **5 Stages** with structured learning paths (Week 1-3 Onboarding, Field Training, Earn First $1K)
+- **44 Tasks** with detailed completion criteria and outcome tracking
 
 ### 🔧 **Database Scripts**
+- `prisma/seed.ts` - Create Super Life Group tenant with basic program
+- `seed-super-life-group.js` - Add complete stages and tasks to New Agent School
 - `clear-db.js` - Clear all data for fresh starts
 - `restore-db.js` - Restore complete dataset
 - `check-db.js` - Verify database state and contents
