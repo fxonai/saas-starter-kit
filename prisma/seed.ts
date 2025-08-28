@@ -201,7 +201,7 @@ async function main() {
 
   console.log('\n📋 Creating programs and program users...');
   
-  // Create basic programs (stages and tasks will be added by separate scripts)
+  // Create comprehensive programs with stages and tasks
   const programs = [
     {
       name: 'New Agent School',
@@ -210,7 +210,29 @@ async function main() {
       expectedOutcomeType: 'REVENUE_TARGET' as any,
       timeExpectations: 156,
       measurementFrequency: 'DAILY' as any,
-      status: 'PUBLISHED' as any
+      status: 'ACTIVE' as any,
+      stages: [
+        {
+          name: 'Week 1: Foundation',
+          order: 1,
+          timeExpectations: 20,
+          tasks: [
+            { name: 'Complete CRM Training', type: 'VIDEO', order: 1, estimatedDuration: 60 },
+            { name: 'Read Sales Handbook', type: 'READING', order: 2, estimatedDuration: 45 },
+            { name: 'Take Product Knowledge Quiz', type: 'QUIZ', order: 3, estimatedDuration: 30 }
+          ]
+        },
+        {
+          name: 'Week 2: Lead Generation',
+          order: 2,
+          timeExpectations: 25,
+          tasks: [
+            { name: 'Learn Lead Qualification', type: 'VIDEO', order: 1, estimatedDuration: 90 },
+            { name: 'Practice Cold Calling', type: 'PRACTICE', order: 2, estimatedDuration: 120 },
+            { name: 'Shadow Experienced Agent', type: 'MEETING', order: 3, estimatedDuration: 180 }
+          ]
+        }
+      ]
     }
   ];
 
@@ -239,49 +261,36 @@ async function main() {
       continue;
     }
 
-    // Create the program
+    // Create the program with stages and tasks
     const program = await client.program.create({
       data: {
         name: programData.name,
         subtitle: 'From license to first commission—fast.',
         description: 'Complete life insurance agent onboarding with field training and revenue generation.',
-        programBenefits: [
-          'Structured onboarding from license to first sale',
-          'Field training with experienced agents',
-          'Systematic lead generation and qualification',
-          'Revenue-focused training with ROI tracking'
-        ],
         teamId: team.id,
         status: programData.status,
         enrollmentType: programData.enrollmentType,
-        enrollmentStartDate: new Date('2024-01-01'),
-        enrollmentEndDate: null, // Active program
-        publishDate: new Date('2024-01-01'),
-        activeDate: new Date('2024-01-15'),
-        endDate: null, // Active program
         expectedOutcomeType: programData.expectedOutcomeType,
         expectedRevenueTarget: 1000,
-        expectedProductivityTarget: {
-          'commissions_earned': 1000,
-          'premiums_written': 1200,
-          'points_earned': 1200,
-          'clients_helped': 2,
-          'applications_submitted': 3
-        },
         timeExpectations: programData.timeExpectations,
         measurementFrequency: programData.measurementFrequency,
-        eligibilityCriteria: {
-          role: ['MEMBER'],
-          experienceLevel: 'NEW_HIRE',
-          department: ['SALES']
-        },
-        prerequisites: {
-          requiredPrograms: [],
-          approvalRequired: true,
-          approverRole: 'HIRING_MANAGER'
-        },
-        consentLabel: 'I commit to completing the full New Agent School program',
-        ctaButtonText: 'Start New Agent School'
+        stages: {
+          create: programData.stages.map((stageData: any) => ({
+            name: stageData.name,
+            order: stageData.order,
+            timeExpectations: stageData.timeExpectations,
+            status: 'ACTIVE',
+            tasks: {
+              create: stageData.tasks.map((taskData: any) => ({
+                name: taskData.name,
+                type: taskData.type,
+                order: taskData.order,
+                estimatedDuration: taskData.estimatedDuration,
+                status: 'ACTIVE'
+              }))
+            }
+          }))
+        }
       }
     });
 

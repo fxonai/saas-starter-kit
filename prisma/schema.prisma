@@ -31,9 +31,6 @@ enum EnrollmentType {
 enum OutcomeType {
   REVENUE_TARGET
   RESOURCE_TARGET
-  EFFICIENCY_METRIC
-  QUALITY_STANDARD
-  OPERATIONAL_TARGET
 }
 
 enum MeasurementFrequency {
@@ -88,8 +85,8 @@ enum ParticipantType {
 }
 
 enum ParticipantStatus {
-  ENROLLED
-  IN_PROGRESS
+  ENROLLED    // Signed up for the program
+  IN_PROGRESS // Started day 1 of the program
   COMPLETED
   DROPPED
 }
@@ -131,6 +128,15 @@ enum ProgressStatus {
   IN_PROGRESS
   COMPLETED
   SKIPPED
+}
+
+// Task verification methods
+enum VerificationMethod {
+  MANUAL
+  AUTO
+  QUIZ
+  SUBMISSION
+  APPROVAL
 }
 
 model Account {
@@ -211,22 +217,20 @@ model Team {
 
 model Program {
   id                    String   @id @default(uuid())
-  name                  String   // Published name
-  subtitle              String   @db.VarChar(100)  // ~10 words max
-  description           String   @db.VarChar(350)  // ~35 words max
-  programBenefits       String[] // Bulleted list of benefits
+  name                  String   // Program name
+  subtitle              String?  // Program subtitle
+  description           String?  // Program description
   programLogo           String?  // Program logo image
-  bannerImage           String?  // Banner image for program
   teamId                String   // Which team owns this program
   status                ProgramStatus @default(DRAFT)
   
   // Enrollment
   enrollmentType        EnrollmentType @default(MANAGER_ASSIGNED)
-  enrollmentStartDate   DateTime?
-  enrollmentEndDate     DateTime?
-  publishDate           DateTime?
-  activeDate            DateTime?
-  endDate               DateTime?
+  enrollmentStartDate   DateTime?  // Keep DateTime for audit trail
+  enrollmentEndDate     DateTime?  // Keep DateTime for audit trail
+  publishDate           DateTime?  // Keep DateTime for audit trail
+  activeDate            DateTime?  // Keep DateTime for audit trail
+  endDate               DateTime?  // Keep DateTime for audit trail
   
   // Outcomes
   expectedOutcomeType   OutcomeType?
@@ -241,9 +245,7 @@ model Program {
   eligibilityCriteria   Json?    // Structured JSON rules
   prerequisites         Json?    // Structured JSON requirements
   
-  // UI/UX
-  consentLabel          String   @db.VarChar(100)  // ~10 words max
-  ctaButtonText         String   @db.VarChar(50)   // Call-to-action button text
+
   
   // Lifecycle
   isActive              Boolean  @default(true)
@@ -266,9 +268,9 @@ model ProgramUser {
   participantType ParticipantType? // Type of participant (NEW_INSURANCE_AGENT_FULL_TIME, etc.)
   status      ParticipantStatus @default(ENROLLED)
   assignedBy  String   // Who assigned them (Program Manager, Hiring Manager, etc.)
-  assignedAt  DateTime @default(now())
-  startedAt   DateTime?
-  completedAt DateTime?
+  assignedAt  DateTime @default(now())  // Keep DateTime for audit trail
+  startedAt   DateTime?  // Keep DateTime for audit trail
+  completedAt DateTime?  // Keep DateTime for audit trail
   notes       String?  // Additional notes about participation
   
   // Relations
@@ -340,7 +342,7 @@ model Task {
   
   // Completion and verification
   completionCriteria Json?    // Structured JSON for completion rules
-  verificationMethod String?  // How completion is verified
+  verificationMethod VerificationMethod?  // How completion is verified
   autoComplete      Boolean  @default(false) // Can be auto-completed
   
   // Dependencies
