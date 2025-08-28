@@ -22,8 +22,16 @@ const SUPER_LIFE_GROUP_PROGRAM = {
   activeDate: new Date('2024-01-15'),
   endDate: new Date('2024-12-31'),
   expectedOutcomeType: 'REVENUE_TARGET',
-  timeExpectations: 200, // Total hours across all stages
-  measurementFrequency: 'WEEKLY',
+  expectedRevenueTarget: 1000, // $1K revenue target
+  expectedProductivityTarget: {
+    'commissions_earned': 1000,
+    'premiums_written': 1200,
+    'points_earned': 1200,
+    'clients_helped': 2,
+    'applications_submitted': 3
+  },
+  timeExpectations: 156, // Total hours across all stages (30+20+20+22+64)
+  measurementFrequency: 'DAILY',
   eligibilityCriteria: {
     role: ['MEMBER'],
     experienceLevel: 'NEW_HIRE',
@@ -42,7 +50,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       description: 'Essential setup and foundational knowledge for new life insurance agents',
       order: 1,
       status: 'PUBLISHED',
-      timeExpectations: 3, // 175 minutes = ~3 hours
+      timeExpectations: 30, // 30 hours for pre-licensing education
       startDate: new Date('2024-01-15'),
       endDate: new Date('2024-01-21'),
       desiredOutcomes: [
@@ -213,7 +221,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       description: 'Learn the 3-3-60 Game Plan and build your fantasy team',
       order: 2,
       status: 'PUBLISHED',
-      timeExpectations: 3, // 175 minutes = ~3 hours
+      timeExpectations: 20, // 20 hours for pre-licensing education
       startDate: new Date('2024-01-22'),
       endDate: new Date('2024-01-28'),
       desiredOutcomes: [
@@ -355,7 +363,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       description: 'Field training basics and lead qualification',
       order: 3,
       status: 'PUBLISHED',
-      timeExpectations: 1, // 60 minutes = 1 hour
+      timeExpectations: 20, // 20 hours for prospecting and exam prep
       startDate: new Date('2024-01-29'),
       endDate: new Date('2024-02-04'),
       desiredOutcomes: [
@@ -452,6 +460,60 @@ const SUPER_LIFE_GROUP_PROGRAM = {
             'scripts_practiced': 1,
             'appointments_prepared': 0
           }
+        },
+        {
+          name: 'Warm Network Prospecting Calls',
+          description: 'Make daily calls to your warm network to build prospect list.',
+          order: 4,
+          type: 'ASSIGNMENT',
+          priority: 'HIGH',
+          estimatedDuration: 600, // 10 hours over the week
+          instructions: 'Call 20 people from your warm network daily to expand your prospect list.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Log Calls', 'Update Prospect List']
+          },
+          taskTarget: {
+            'prospect_names': 100,
+            'warm_calls_made': 100,
+            'connections_renewed': 50
+          }
+        },
+        {
+          name: 'Social Media Prospecting',
+          description: 'Use social media to reconnect and expand your network.',
+          order: 5,
+          type: 'ASSIGNMENT',
+          priority: 'MEDIUM',
+          estimatedDuration: 300, // 5 hours over the week
+          instructions: 'Engage with your social media network to identify prospects.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Post Updates', 'Engage with Connections']
+          },
+          taskTarget: {
+            'prospect_names': 50,
+            'social_engagements': 25,
+            'online_connections': 25
+          }
+        },
+        {
+          name: 'Exam Preparation & Scheduling',
+          description: 'Finalize exam preparation and schedule your state licensing exam.',
+          order: 6,
+          type: 'ASSIGNMENT',
+          priority: 'CRITICAL',
+          estimatedDuration: 240, // 4 hours over the week
+          instructions: 'Complete exam prep and schedule your state licensing exam.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Complete Prep', 'Schedule Exam']
+          },
+          taskTarget: {
+            'exam_scheduled': 1,
+            'exam_prep_completed': 1,
+            'license_status': 1
+          }
         }
       ]
     },
@@ -460,7 +522,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       description: 'Complete 10 field training appointments with your trainer',
       order: 4,
       status: 'PUBLISHED',
-      timeExpectations: 25, // 10 appointments × 2.5 hours each = 25 hours
+      timeExpectations: 22, // 10 appointments × 2 hours each = 20 hours + 2 hours prep = 22 hours
       startDate: new Date('2024-02-05'),
       endDate: new Date('2024-02-18'),
       desiredOutcomes: [
@@ -506,7 +568,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
           order: 1,
           type: 'SHADOWING',
           priority: 'CRITICAL',
-          estimatedDuration: 150, // 2.5 hours total for field training overview
+          estimatedDuration: 120, // 2 hours total for field training overview
           instructions: 'Complete the full field training program with your assigned trainer.',
           resources: {
             videos: ['https://example.com/client-experience'],
@@ -1110,7 +1172,9 @@ async function seedSuperLifeGroup() {
           ...programData,
           team: {
             connect: { id: team.id }
-          }
+          },
+          expectedRevenueTarget: programData.expectedRevenueTarget,
+          expectedProductivityTarget: programData.expectedProductivityTarget
         }
       });
     }

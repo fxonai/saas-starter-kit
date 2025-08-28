@@ -230,6 +230,8 @@ model Program {
   
   // Outcomes
   expectedOutcomeType   OutcomeType?
+  expectedRevenueTarget Int?     // Revenue target in dollars
+  expectedProductivityTarget Json? // Productivity metrics (e.g., commissions, points, clients helped)
   
   // Time
   timeExpectations      Int?     // Duration in hours
