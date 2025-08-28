@@ -51,8 +51,6 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       order: 1,
       status: 'PUBLISHED',
       timeExpectations: 30, // 30 hours for pre-licensing education
-      startDate: new Date('2024-01-15'),
-      endDate: new Date('2024-01-21'),
       desiredOutcomes: [
         'Complete profile setup and orientation',
         'Enroll in pre-licensing course',
@@ -222,8 +220,6 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       order: 2,
       status: 'PUBLISHED',
       timeExpectations: 20, // 20 hours for pre-licensing education
-      startDate: new Date('2024-01-22'),
-      endDate: new Date('2024-01-28'),
       desiredOutcomes: [
         'Understand the 3-3-60 Game Plan',
         'Build your fantasy team',
@@ -364,8 +360,6 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       order: 3,
       status: 'PUBLISHED',
       timeExpectations: 20, // 20 hours for prospecting and exam prep
-      startDate: new Date('2024-01-29'),
-      endDate: new Date('2024-02-04'),
       desiredOutcomes: [
         'Understand field training process',
         'Qualify leads with MACHO traits',
@@ -523,8 +517,6 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       order: 4,
       status: 'PUBLISHED',
       timeExpectations: 22, // 10 appointments × 2 hours each = 20 hours + 2 hours prep = 22 hours
-      startDate: new Date('2024-02-05'),
-      endDate: new Date('2024-02-18'),
       desiredOutcomes: [
         'Complete 10 field training appointments',
         'Observe client interactions',
@@ -783,8 +775,6 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       order: 5,
       status: 'PUBLISHED',
       timeExpectations: 64, // 4 weeks × 16 hours = 64 hours (14 productive + 2 admin per week)
-      startDate: new Date('2024-02-19'),
-      endDate: new Date('2024-02-25'),
       desiredOutcomes: [
         'Create predictable income system',
         'Fill the sales funnel',
@@ -1208,8 +1198,6 @@ async function seedSuperLifeGroup() {
           status: stageData.status,
           programId: program.id,
           timeExpectations: stageData.timeExpectations,
-          startDate: stageData.startDate,
-          endDate: stageData.endDate,
           desiredOutcomes: stageData.desiredOutcomes,
           outcomeTargets: stageData.outcomeTargets,
           outcomeActuals: stageData.outcomeActuals,

@@ -292,9 +292,7 @@ model Stage {
   programId   String   // Which program this stage belongs to
   
   // Timeline
-  timeExpectations  Int?     // Duration in hours
-  startDate         DateTime?
-  endDate           DateTime?
+  timeExpectations  Int?     // Duration in hours (expected effort, not calendar dates)
   
   // Performance optimization
   totalTasks        Int      @default(0) // Calculated field for performance
@@ -338,10 +336,7 @@ model Task {
   attachments  String[] // File attachments
   
   // Timeline and effort
-  estimatedDuration Int?     // Duration in minutes
-  dueDate          DateTime?
-  startDate        DateTime?
-  endDate          DateTime?
+  estimatedDuration Int?     // Duration in minutes (expected effort, not calendar dates)
   
   // Completion and verification
   completionCriteria Json?    // Structured JSON for completion rules
