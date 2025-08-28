@@ -17,10 +17,10 @@ const SUPER_LIFE_GROUP_PROGRAM = {
   status: 'PUBLISHED',
   enrollmentType: 'MANAGER_ASSIGNED',
   enrollmentStartDate: new Date('2024-01-01'),
-  enrollmentEndDate: new Date('2024-12-31'),
+  enrollmentEndDate: null, // Active program - no end date
   publishDate: new Date('2024-01-01'),
   activeDate: new Date('2024-01-15'),
-  endDate: new Date('2024-12-31'),
+  endDate: null, // Active program - no end date
   expectedOutcomeType: 'REVENUE_TARGET',
   expectedRevenueTarget: 1000, // $1K revenue target
   expectedProductivityTarget: {
