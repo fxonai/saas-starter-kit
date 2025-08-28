@@ -668,7 +668,7 @@ const SUPER_LIFE_GROUP_PROGRAM = {
       description: 'Build your system for generating predictable income',
       order: 5,
       status: 'PUBLISHED',
-      timeExpectations: 6, // 330 minutes = ~5.5 hours
+      timeExpectations: 64, // 4 weeks × 16 hours = 64 hours (14 productive + 2 admin per week)
       startDate: new Date('2024-02-19'),
       endDate: new Date('2024-02-25'),
       desiredOutcomes: [
@@ -707,173 +707,283 @@ const SUPER_LIFE_GROUP_PROGRAM = {
         'commissions_earned': 0
       },
       tasks: [
+        // Week 1: Funnel Building Foundation (16 hours: 14 productive + 2 admin)
         {
-          name: 'Create predictable income as an agent',
-          description: 'Build your system for generating high-quality leads.',
+          name: 'Week 1: Daily Prospecting Calls',
+          description: 'Make daily prospecting calls to build your funnel foundation.',
           order: 1,
           type: 'ASSIGNMENT',
           priority: 'CRITICAL',
-          estimatedDuration: 30,
-          instructions: 'Develop your system for generating predictable income.',
+          estimatedDuration: 420, // 7 days × 60 minutes = 7 hours
+          instructions: 'Make 20-30 prospecting calls per day for 7 days to build your initial funnel.',
           completionCriteria: {
             type: 'MANUAL',
-            requiredActions: ['Set Goals', 'Create Weekly Schedule']
+            requiredActions: ['Complete Daily Call Log', 'Track Call Outcomes']
           },
           taskTarget: {
-            'income_system_built': 1,
-            'funnel_filled': 0,
-            'personas_identified': 0,
-            'marketing_lists_built': 0,
-            'deals_closed': 0,
-            'revenue_generated': 0
+            'prospect_names': 140,
+            'qualified_leads': 35,
+            'appointments_scheduled': 7
           }
         },
         {
-          name: 'Fill the funnel',
-          description: 'Learn how to generate, qualify, and convert leads systematically',
+          name: 'Week 1: Lead Qualification & Follow-up',
+          description: 'Qualify leads and follow up systematically.',
           order: 2,
-          type: 'VIDEO',
+          type: 'ASSIGNMENT',
           priority: 'HIGH',
-          estimatedDuration: 60,
-          instructions: 'Learn systematic lead generation and qualification processes.',
+          estimatedDuration: 210, // 7 days × 30 minutes = 3.5 hours
+          instructions: 'Qualify leads from prospecting calls and follow up with interested prospects.',
           completionCriteria: {
             type: 'MANUAL',
-            requiredActions: ['Review Marketing Lists', 'Add Call Blocks']
+            requiredActions: ['Qualify 5 Leads Daily', 'Schedule Follow-ups']
           },
           taskTarget: {
-            'income_system_built': 0,
-            'funnel_filled': 100,
-            'personas_identified': 0,
-            'marketing_lists_built': 0,
-            'deals_closed': 0,
-            'revenue_generated': 0
+            'qualified_leads': 35,
+            'appointments_scheduled': 7
           }
         },
         {
-          name: 'Life & Annuity Target Personas',
-          description: 'Find your ideal clients so you know who to talk to—and what to say.',
+          name: 'Week 1: Warm Network Outreach',
+          description: 'Reach out to your warm network for referrals and introductions.',
           order: 3,
           type: 'ASSIGNMENT',
           priority: 'HIGH',
-          estimatedDuration: 30,
-          instructions: 'Identify and define your target personas for life and annuity products.',
+          estimatedDuration: 210, // 7 days × 30 minutes = 3.5 hours
+          instructions: 'Contact friends, family, and professional network for referrals.',
           completionCriteria: {
             type: 'MANUAL',
-            requiredActions: ['Choose Personas']
+            requiredActions: ['Contact 10 Warm Contacts', 'Request Referrals']
           },
           taskTarget: {
-            'income_system_built': 0,
-            'funnel_filled': 0,
-            'personas_identified': 3,
-            'marketing_lists_built': 0,
-            'deals_closed': 0,
-            'revenue_generated': 0
+            'prospect_names': 60,
+            'qualified_leads': 15,
+            'appointments_scheduled': 3
           }
         },
         {
-          name: 'Working With Your Warm Network',
-          description: 'Work with your friends and family to kickstart your agency.',
+          name: 'Week 1: Admin & Planning',
+          description: 'Manage inbox, scheduling, and weekly planning.',
           order: 4,
           type: 'ASSIGNMENT',
-          priority: 'HIGH',
-          estimatedDuration: 30,
-          instructions: 'Develop strategies for working with your warm network.',
+          priority: 'MEDIUM',
+          estimatedDuration: 120, // 2 hours admin time
+          instructions: 'Handle administrative tasks, email management, and weekly planning.',
           completionCriteria: {
             type: 'MANUAL',
-            requiredActions: ['Review Contacts', 'Write ICP Attributes']
+            requiredActions: ['Clear Inbox', 'Schedule Next Week']
           },
-          taskTarget: {
-            'income_system_built': 0,
-            'funnel_filled': 0,
-            'personas_identified': 0,
-            'marketing_lists_built': 1,
-            'deals_closed': 0,
-            'revenue_generated': 0
-          }
+          taskTarget: {}
         },
+        
+        // Week 2: Funnel + Client Meetings (16 hours: 14 productive + 2 admin)
         {
-          name: 'Sources for Building Marketing Lists',
-          description: 'Understand sources for building marketing lists cost-effectively.',
+          name: 'Week 2: Continue Prospecting',
+          description: 'Continue daily prospecting calls to maintain funnel momentum.',
           order: 5,
-          type: 'VIDEO',
-          priority: 'MEDIUM',
-          estimatedDuration: 60,
-          instructions: 'Learn about cost-effective sources for building marketing lists.',
+          type: 'ASSIGNMENT',
+          priority: 'CRITICAL',
+          estimatedDuration: 420, // 7 hours
+          instructions: 'Continue making 20-30 prospecting calls per day.',
           completionCriteria: {
             type: 'MANUAL',
-            requiredActions: ['Watch Now', 'Build a Cold List']
+            requiredActions: ['Complete Daily Call Log', 'Track Call Outcomes']
           },
           taskTarget: {
-            'income_system_built': 0,
-            'funnel_filled': 0,
-            'personas_identified': 0,
-            'marketing_lists_built': 1,
-            'deals_closed': 0,
-            'revenue_generated': 0
+            'prospect_names': 140,
+            'qualified_leads': 35,
+            'appointments_scheduled': 7
           }
         },
         {
-          name: 'Stop burning cash, focus on ROI',
-          description: 'Learn how ROI works and how to earn more from every lead you buy or develop.',
+          name: 'Week 2: Client Meetings',
+          description: 'Conduct client meetings and presentations.',
           order: 6,
-          type: 'VIDEO',
-          priority: 'MEDIUM',
-          estimatedDuration: 30,
-          instructions: 'Understand ROI principles and optimize your marketing spend.',
+          type: 'MEETING',
+          priority: 'HIGH',
+          estimatedDuration: 300, // 5 meetings × 60 minutes = 5 hours
+          instructions: 'Conduct 5 client meetings with qualified prospects.',
           completionCriteria: {
             type: 'MANUAL',
-            requiredActions: ['Enter Marketing Expenses']
+            requiredActions: ['Complete 5 Meetings', 'Document Outcomes']
           },
           taskTarget: {
-            'income_system_built': 0,
-            'funnel_filled': 0,
-            'personas_identified': 0,
-            'marketing_lists_built': 0,
-            'deals_closed': 0,
-            'revenue_generated': 0
+            'appointments_completed': 5,
+            'client_recommendations': 3,
+            'illustrations_designed': 2
           }
         },
         {
-          name: 'Building your production pipeline.',
-          description: 'Production cases progress through 6 stages, step by step.',
+          name: 'Week 2: Meeting Prep & Follow-up',
+          description: 'Prepare for meetings and follow up with clients.',
           order: 7,
           type: 'ASSIGNMENT',
           priority: 'HIGH',
-          estimatedDuration: 30,
-          instructions: 'Build and manage your production pipeline through 6 stages.',
+          estimatedDuration: 120, // 2 hours
+          instructions: 'Prepare for client meetings and follow up with meeting attendees.',
           completionCriteria: {
             type: 'MANUAL',
-            requiredActions: ['Add 3 Cases']
+            requiredActions: ['Prepare for Each Meeting', 'Follow Up with Clients']
           },
           taskTarget: {
-            'income_system_built': 0,
-            'funnel_filled': 0,
-            'personas_identified': 0,
-            'marketing_lists_built': 0,
-            'deals_closed': 3,
-            'revenue_generated': 600
+            'client_recommendations': 3,
+            'illustrations_designed': 2
           }
         },
         {
-          name: 'Driving to close',
-          description: 'Disciplines and techniques to uncover impact, drive urgency and close deals faster.',
+          name: 'Week 2: Admin & Planning',
+          description: 'Manage inbox, scheduling, and weekly planning.',
           order: 8,
-          type: 'VIDEO',
-          priority: 'HIGH',
-          estimatedDuration: 30,
-          instructions: 'Learn closing techniques and urgency creation strategies.',
+          type: 'ASSIGNMENT',
+          priority: 'MEDIUM',
+          estimatedDuration: 120, // 2 hours admin time
+          instructions: 'Handle administrative tasks and weekly planning.',
           completionCriteria: {
             type: 'MANUAL',
-            requiredActions: ['Call Stalled Clients', 'Check Pending Deals']
+            requiredActions: ['Clear Inbox', 'Schedule Next Week']
+          },
+          taskTarget: {}
+        },
+        
+        // Week 3: Funnel + Meetings + Illustrations & Apps (16 hours: 14 productive + 2 admin)
+        {
+          name: 'Week 3: Continue Prospecting & Meetings',
+          description: 'Continue prospecting and client meetings.',
+          order: 9,
+          type: 'ASSIGNMENT',
+          priority: 'CRITICAL',
+          estimatedDuration: 480, // 8 hours
+          instructions: 'Continue prospecting calls and conduct additional client meetings.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Complete Daily Calls', 'Conduct Meetings']
           },
           taskTarget: {
-            'income_system_built': 0,
-            'funnel_filled': 0,
-            'personas_identified': 0,
-            'marketing_lists_built': 0,
-            'deals_closed': 2,
-            'revenue_generated': 400
+            'prospect_names': 140,
+            'qualified_leads': 35,
+            'appointments_completed': 5,
+            'client_recommendations': 3
           }
+        },
+        {
+          name: 'Week 3: Create Illustrations',
+          description: 'Create illustrations for client recommendations.',
+          order: 10,
+          type: 'ASSIGNMENT',
+          priority: 'HIGH',
+          estimatedDuration: 180, // 3 hours
+          instructions: 'Create 3 illustrations for client recommendations.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Create 3 Illustrations', 'Review with Clients']
+          },
+          taskTarget: {
+            'illustrations_designed': 3
+          }
+        },
+        {
+          name: 'Week 3: Process Applications',
+          description: 'Process applications for interested clients.',
+          order: 11,
+          type: 'ASSIGNMENT',
+          priority: 'HIGH',
+          estimatedDuration: 180, // 3 hours
+          instructions: 'Process 3 applications for clients who want to proceed.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Process 3 Applications', 'Submit to Carriers']
+          },
+          taskTarget: {
+            'applications_submitted': 3
+          }
+        },
+        {
+          name: 'Week 3: Admin & Planning',
+          description: 'Manage inbox, scheduling, and weekly planning.',
+          order: 12,
+          type: 'ASSIGNMENT',
+          priority: 'MEDIUM',
+          estimatedDuration: 120, // 2 hours admin time
+          instructions: 'Handle administrative tasks and weekly planning.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Clear Inbox', 'Schedule Next Week']
+          },
+          taskTarget: {}
+        },
+        
+        // Week 4: Funnel + Meetings + Apps + Carrier Management & Commissions (16 hours: 14 productive + 2 admin)
+        {
+          name: 'Week 4: Continue All Activities',
+          description: 'Continue prospecting, meetings, and application processing.',
+          order: 13,
+          type: 'ASSIGNMENT',
+          priority: 'CRITICAL',
+          estimatedDuration: 480, // 8 hours
+          instructions: 'Continue all previous activities to maintain momentum.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Continue Daily Activities', 'Track Progress']
+          },
+          taskTarget: {
+            'prospect_names': 140,
+            'qualified_leads': 35,
+            'appointments_completed': 5,
+            'client_recommendations': 3,
+            'applications_submitted': 3
+          }
+        },
+        {
+          name: 'Week 4: Carrier Follow-up & Management',
+          description: 'Follow up with carriers to push applications through.',
+          order: 14,
+          type: 'ASSIGNMENT',
+          priority: 'HIGH',
+          estimatedDuration: 180, // 3 hours
+          instructions: 'Follow up with carriers on submitted applications and manage the process.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Follow Up with Carriers', 'Track Application Status']
+          },
+          taskTarget: {
+            'applications_declined': 1,
+            'clients_helped': 2,
+            'premiums_written': 1200,
+            'points_earned': 1200,
+            'commissions_earned': 1000
+          }
+        },
+        {
+          name: 'Week 4: Commission Tracking & Optimization',
+          description: 'Track commissions and optimize for maximum earnings.',
+          order: 15,
+          type: 'ASSIGNMENT',
+          priority: 'HIGH',
+          estimatedDuration: 210, // 7 days × 30 minutes = 3.5 hours
+          instructions: 'Track commission earnings and optimize strategies for maximum income.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Track Daily Commissions', 'Optimize Strategies']
+          },
+          taskTarget: {
+            'commissions_earned': 1000,
+            'premiums_written': 1200,
+            'points_earned': 1200
+          }
+        },
+        {
+          name: 'Week 4: Admin & Planning',
+          description: 'Manage inbox, scheduling, and weekly planning.',
+          order: 16,
+          type: 'ASSIGNMENT',
+          priority: 'MEDIUM',
+          estimatedDuration: 120, // 2 hours admin time
+          instructions: 'Handle administrative tasks and weekly planning.',
+          completionCriteria: {
+            type: 'MANUAL',
+            requiredActions: ['Clear Inbox', 'Schedule Next Week']
+          },
+          taskTarget: {}
         }
       ]
     }
