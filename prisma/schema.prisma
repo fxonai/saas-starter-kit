@@ -266,6 +266,10 @@ model Stage {
   prerequisites      Json?    // Prerequisites for this stage
   desiredOutcomes    String[] // Business goals and outcomes for this stage
   
+  // Outcome tracking
+  outcomeTargets     Json?    // Target values (Y) - set at stage level
+  outcomeActuals     Json?    // Current actual values (X) - updated as progress happens
+  
   // Metadata
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
@@ -310,6 +314,9 @@ model Task {
   prerequisites Json?    // Prerequisites for this task
   dependencies  Json?    // Tasks that depend on this one
   
+  // Outcome tracking
+  outcomeContributions Json? // What this task contributes when completed
+  
   // Metadata
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
@@ -341,6 +348,9 @@ model UserProgress {
   notes         String?  // Additional notes about progress
   score         Int?     // For quizzes/assessments
   feedback      String?  // Feedback from managers/reviewers
+  
+  // Outcome tracking
+  outcomeActuals Json?   // Actual metrics achieved for this specific progress record
   
   // Metadata
   createdAt     DateTime @default(now())

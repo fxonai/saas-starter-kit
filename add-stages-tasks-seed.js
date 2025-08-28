@@ -19,6 +19,18 @@ const PROGRAM_STRUCTURE = {
           'Understand product portfolio and value propositions',
           'Learn from experienced SDRs through shadowing'
         ],
+        outcomeTargets: {
+          'leads': 0,
+          'qualified_leads': 0,
+          'appointments': 0,
+          'pipeline_value': 0
+        },
+        outcomeActuals: {
+          'leads': 0,
+          'qualified_leads': 0,
+          'appointments': 0,
+          'pipeline_value': 0
+        },
         tasks: [
           {
             name: 'Complete CRM Training',
@@ -36,6 +48,12 @@ const PROGRAM_STRUCTURE = {
               type: 'QUIZ',
               passingScore: 80,
               requiredActions: ['Complete video modules', 'Pass final quiz']
+            },
+            outcomeContributions: {
+              'leads': 0,
+              'qualified_leads': 0,
+              'appointments': 0,
+              'pipeline_value': 0
             }
           },
           {
@@ -49,6 +67,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'MANUAL',
               requiredActions: ['Complete shadowing session', 'Submit reflection notes']
+            },
+            outcomeContributions: {
+              'leads': 0,
+              'qualified_leads': 0,
+              'appointments': 0,
+              'pipeline_value': 0
             }
           },
           {
@@ -63,6 +87,12 @@ const PROGRAM_STRUCTURE = {
               type: 'QUIZ',
               passingScore: 85,
               requiredActions: ['Complete product quiz']
+            },
+            outcomeContributions: {
+              'leads': 0,
+              'qualified_leads': 0,
+              'appointments': 0,
+              'pipeline_value': 0
             }
           }
         ]
@@ -80,6 +110,18 @@ const PROGRAM_STRUCTURE = {
           'Develop effective cold calling techniques',
           'Create personalized email templates for different segments'
         ],
+        outcomeTargets: {
+          'leads': 50,
+          'qualified_leads': 10,
+          'appointments': 5,
+          'pipeline_value': 50000
+        },
+        outcomeActuals: {
+          'leads': 0,
+          'qualified_leads': 0,
+          'appointments': 0,
+          'pipeline_value': 0
+        },
         tasks: [
           {
             name: 'Prospecting Tools Training',
@@ -96,6 +138,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete training', 'Create 50 prospect lists']
+            },
+            outcomeContributions: {
+              'leads': 20,
+              'qualified_leads': 5,
+              'appointments': 2,
+              'pipeline_value': 20000
             }
           },
           {
@@ -109,6 +157,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'MANUAL',
               requiredActions: ['Complete 5 role-play sessions', 'Receive positive feedback']
+            },
+            outcomeContributions: {
+              'leads': 15,
+              'qualified_leads': 3,
+              'appointments': 2,
+              'pipeline_value': 15000
             }
           },
           {
@@ -122,6 +176,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'MANUAL',
               requiredActions: ['Create templates', 'Get manager approval']
+            },
+            outcomeContributions: {
+              'leads': 15,
+              'qualified_leads': 2,
+              'appointments': 1,
+              'pipeline_value': 15000
             }
           }
         ]
@@ -139,6 +199,18 @@ const PROGRAM_STRUCTURE = {
           'Learn BANT qualification framework',
           'Understand pipeline management and forecasting'
         ],
+        outcomeTargets: {
+          'leads': 30,
+          'qualified_leads': 15,
+          'appointments': 8,
+          'pipeline_value': 75000
+        },
+        outcomeActuals: {
+          'leads': 0,
+          'qualified_leads': 0,
+          'appointments': 0,
+          'pipeline_value': 0
+        },
         tasks: [
           {
             name: 'Objection Handling Workshop',
@@ -151,6 +223,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'ASSIGNMENT',
               requiredActions: ['Attend workshop', 'Complete practice scenarios']
+            },
+            outcomeContributions: {
+              'leads': 10,
+              'qualified_leads': 5,
+              'appointments': 3,
+              'pipeline_value': 25000
             }
           },
           {
@@ -169,6 +247,12 @@ const PROGRAM_STRUCTURE = {
               type: 'QUIZ',
               passingScore: 80,
               requiredActions: ['Complete training', 'Pass qualification quiz']
+            },
+            outcomeContributions: {
+              'leads': 10,
+              'qualified_leads': 5,
+              'appointments': 3,
+              'pipeline_value': 25000
             }
           },
           {
@@ -182,6 +266,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete training', 'Create sample pipeline report']
+            },
+            outcomeContributions: {
+              'leads': 10,
+              'qualified_leads': 5,
+              'appointments': 2,
+              'pipeline_value': 25000
             }
           }
         ]
@@ -203,6 +293,18 @@ const PROGRAM_STRUCTURE = {
           'Master JavaScript fundamentals',
           'Build first coding project'
         ],
+        outcomeTargets: {
+          'projects_completed': 1,
+          'code_reviews_passed': 1,
+          'certifications_earned': 0,
+          'skills_mastered': 3
+        },
+        outcomeActuals: {
+          'projects_completed': 0,
+          'code_reviews_passed': 0,
+          'certifications_earned': 0,
+          'skills_mastered': 0
+        },
         tasks: [
           {
             name: 'Development Environment Setup',
@@ -218,6 +320,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'ASSIGNMENT',
               requiredActions: ['Install all tools', 'Submit setup verification']
+            },
+            outcomeContributions: {
+              'projects_completed': 0,
+              'code_reviews_passed': 0,
+              'certifications_earned': 0,
+              'skills_mastered': 1
             }
           },
           {
@@ -236,6 +344,12 @@ const PROGRAM_STRUCTURE = {
               type: 'QUIZ',
               passingScore: 85,
               requiredActions: ['Complete course', 'Pass JavaScript quiz']
+            },
+            outcomeContributions: {
+              'projects_completed': 0,
+              'code_reviews_passed': 0,
+              'certifications_earned': 0,
+              'skills_mastered': 1
             }
           },
           {
@@ -249,6 +363,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete project', 'Submit code review']
+            },
+            outcomeContributions: {
+              'projects_completed': 1,
+              'code_reviews_passed': 1,
+              'certifications_earned': 0,
+              'skills_mastered': 1
             }
           }
         ]
@@ -266,6 +386,18 @@ const PROGRAM_STRUCTURE = {
           'Learn Git version control and collaborative workflows',
           'Build API integration project'
         ],
+        outcomeTargets: {
+          'projects_completed': 2,
+          'code_reviews_passed': 2,
+          'certifications_earned': 0,
+          'skills_mastered': 3
+        },
+        outcomeActuals: {
+          'projects_completed': 0,
+          'code_reviews_passed': 0,
+          'certifications_earned': 0,
+          'skills_mastered': 0
+        },
         tasks: [
           {
             name: 'React Fundamentals',
@@ -282,6 +414,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete course', 'Build React component']
+            },
+            outcomeContributions: {
+              'projects_completed': 0,
+              'code_reviews_passed': 0,
+              'certifications_earned': 0,
+              'skills_mastered': 1
             }
           },
           {
@@ -299,6 +437,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete training', 'Create GitHub repository']
+            },
+            outcomeContributions: {
+              'projects_completed': 0,
+              'code_reviews_passed': 0,
+              'certifications_earned': 0,
+              'skills_mastered': 1
             }
           },
           {
@@ -312,6 +456,12 @@ const PROGRAM_STRUCTURE = {
             completionCriteria: {
               type: 'ASSIGNMENT',
               requiredActions: ['Complete project', 'Present to team']
+            },
+            outcomeContributions: {
+              'projects_completed': 1,
+              'code_reviews_passed': 1,
+              'certifications_earned': 0,
+              'skills_mastered': 1
             }
           }
         ]
@@ -614,6 +764,8 @@ async function seedStagesAndTasks() {
             startDate: stageData.startDate,
             endDate: stageData.endDate,
             desiredOutcomes: stageData.desiredOutcomes,
+            outcomeTargets: stageData.outcomeTargets || null,
+            outcomeActuals: stageData.outcomeActuals || null,
             completionCriteria: stageData.completionCriteria || null,
             prerequisites: stageData.prerequisites || null,
             totalTasks: stageData.tasks.length
@@ -644,6 +796,7 @@ async function seedStagesAndTasks() {
               startDate: taskData.startDate,
               endDate: taskData.endDate,
               completionCriteria: taskData.completionCriteria,
+              outcomeContributions: taskData.outcomeContributions || null,
               verificationMethod: taskData.verificationMethod,
               autoComplete: taskData.autoComplete || false,
               prerequisites: taskData.prerequisites || null,
