@@ -189,7 +189,7 @@ model User {
   sessions    Session[]
   invitations Invitation[]
   programUsers ProgramUser[]
-  programAssignments ProgramUser[] @relation("ProgramAssignment")
+  programAssignments ProgramUser[] @relation("ProgramAssigner")
 }
 
 model Team {
@@ -268,7 +268,7 @@ model ProgramUser {
   // Relations
   program Program @relation(fields: [programId], references: [id], onDelete: Cascade)
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  assignedByUser User @relation("ProgramAssignment", fields: [assignedBy], references: [id])
+  assignedByUser User @relation("ProgramAssigner", fields: [assignedBy], references: [id])
   userProgress UserProgress[] // Progress tracking for this program user
   
   @@unique([programId, userId])
