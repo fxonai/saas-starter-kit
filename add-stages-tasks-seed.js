@@ -318,33 +318,161 @@ const PROGRAM_STRUCTURE = {
       }
     ]
   },
-  'New Agent School': {
+  'New Agent School_2': { // Realty version
     stages: [
       {
-        name: 'Week 1: Insurance Fundamentals',
-        description: 'Core insurance concepts and product knowledge',
+        name: 'Week 1: Real Estate Fundamentals',
+        description: 'Core real estate concepts and market knowledge',
         order: 1,
         status: 'PUBLISHED',
         timeExpectations: 30,
         startDate: new Date('2024-01-15'),
         endDate: new Date('2024-01-21'),
         desiredOutcomes: [
-          'Master insurance fundamentals and product portfolio',
-          'Understand regulatory compliance requirements',
-          'Complete comprehensive product knowledge assessment'
+          'Master real estate fundamentals and market dynamics',
+          'Understand listing and showing processes',
+          'Complete comprehensive market knowledge assessment'
         ],
         tasks: [
           {
-            name: 'Insurance Basics Course',
-            description: 'Complete comprehensive insurance fundamentals training',
+            name: 'Real Estate Basics Course',
+            description: 'Complete comprehensive real estate fundamentals training',
             order: 1,
             type: 'VIDEO',
             priority: 'CRITICAL',
             estimatedDuration: 240,
-            instructions: 'Complete the insurance basics course covering all major insurance types',
+            instructions: 'Complete the real estate basics course covering market dynamics and processes',
             resources: {
-              videos: ['https://example.com/insurance-basics'],
-              documents: ['Insurance_Fundamentals.pdf']
+              videos: ['https://example.com/real-estate-basics'],
+              documents: ['Real_Estate_Fundamentals.pdf']
+            },
+            completionCriteria: {
+              type: 'QUIZ',
+              passingScore: 85,
+              requiredActions: ['Complete course', 'Pass fundamentals quiz']
+            }
+          },
+          {
+            name: 'Market Analysis Training',
+            description: 'Learn to analyze local real estate markets',
+            order: 2,
+            type: 'READING',
+            priority: 'HIGH',
+            estimatedDuration: 120,
+            instructions: 'Review market analysis tools and techniques',
+            resources: {
+              documents: ['Market_Analysis_Guide.pdf', 'CMA_Process.pdf']
+            },
+            completionCriteria: {
+              type: 'QUIZ',
+              passingScore: 80,
+              requiredActions: ['Review materials', 'Pass market analysis quiz']
+            }
+          },
+          {
+            name: 'Listing Process Training',
+            description: 'Learn the complete listing process from start to finish',
+            order: 3,
+            type: 'VIDEO',
+            priority: 'HIGH',
+            estimatedDuration: 180,
+            instructions: 'Complete training on listing properties and managing listings',
+            completionCriteria: {
+              type: 'QUIZ',
+              passingScore: 90,
+              requiredActions: ['Complete training', 'Pass listing process quiz']
+            }
+          }
+        ]
+      },
+      {
+        name: 'Week 2: Sales & Closing',
+        description: 'Real estate sales techniques and closing processes',
+        order: 2,
+        status: 'PUBLISHED',
+        timeExpectations: 35,
+        startDate: new Date('2024-01-22'),
+        endDate: new Date('2024-01-28'),
+        desiredOutcomes: [
+          'Master buyer consultation techniques',
+          'Practice offer presentation and negotiation',
+          'Learn closing processes and documentation'
+        ],
+        tasks: [
+          {
+            name: 'Buyer Consultation Training',
+            description: 'Learn to conduct effective buyer consultations',
+            order: 1,
+            type: 'VIDEO',
+            priority: 'HIGH',
+            estimatedDuration: 150,
+            instructions: 'Complete training on buyer consultation best practices',
+            resources: {
+              videos: ['https://example.com/buyer-consultation'],
+              documents: ['Buyer_Consultation_Guide.pdf']
+            },
+            completionCriteria: {
+              type: 'ASSIGNMENT',
+              requiredActions: ['Complete training', 'Practice consultation scenarios']
+            }
+          },
+          {
+            name: 'Offer Presentation Practice',
+            description: 'Practice presenting and negotiating offers',
+            order: 2,
+            type: 'PRACTICE',
+            priority: 'HIGH',
+            estimatedDuration: 240,
+            instructions: 'Practice offer presentation and negotiation techniques',
+            completionCriteria: {
+              type: 'MANUAL',
+              requiredActions: ['Complete practice sessions', 'Receive feedback']
+            }
+          },
+          {
+            name: 'Closing Process Training',
+            description: 'Learn closing processes and required documentation',
+            order: 3,
+            type: 'VIDEO',
+            priority: 'MEDIUM',
+            estimatedDuration: 120,
+            instructions: 'Complete training on closing processes and documentation',
+            completionCriteria: {
+              type: 'ASSIGNMENT',
+              requiredActions: ['Complete training', 'Create closing checklist']
+            }
+          }
+        ]
+      }
+    ]
+  },
+  'New Agent School_3': { // Life Insurance version
+    stages: [
+      {
+        name: 'Week 1: Life Insurance Fundamentals',
+        description: 'Core life insurance concepts and product knowledge',
+        order: 1,
+        status: 'PUBLISHED',
+        timeExpectations: 30,
+        startDate: new Date('2024-01-15'),
+        endDate: new Date('2024-01-21'),
+        desiredOutcomes: [
+          'Master life insurance fundamentals and product portfolio',
+          'Understand suitability and compliance requirements',
+          'Complete comprehensive product knowledge assessment'
+        ],
+        tasks: [
+          {
+            name: 'Life Insurance Basics Course',
+            description: 'Complete comprehensive life insurance fundamentals training',
+            order: 1,
+            type: 'VIDEO',
+            priority: 'CRITICAL',
+            estimatedDuration: 240,
+            instructions: 'Complete the life insurance basics course covering all major product types',
+            resources: {
+              videos: ['https://example.com/life-insurance-basics'],
+              documents: ['Life_Insurance_Fundamentals.pdf']
             },
             completionCriteria: {
               type: 'QUIZ',
@@ -354,14 +482,14 @@ const PROGRAM_STRUCTURE = {
           },
           {
             name: 'Product Portfolio Review',
-            description: 'Learn about our specific insurance products and offerings',
+            description: 'Learn about our specific life insurance products and offerings',
             order: 2,
             type: 'READING',
             priority: 'HIGH',
             estimatedDuration: 120,
-            instructions: 'Review our product portfolio and understand each offering',
+            instructions: 'Review our life insurance product portfolio and understand each offering',
             resources: {
-              documents: ['Product_Portfolio.pdf', 'Pricing_Guide.pdf']
+              documents: ['Life_Product_Portfolio.pdf', 'Illustration_Guide.pdf']
             },
             completionCriteria: {
               type: 'QUIZ',
@@ -370,76 +498,76 @@ const PROGRAM_STRUCTURE = {
             }
           },
           {
-            name: 'Regulatory Compliance Training',
-            description: 'Learn about insurance regulations and compliance requirements',
+            name: 'Suitability Training',
+            description: 'Learn about suitability requirements and compliance',
             order: 3,
             type: 'VIDEO',
             priority: 'HIGH',
             estimatedDuration: 180,
-            instructions: 'Complete regulatory compliance training for insurance agents',
+            instructions: 'Complete suitability training for life insurance agents',
             completionCriteria: {
               type: 'QUIZ',
               passingScore: 90,
-              requiredActions: ['Complete training', 'Pass compliance quiz']
+              requiredActions: ['Complete training', 'Pass suitability quiz']
             }
           }
         ]
       },
       {
-        name: 'Week 2: Sales Techniques',
-        description: 'Insurance sales techniques and client relationship management',
+        name: 'Week 2: Sales & Applications',
+        description: 'Life insurance sales techniques and application processes',
         order: 2,
         status: 'PUBLISHED',
         timeExpectations: 35,
         startDate: new Date('2024-01-22'),
         endDate: new Date('2024-01-28'),
         desiredOutcomes: [
-          'Master client needs analysis techniques',
-          'Practice sales presentation delivery',
-          'Learn CRM tools and client relationship management'
+          'Master needs analysis and discovery techniques',
+          'Practice illustration and presentation delivery',
+          'Learn application processes and underwriting'
         ],
         tasks: [
           {
             name: 'Needs Analysis Training',
-            description: 'Learn to conduct thorough client needs analysis',
+            description: 'Learn to conduct thorough life insurance needs analysis',
             order: 1,
             type: 'VIDEO',
             priority: 'HIGH',
             estimatedDuration: 150,
-            instructions: 'Complete training on conducting effective client needs analysis',
+            instructions: 'Complete training on life insurance needs analysis',
             resources: {
-              videos: ['https://example.com/needs-analysis'],
-              documents: ['Needs_Analysis_Guide.pdf']
+              videos: ['https://example.com/life-needs-analysis'],
+              documents: ['Life_Needs_Analysis_Guide.pdf']
             },
             completionCriteria: {
               type: 'ASSIGNMENT',
-              requiredActions: ['Complete training', 'Practice needs analysis']
+              requiredActions: ['Complete training', 'Practice needs analysis scenarios']
             }
           },
           {
-            name: 'Sales Presentation Practice',
-            description: 'Practice delivering insurance sales presentations',
+            name: 'Illustration Practice',
+            description: 'Practice creating and presenting life insurance illustrations',
             order: 2,
             type: 'PRACTICE',
             priority: 'HIGH',
             estimatedDuration: 240,
-            instructions: 'Practice delivering sales presentations with role-playing exercises',
+            instructions: 'Practice creating and presenting life insurance illustrations',
             completionCriteria: {
               type: 'MANUAL',
               requiredActions: ['Complete practice sessions', 'Receive feedback']
             }
           },
           {
-            name: 'Client Relationship Management',
-            description: 'Learn CRM tools and client relationship best practices',
+            name: 'Application Process Training',
+            description: 'Learn application processes and underwriting requirements',
             order: 3,
             type: 'VIDEO',
             priority: 'MEDIUM',
             estimatedDuration: 120,
-            instructions: 'Complete training on CRM usage and client relationship management',
+            instructions: 'Complete training on application processes and underwriting',
             completionCriteria: {
               type: 'ASSIGNMENT',
-              requiredActions: ['Complete training', 'Create sample client profiles']
+              requiredActions: ['Complete training', 'Create application checklist']
             }
           }
         ]

@@ -362,12 +362,12 @@ async function main() {
   // Create programs and program users
   console.log('\n📋 Creating programs and program users...');
   
-  // Sample programs data (without License Launchpad)
+  // Sample programs data (updated with CSV details)
   const PROGRAMS = [
     {
       name: 'Sales Development Onboarding',
-      subtitle: 'Essential training for new sales development representatives',
-      description: 'Comprehensive onboarding program covering sales techniques, CRM tools, and customer engagement strategies',
+      subtitle: 'From cold call to qualified meeting—fast.',
+      description: 'Master outreach, talk tracks, and CRM hygiene to book AE-accepted meetings and build your first pipeline—guided by daily targets, coaching, and 30-60-90 milestones.',
       programBenefits: [
         'Faster ramp-up to productivity',
         'Improved sales performance',
@@ -399,8 +399,8 @@ async function main() {
     },
     {
       name: 'CodeStart Academy',
-      subtitle: 'Comprehensive coding bootcamp for new software engineers',
-      description: 'Intensive programming bootcamp covering modern development practices, tools, and team collaboration',
+      subtitle: 'Ship your first PR with confidence.',
+      description: 'Spin up environments, learn repos and rituals, write tested code, and deploy safely—pairing, code reviews, and on-call shadowing move you from setup to shipped.',
       programBenefits: [
         'Master modern programming languages',
         'Learn industry best practices',
@@ -432,8 +432,8 @@ async function main() {
     },
     {
       name: 'New Agent School',
-      subtitle: 'Comprehensive training for new insurance agents',
-      description: 'Complete training program covering insurance products, regulations, and client relationship management',
+      subtitle: 'Listing, showing, and closing your first deals.',
+      description: 'Learn listings, buyer consults, CRM follow-up, and open-house playbooks; build a referral flywheel and put accepted offers on the board with ethical, compliant practice.',
       programBenefits: [
         'Comprehensive product knowledge',
         'Regulatory compliance training',
@@ -460,116 +460,168 @@ async function main() {
         approvalRequired: true,
         approverRole: 'HIRING_MANAGER'
       },
-      consentLabel: 'I agree to complete the new agent training program',
+      consentLabel: 'I agree to the Terms of Service and Privacy Policy.',
+      ctaButtonText: 'Start Agent Training'
+    },
+    {
+      name: 'New Agent School',
+      subtitle: 'Make money and change lifes as a life insurance agent.',
+      description: 'Master discovery, needs analysis, and illustrations; practice suitability and compliant presentations; launch your pipeline and submit your first clean apps with mentor feedback.',
+      programBenefits: [
+        'Comprehensive product knowledge',
+        'Regulatory compliance training',
+        'Client relationship skills',
+        'Commission optimization'
+      ],
+      status: 'ACTIVE',
+      enrollmentType: 'MANAGER_ASSIGNED',
+      enrollmentStartDate: new Date('2024-01-01'),
+      enrollmentEndDate: new Date('2024-12-31'),
+      publishDate: new Date('2024-01-01'),
+      activeDate: new Date('2024-01-15'),
+      endDate: new Date('2024-12-31'),
+      expectedOutcomeType: 'REVENUE_TARGET',
+      timeExpectations: 120,
+      measurementFrequency: 'WEEKLY',
+      eligibilityCriteria: {
+        role: ['MEMBER'],
+        experienceLevel: 'NEW_HIRE',
+        department: ['SALES']
+      },
+      prerequisites: {
+        requiredPrograms: [],
+        approvalRequired: true,
+        approverRole: 'HIRING_MANAGER'
+      },
+      consentLabel: 'I agree to the Terms of Service and Privacy Policy.',
       ctaButtonText: 'Start Agent Training'
     }
   ];
 
-  // Program assignments (updated without License Launchpad)
+  // Program assignments (updated for 4 programs)
   const PROGRAM_ASSIGNMENTS = [
-    // Sales Development Onboarding assignments
+    // Sales Development Onboarding assignments (Super Enterprise Software)
     { email: '3avery.lee@mailinator.com', programName: 'Sales Development Onboarding', role: 'PARTICIPANT' },
     { email: '3jordan.ortiz@mailinator.com', programName: 'Sales Development Onboarding', role: 'PARTICIPANT' },
     { email: '3alexis.torres@mailinator.com', programName: 'Sales Development Onboarding', role: 'PARTICIPANT' },
     { email: '3xiu.ying@mailinator.com', programName: 'Sales Development Onboarding', role: 'SUPPORTER' },
     
-    // CodeStart Academy assignments
+    // CodeStart Academy assignments (Super Enterprise Software)
     { email: '3youseff.marrak@mailinator.com', programName: 'CodeStart Academy', role: 'PARTICIPANT' },
     { email: '3zeb.rowen@mailinator.com', programName: 'CodeStart Academy', role: 'PARTICIPANT' },
     
-    // New Agent School assignments (including former License Launchpad users)
-    { email: '1avery.lee@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '1youseff.marrak@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '1alexis.torres@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '1gary.gunnison@mailinator.com', programName: 'New Agent School', role: 'HIRING_MANAGER' },
-    { email: '1xiu.ying@mailinator.com', programName: 'New Agent School', role: 'SUPPORTER' },
-    { email: '1zeb.rowen@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '1jordan.ortiz@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '1rajesh.kumar@mailinator.com', programName: 'New Agent School', role: 'SUPPORTER' },
+    // New Agent School assignments (Super Realty Team)
+    { email: '2avery.lee@mailinator.com', programName: 'New Agent School_2', role: 'PARTICIPANT' },
+    { email: '2youseff.marrak@mailinator.com', programName: 'New Agent School_2', role: 'PARTICIPANT' },
+    { email: '2alexis.torres@mailinator.com', programName: 'New Agent School_2', role: 'PARTICIPANT' },
+    { email: '2gary.gunnison@mailinator.com', programName: 'New Agent School_2', role: 'HIRING_MANAGER' },
+    { email: '2xiu.ying@mailinator.com', programName: 'New Agent School_2', role: 'SUPPORTER' },
+    { email: '2zeb.rowen@mailinator.com', programName: 'New Agent School_2', role: 'PARTICIPANT' },
+    { email: '2jordan.ortiz@mailinator.com', programName: 'New Agent School_2', role: 'PARTICIPANT' },
+    { email: '2rajesh.kumar@mailinator.com', programName: 'New Agent School_2', role: 'SUPPORTER' },
     
-    { email: '2avery.lee@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '2youseff.marrak@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '2alexis.torres@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '2gary.gunnison@mailinator.com', programName: 'New Agent School', role: 'HIRING_MANAGER' },
-    { email: '2xiu.ying@mailinator.com', programName: 'New Agent School', role: 'SUPPORTER' },
-    { email: '2zeb.rowen@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '2jordan.ortiz@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '2rajesh.kumar@mailinator.com', programName: 'New Agent School', role: 'SUPPORTER' },
-    
-    { email: '4avery.lee@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '4youseff.marrak@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '4zeb.rowen@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '4jordan.ortiz@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
-    { email: '4alexis.torres@mailinator.com', programName: 'New Agent School', role: 'PARTICIPANT' },
+    // New Agent School assignments (Super Life Group)
+    { email: '1avery.lee@mailinator.com', programName: 'New Agent School_3', role: 'PARTICIPANT' },
+    { email: '1youseff.marrak@mailinator.com', programName: 'New Agent School_3', role: 'PARTICIPANT' },
+    { email: '1alexis.torres@mailinator.com', programName: 'New Agent School_3', role: 'PARTICIPANT' },
+    { email: '1gary.gunnison@mailinator.com', programName: 'New Agent School_3', role: 'HIRING_MANAGER' },
+    { email: '1xiu.ying@mailinator.com', programName: 'New Agent School_3', role: 'SUPPORTER' },
+    { email: '1zeb.rowen@mailinator.com', programName: 'New Agent School_3', role: 'PARTICIPANT' },
+    { email: '1jordan.ortiz@mailinator.com', programName: 'New Agent School_3', role: 'PARTICIPANT' },
+    { email: '1rajesh.kumar@mailinator.com', programName: 'New Agent School_3', role: 'SUPPORTER' },
     
     // Global roles (apply to all programs)
     { email: '1jin-soo.kim@mailinator.com', programName: 'Sales Development Onboarding', role: 'EXECUTIVE' },
     { email: '1jin-soo.kim@mailinator.com', programName: 'CodeStart Academy', role: 'EXECUTIVE' },
-    { email: '1jin-soo.kim@mailinator.com', programName: 'New Agent School', role: 'EXECUTIVE' },
+    { email: '1jin-soo.kim@mailinator.com', programName: 'New Agent School_3', role: 'EXECUTIVE' },
     { email: '2jin-soo.kim@mailinator.com', programName: 'Sales Development Onboarding', role: 'EXECUTIVE' },
     { email: '2jin-soo.kim@mailinator.com', programName: 'CodeStart Academy', role: 'EXECUTIVE' },
-    { email: '2jin-soo.kim@mailinator.com', programName: 'New Agent School', role: 'EXECUTIVE' },
+    { email: '2jin-soo.kim@mailinator.com', programName: 'New Agent School_2', role: 'EXECUTIVE' },
     { email: '3jin-soo.kim@mailinator.com', programName: 'Sales Development Onboarding', role: 'EXECUTIVE' },
     { email: '3jin-soo.kim@mailinator.com', programName: 'CodeStart Academy', role: 'EXECUTIVE' },
-    { email: '3jin-soo.kim@mailinator.com', programName: 'New Agent School', role: 'EXECUTIVE' },
     { email: '4jin-soo.kim@mailinator.com', programName: 'Sales Development Onboarding', role: 'EXECUTIVE' },
     { email: '4jin-soo.kim@mailinator.com', programName: 'CodeStart Academy', role: 'EXECUTIVE' },
-    { email: '4jin-soo.kim@mailinator.com', programName: 'New Agent School', role: 'EXECUTIVE' },
     
     // Program Managers
     { email: '1madison.henry@mailinator.com', programName: 'Sales Development Onboarding', role: 'PROGRAM_MANAGER' },
     { email: '1madison.henry@mailinator.com', programName: 'CodeStart Academy', role: 'PROGRAM_MANAGER' },
-    { email: '1madison.henry@mailinator.com', programName: 'New Agent School', role: 'PROGRAM_MANAGER' },
+    { email: '1madison.henry@mailinator.com', programName: 'New Agent School_3', role: 'PROGRAM_MANAGER' },
     { email: '2madison.henry@mailinator.com', programName: 'Sales Development Onboarding', role: 'PROGRAM_MANAGER' },
     { email: '2madison.henry@mailinator.com', programName: 'CodeStart Academy', role: 'PROGRAM_MANAGER' },
-    { email: '2madison.henry@mailinator.com', programName: 'New Agent School', role: 'PROGRAM_MANAGER' },
+    { email: '2madison.henry@mailinator.com', programName: 'New Agent School_2', role: 'PROGRAM_MANAGER' },
     { email: '3madison.henry@mailinator.com', programName: 'Sales Development Onboarding', role: 'PROGRAM_MANAGER' },
     { email: '3madison.henry@mailinator.com', programName: 'CodeStart Academy', role: 'PROGRAM_MANAGER' },
-    { email: '3madison.henry@mailinator.com', programName: 'New Agent School', role: 'PROGRAM_MANAGER' },
     { email: '4madison.henry@mailinator.com', programName: 'Sales Development Onboarding', role: 'PROGRAM_MANAGER' },
     { email: '4madison.henry@mailinator.com', programName: 'CodeStart Academy', role: 'PROGRAM_MANAGER' },
-    { email: '4madison.henry@mailinator.com', programName: 'New Agent School', role: 'PROGRAM_MANAGER' },
     
     // Additional Hiring Managers
     { email: '3gary.gunnison@mailinator.com', programName: 'Sales Development Onboarding', role: 'HIRING_MANAGER' },
     { email: '3gary.gunnison@mailinator.com', programName: 'CodeStart Academy', role: 'HIRING_MANAGER' },
-    { email: '3gary.gunnison@mailinator.com', programName: 'New Agent School', role: 'HIRING_MANAGER' },
     { email: '4gary.gunnison@mailinator.com', programName: 'Sales Development Onboarding', role: 'HIRING_MANAGER' },
     { email: '4gary.gunnison@mailinator.com', programName: 'CodeStart Academy', role: 'HIRING_MANAGER' },
-    { email: '4gary.gunnison@mailinator.com', programName: 'New Agent School', role: 'HIRING_MANAGER' },
     
     // Additional Supporters
     { email: '3rajesh.kumar@mailinator.com', programName: 'Sales Development Onboarding', role: 'SUPPORTER' },
     { email: '3rajesh.kumar@mailinator.com', programName: 'CodeStart Academy', role: 'SUPPORTER' },
-    { email: '3rajesh.kumar@mailinator.com', programName: 'New Agent School', role: 'SUPPORTER' },
     { email: '4xiu.ying@mailinator.com', programName: 'Sales Development Onboarding', role: 'SUPPORTER' },
-    { email: '4xiu.ying@mailinator.com', programName: 'CodeStart Academy', role: 'SUPPORTER' },
-    { email: '4xiu.ying@mailinator.com', programName: 'New Agent School', role: 'SUPPORTER' }
+    { email: '4xiu.ying@mailinator.com', programName: 'CodeStart Academy', role: 'SUPPORTER' }
   ];
 
-  // Get the first team to associate programs with
-  const firstTeam = await client.team.findFirst();
-  if (!firstTeam) {
+  // Get teams to associate programs with
+  const teams = await client.team.findMany();
+  if (teams.length === 0) {
     console.error('❌ No teams found. Cannot create programs.');
     return;
   }
   
-  console.log(`🏢 Using team: ${firstTeam.name} (${firstTeam.id})`);
-  
-  // Create programs
+  // Create programs with proper team associations
   const programMap = new Map();
+  let programIndex = 0;
+  
   for (const programData of PROGRAMS) {
-    console.log(`📋 Creating program: ${programData.name}`);
+    // Determine which team to associate with based on program type
+    let targetTeam;
+    
+    if (programData.name === 'Sales Development Onboarding' || programData.name === 'CodeStart Academy') {
+      // Enterprise programs go to Super Enterprise Software
+      targetTeam = teams.find(t => t.name === 'Super Enterprise Software');
+    } else if (programData.name === 'New Agent School') {
+      // New Agent School programs go to different teams based on index
+      if (programIndex === 2) { // Third New Agent School (Realty)
+        targetTeam = teams.find(t => t.name === 'Super Realty Team');
+      } else if (programIndex === 3) { // Fourth New Agent School (Life)
+        targetTeam = teams.find(t => t.name === 'Super Life Group');
+      } else {
+        // Fallback to first team
+        targetTeam = teams[0];
+      }
+    } else {
+      // Fallback to first team
+      targetTeam = teams[0];
+    }
+    
+    if (!targetTeam) {
+      console.error(`❌ Target team not found for program: ${programData.name}`);
+      targetTeam = teams[0]; // Fallback
+    }
+    
+    console.log(`📋 Creating program: ${programData.name} for team: ${targetTeam.name}`);
     
     const program = await client.program.create({
       data: {
         ...programData,
-        teamId: firstTeam.id
+        teamId: targetTeam.id
       },
     });
     
-    programMap.set(program.name, program);
-    console.log(`✅ Created program: ${program.name} (${program.id})`);
+    // Use a unique key for programs with the same name
+    const programKey = programData.name === 'New Agent School' 
+      ? `${programData.name}_${programIndex}` 
+      : programData.name;
+    
+    programMap.set(programKey, program);
+    console.log(`✅ Created program: ${program.name} (${program.id}) for team: ${targetTeam.name}`);
+    programIndex++;
   }
   
   // Get a default assigner
@@ -621,7 +673,7 @@ async function main() {
   console.log(`- ${TENANT_DATA.length} tenants created`);
   console.log(`- ${TENANT_DATA.reduce((acc, tenant) => acc + tenant.teams.length, 0)} teams created`);
   console.log(`- ${userMap.size} unique users created`);
-  console.log(`- ${PROGRAMS.length} programs created`);
+  console.log(`- ${PROGRAMS.length} programs created (4 total)`);
   console.log(`- ${createdCount} program user assignments created`);
   console.log(`- Default password for all users: password123`);
 }

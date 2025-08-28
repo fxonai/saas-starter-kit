@@ -13,6 +13,8 @@ async function checkDatabase() {
     const invitations = await client.invitation.count();
     const programs = await client.program.count();
     const programUsers = await client.programUser.count();
+    const stages = await client.stage.count();
+    const tasks = await client.task.count();
     
     console.log('📊 Database Contents:');
     console.log(`- Users: ${users}`);
@@ -21,6 +23,8 @@ async function checkDatabase() {
     console.log(`- Invitations: ${invitations}`);
     console.log(`- Programs: ${programs}`);
     console.log(`- Program Users: ${programUsers}`);
+    console.log(`- Stages: ${stages}`);
+    console.log(`- Tasks: ${tasks}`);
     
     if (users > 0) {
       console.log('\n👥 Sample Users:');
@@ -57,6 +61,32 @@ async function checkDatabase() {
       });
       sampleProgramUsers.forEach(pu => {
         console.log(`  - ${pu.user.name} (${pu.role}) in ${pu.program.name}`);
+      });
+    }
+    
+    if (stages > 0) {
+      console.log('\n📋 Sample Stages:');
+      const sampleStages = await client.stage.findMany({ 
+        include: { 
+          program: true 
+        }, 
+        take: 5 
+      });
+      sampleStages.forEach(stage => {
+        console.log(`  - ${stage.name} in ${stage.program.name} (Order: ${stage.order})`);
+      });
+    }
+    
+    if (tasks > 0) {
+      console.log('\n📝 Sample Tasks:');
+      const sampleTasks = await client.task.findMany({ 
+        include: { 
+          stage: { include: { program: true } }
+        }, 
+        take: 5 
+      });
+      sampleTasks.forEach(task => {
+        console.log(`  - ${task.name} (${task.type}) in ${task.stage.name} - ${task.stage.program.name}`);
       });
     }
     
