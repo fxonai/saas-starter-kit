@@ -52,20 +52,20 @@ const SUPER_LIFE_GROUP_PROGRAM = {
         'Read foundational materials',
         'Attend orientation session'
       ],
-      outcomeTargets: {
-        'profile_completed': 1,
-        'course_enrolled': 1,
-        'exam_scheduled': 1,
-        'orientation_attended': 1,
-        'materials_read': 1
-      },
-      outcomeActuals: {
-        'profile_completed': 0,
-        'course_enrolled': 0,
-        'exam_scheduled': 0,
-        'orientation_attended': 0,
-        'materials_read': 0
-      },
+              outcomeTargets: {
+          'license_status': 1,
+          'product_knowledge': 1,
+          'commission_knowledge': 1,
+          'professional_branding': 1,
+          'business_connections': 1
+        },
+        outcomeActuals: {
+          'license_status': 0,
+          'product_knowledge': 0,
+          'commission_knowledge': 0,
+          'professional_branding': 0,
+          'business_connections': 0
+        },
       tasks: [
         {
           name: 'Start Here: Your Week 1 Launch Pad',
@@ -209,18 +209,12 @@ const SUPER_LIFE_GROUP_PROGRAM = {
         'Prepare for Week 3'
       ],
       outcomeTargets: {
-        'game_plan_understood': 1,
-        'fantasy_team_built': 1,
-        'contacts_expanded': 100,
-        'exam_passed': 1,
-        'week3_prepared': 1
+        'license_status': 1,
+        'prospect_names': 200
       },
       outcomeActuals: {
-        'game_plan_understood': 0,
-        'fantasy_team_built': 0,
-        'contacts_expanded': 0,
-        'exam_passed': 0,
-        'week3_prepared': 0
+        'license_status': 0,
+        'prospect_names': 0
       },
       tasks: [
         {
@@ -344,16 +338,14 @@ const SUPER_LIFE_GROUP_PROGRAM = {
         'Prepare for field training appointments'
       ],
       outcomeTargets: {
-        'field_training_understood': 1,
-        'leads_qualified': 50,
-        'scripts_practiced': 1,
-        'appointments_prepared': 1
+        'prospect_names': 200,
+        'qualified_leads': 100,
+        'appointments_scheduled': 10
       },
       outcomeActuals: {
-        'field_training_understood': 0,
-        'leads_qualified': 0,
-        'scripts_practiced': 0,
-        'appointments_prepared': 0
+        'prospect_names': 0,
+        'qualified_leads': 0,
+        'appointments_scheduled': 0
       },
       tasks: [
         {
@@ -438,16 +430,22 @@ const SUPER_LIFE_GROUP_PROGRAM = {
         'Run independent meetings'
       ],
       outcomeTargets: {
+        'prospect_names': 200,
+        'qualified_leads': 100,
+        'appointments_scheduled': 15,
         'appointments_completed': 10,
-        'observations_done': 4,
-        'co_leading_practiced': 4,
-        'independent_meetings': 2
+        'client_recommendations': 6,
+        'illustrations_designed': 5,
+        'applications_submitted': 3
       },
       outcomeActuals: {
+        'prospect_names': 0,
+        'qualified_leads': 0,
+        'appointments_scheduled': 0,
         'appointments_completed': 0,
-        'observations_done': 0,
-        'co_leading_practiced': 0,
-        'independent_meetings': 0
+        'client_recommendations': 0,
+        'illustrations_designed': 0,
+        'applications_submitted': 0
       },
       tasks: [
         {
@@ -681,20 +679,32 @@ const SUPER_LIFE_GROUP_PROGRAM = {
         'Track ROI and close deals'
       ],
       outcomeTargets: {
-        'income_system_built': 1,
-        'funnel_filled': 100,
-        'personas_identified': 3,
-        'marketing_lists_built': 2,
-        'deals_closed': 5,
-        'revenue_generated': 1000
+        'prospect_names': 200,
+        'qualified_leads': 100,
+        'appointments_scheduled': 15,
+        'appointments_completed': 10,
+        'client_recommendations': 6,
+        'illustrations_designed': 5,
+        'applications_submitted': 3,
+        'applications_declined': 1,
+        'clients_helped': 2,
+        'premiums_written': 1200,
+        'points_earned': 1200,
+        'commissions_earned': 1000
       },
       outcomeActuals: {
-        'income_system_built': 0,
-        'funnel_filled': 0,
-        'personas_identified': 0,
-        'marketing_lists_built': 0,
-        'deals_closed': 0,
-        'revenue_generated': 0
+        'prospect_names': 0,
+        'qualified_leads': 0,
+        'appointments_scheduled': 0,
+        'appointments_completed': 0,
+        'client_recommendations': 0,
+        'illustrations_designed': 0,
+        'applications_submitted': 0,
+        'applications_declined': 0,
+        'clients_helped': 0,
+        'premiums_written': 0,
+        'points_earned': 0,
+        'commissions_earned': 0
       },
       tasks: [
         {
