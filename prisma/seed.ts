@@ -269,17 +269,17 @@ async function main() {
   
   // Check that database is empty
   const users = await client.user.count();
-  const teams = await client.team.count();
+  const teamCount = await client.team.count();
   const teamMembers = await client.teamMember.count();
   const invitations = await client.invitation.count();
   
   console.log('🔍 Database state after clearing:');
   console.log(`- Users: ${users}`);
-  console.log(`- Teams: ${teams}`);
+  console.log(`- Teams: ${teamCount}`);
   console.log(`- Team Members: ${teamMembers}`);
   console.log(`- Invitations: ${invitations}`);
   
-  if (users === 0 && teams === 0 && teamMembers === 0 && invitations === 0) {
+  if (users === 0 && teamCount === 0 && teamMembers === 0 && invitations === 0) {
     console.log('✅ Database is EMPTY - ready to restore data\n');
   } else {
     console.log('❌ Database still has data - clearing failed\n');
@@ -568,8 +568,8 @@ async function main() {
   ];
 
   // Get teams to associate programs with
-  const teams = await client.team.findMany();
-  if (teams.length === 0) {
+  const allTeams = await client.team.findMany();
+  if (allTeams.length === 0) {
     console.error('❌ No teams found. Cannot create programs.');
     return;
   }
@@ -584,25 +584,25 @@ async function main() {
     
     if (programData.name === 'Sales Development Onboarding' || programData.name === 'CodeStart Academy') {
       // Enterprise programs go to Super Enterprise Software
-      targetTeam = teams.find(t => t.name === 'Super Enterprise Software');
+      targetTeam = allTeams.find(t => t.name === 'Super Enterprise Software');
     } else if (programData.name === 'New Agent School') {
       // New Agent School programs go to different teams based on index
       if (programIndex === 2) { // Third New Agent School (Realty)
-        targetTeam = teams.find(t => t.name === 'Super Realty Team');
+        targetTeam = allTeams.find(t => t.name === 'Super Realty Team');
       } else if (programIndex === 3) { // Fourth New Agent School (Life)
-        targetTeam = teams.find(t => t.name === 'Super Life Group');
+        targetTeam = allTeams.find(t => t.name === 'Super Life Group');
       } else {
         // Fallback to first team
-        targetTeam = teams[0];
+        targetTeam = allTeams[0];
       }
     } else {
       // Fallback to first team
-      targetTeam = teams[0];
+      targetTeam = allTeams[0];
     }
     
     if (!targetTeam) {
       console.error(`❌ Target team not found for program: ${programData.name}`);
-      targetTeam = teams[0]; // Fallback
+      targetTeam = allTeams[0]; // Fallback
     }
     
     console.log(`📋 Creating program: ${programData.name} for team: ${targetTeam.name}`);
@@ -610,7 +610,15 @@ async function main() {
     const program = await client.program.create({
       data: {
         ...programData,
-        teamId: targetTeam.id
+        status: programData.status as any,
+        enrollmentType: programData.enrollmentType as any,
+        expectedOutcomeType: programData.expectedOutcomeType as any,
+        measurementFrequency: programData.measurementFrequency as any,
+        team: {
+          connect: {
+            id: targetTeam.id
+          }
+        }
       },
     });
     
@@ -649,7 +657,7 @@ async function main() {
         data: {
           programId: program.id,
           userId: user.id,
-          role: assignment.role,
+          role: assignment.role as any,
           assignedBy: defaultAssigner.id,
           status: assignment.role === 'PARTICIPANT' ? 'ENROLLED' : 'COMPLETED'
         },
@@ -657,7 +665,7 @@ async function main() {
       
       createdCount++;
       
-    } catch (error) {
+    } catch (error: any) {
       if (error.code === 'P2002') {
         console.log(`⏭️  Skipped duplicate: ${user.name} (${assignment.role}) in ${program.name}`);
       } else {
