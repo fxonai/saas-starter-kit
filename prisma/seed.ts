@@ -212,99 +212,64 @@ async function main() {
       status: ProgramStatus.ACTIVE,
       stages: [
         {
-          name: 'Week 1: Foundation',
+          name: 'Week 1',
           order: 1,
           timeExpectations: 20,
           tasks: [
             { name: 'Complete CRM Training', type: 'VIDEO', order: 1, estimatedDuration: 60 },
             { name: 'Read Sales Handbook', type: 'READING', order: 2, estimatedDuration: 45 },
-            { name: 'Take Product Knowledge Quiz', type: 'QUIZ', order: 3, estimatedDuration: 30 },
-            { name: 'Set Up Email Signature', type: 'OTHER', order: 4, estimatedDuration: 15 },
-            { name: 'Complete Compliance Training', type: 'VIDEO', order: 5, estimatedDuration: 90 }
+            { name: 'Take Product Knowledge Quiz', type: 'QUIZ', order: 3, estimatedDuration: 30 }
           ]
         },
         {
-          name: 'Week 2: Lead Generation',
+          name: 'Week 2',
           order: 2,
           timeExpectations: 25,
           tasks: [
             { name: 'Learn Lead Qualification', type: 'VIDEO', order: 1, estimatedDuration: 90 },
             { name: 'Practice Cold Calling', type: 'PRACTICE', order: 2, estimatedDuration: 120 },
-            { name: 'Shadow Experienced Agent', type: 'MEETING', order: 3, estimatedDuration: 180 },
-            { name: 'Create LinkedIn Profile', type: 'OTHER', order: 4, estimatedDuration: 60 },
-            { name: 'Join Industry Groups', type: 'OTHER', order: 5, estimatedDuration: 30 }
+            { name: 'Shadow Experienced Agent', type: 'MEETING', order: 3, estimatedDuration: 180 }
           ]
         },
         {
-          name: 'Week 3: Sales Process',
+          name: 'Week 3',
           order: 3,
           timeExpectations: 30,
           tasks: [
             { name: 'Learn Sales Process', type: 'VIDEO', order: 1, estimatedDuration: 120 },
             { name: 'Practice Sales Presentations', type: 'PRACTICE', order: 2, estimatedDuration: 180 },
-            { name: 'Role Play Scenarios', type: 'PRACTICE', order: 3, estimatedDuration: 150 },
-            { name: 'Create Sales Scripts', type: 'ASSIGNMENT', order: 4, estimatedDuration: 90 },
-            { name: 'Attend Sales Training', type: 'MEETING', order: 5, estimatedDuration: 240 }
+            { name: 'Role Play Scenarios', type: 'PRACTICE', order: 3, estimatedDuration: 150 }
           ]
         },
         {
-          name: 'Week 4: Product Knowledge',
+          name: 'Field Training',
           order: 4,
-          timeExpectations: 25,
+          timeExpectations: 40,
           tasks: [
-            { name: 'Study Life Insurance Products', type: 'READING', order: 1, estimatedDuration: 120 },
-            { name: 'Learn Policy Types', type: 'VIDEO', order: 2, estimatedDuration: 90 },
-            { name: 'Take Product Quiz', type: 'QUIZ', order: 3, estimatedDuration: 45 },
-            { name: 'Review Case Studies', type: 'READING', order: 4, estimatedDuration: 60 },
-            { name: 'Practice Product Presentations', type: 'PRACTICE', order: 5, estimatedDuration: 120 }
+            { name: 'Schedule First Appointment', type: 'OTHER', order: 1, estimatedDuration: 30 },
+            { name: 'Prepare for First Meeting', type: 'READING', order: 2, estimatedDuration: 60 },
+            { name: 'Conduct First Appointment', type: 'MEETING', order: 3, estimatedDuration: 120 },
+            { name: 'Follow Up After Meeting', type: 'OTHER', order: 4, estimatedDuration: 45 },
+            { name: 'Schedule Second Appointment', type: 'OTHER', order: 5, estimatedDuration: 30 },
+            { name: 'Prepare Presentation Materials', type: 'ASSIGNMENT', order: 6, estimatedDuration: 90 },
+            { name: 'Conduct Second Appointment', type: 'MEETING', order: 7, estimatedDuration: 120 },
+            { name: 'Handle Objections', type: 'PRACTICE', order: 8, estimatedDuration: 60 },
+            { name: 'Schedule Third Appointment', type: 'OTHER', order: 9, estimatedDuration: 30 },
+            { name: 'Close First Deal', type: 'MEETING', order: 10, estimatedDuration: 180 },
+            { name: 'Document Success', type: 'ASSIGNMENT', order: 11, estimatedDuration: 45 }
           ]
         },
         {
-          name: 'Week 5: Client Management',
+          name: 'Earn First $1K',
           order: 5,
-          timeExpectations: 20,
-          tasks: [
-            { name: 'Learn Client Management Tools', type: 'VIDEO', order: 1, estimatedDuration: 60 },
-            { name: 'Practice Client Meetings', type: 'PRACTICE', order: 2, estimatedDuration: 120 },
-            { name: 'Create Client Profiles', type: 'ASSIGNMENT', order: 3, estimatedDuration: 90 },
-            { name: 'Learn Follow-up Procedures', type: 'VIDEO', order: 4, estimatedDuration: 45 },
-            { name: 'Set Up Client Database', type: 'OTHER', order: 5, estimatedDuration: 60 }
-          ]
-        },
-        {
-          name: 'Week 6: Field Training',
-          order: 6,
           timeExpectations: 35,
           tasks: [
-            { name: 'Shadow Senior Agent', type: 'SHADOWING', order: 1, estimatedDuration: 240 },
-            { name: 'Conduct First Client Meeting', type: 'MEETING', order: 2, estimatedDuration: 120 },
-            { name: 'Practice Sales Calls', type: 'PRACTICE', order: 3, estimatedDuration: 180 },
-            { name: 'Learn Territory Management', type: 'VIDEO', order: 4, estimatedDuration: 90 },
-            { name: 'Complete Field Assessment', type: 'ASSIGNMENT', order: 5, estimatedDuration: 120 }
-          ]
-        },
-        {
-          name: 'Week 7: Business Development',
-          order: 7,
-          timeExpectations: 25,
-          tasks: [
-            { name: 'Create Business Plan', type: 'ASSIGNMENT', order: 1, estimatedDuration: 180 },
-            { name: 'Learn Marketing Strategies', type: 'VIDEO', order: 2, estimatedDuration: 90 },
-            { name: 'Set Up Social Media', type: 'OTHER', order: 3, estimatedDuration: 60 },
-            { name: 'Create Marketing Materials', type: 'ASSIGNMENT', order: 4, estimatedDuration: 120 },
-            { name: 'Practice Networking', type: 'PRACTICE', order: 5, estimatedDuration: 90 }
-          ]
-        },
-        {
-          name: 'Week 8: Certification & Launch',
-          order: 8,
-          timeExpectations: 20,
-          tasks: [
-            { name: 'Complete Final Assessment', type: 'QUIZ', order: 1, estimatedDuration: 60 },
-            { name: 'Obtain Required Certifications', type: 'CERTIFICATION', order: 2, estimatedDuration: 120 },
-            { name: 'Final Business Review', type: 'MEETING', order: 3, estimatedDuration: 90 },
-            { name: 'Launch Plan Presentation', type: 'ASSIGNMENT', order: 4, estimatedDuration: 120 },
-            { name: 'Graduation Ceremony', type: 'MEETING', order: 5, estimatedDuration: 60 }
+            { name: 'Set Revenue Goal', type: 'ASSIGNMENT', order: 1, estimatedDuration: 30 },
+            { name: 'Create Sales Pipeline', type: 'OTHER', order: 2, estimatedDuration: 60 },
+            { name: 'Generate Leads', type: 'PRACTICE', order: 3, estimatedDuration: 120 },
+            { name: 'Close Multiple Deals', type: 'MEETING', order: 4, estimatedDuration: 240 },
+            { name: 'Track Revenue Progress', type: 'OTHER', order: 5, estimatedDuration: 30 },
+            { name: 'Achieve $1K Milestone', type: 'OTHER', order: 6, estimatedDuration: 0 }
           ]
         }
       ]
