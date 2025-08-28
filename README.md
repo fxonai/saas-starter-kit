@@ -31,6 +31,14 @@ This SaaS starter kit has been enhanced with comprehensive onboarding platform c
 - **Time Expectations**: Flexible duration tracking (hours to months)
 - **Measurement Frequency**: Daily, Weekly, Monthly, Quarterly, Yearly progress tracking
 
+### 🎯 **Stage & Task Management**
+- **Structured Learning Paths**: Programs contain multiple stages with ordered progression
+- **Task Types**: Reading, Video, Quiz, Assignment, Meeting, Shadowing, Practice, Certification, Other
+- **Task Priority Levels**: Low, Medium, High, Critical
+- **Progress Tracking**: Not Started → In Progress → Completed → Skipped
+- **Completion Criteria**: Detailed requirements for task and stage completion
+- **Resource Management**: Links, attachments, and external resources for tasks
+
 ### 👥 **Role-Based Access Control**
 - **Program Roles**: EXECUTIVE, PROGRAM_MANAGER, PARTICIPANT, HIRING_MANAGER, SUPPORTER
 - **Participant Status**: ENROLLED → IN_PROGRESS → COMPLETED → DROPPED
@@ -46,9 +54,9 @@ This SaaS starter kit has been enhanced with comprehensive onboarding platform c
 ### 📊 **Current Data Model**
 - **40 Users** across multiple organizations
 - **15 Teams** (main + functional teams)
-- **84 Team Members** (multi-team memberships)
-- **3 Sample Programs**: Sales Development Onboarding, CodeStart Academy, New Agent School
-- **63 Program Users** with role assignments
+- **40 Team Members** (multi-team memberships)
+- **4 Sample Programs**: Sales Development Onboarding, CodeStart Academy, New Agent School (2 instances)
+- **50 Program Users** with role assignments
 - **7 Stages** with structured learning paths
 - **21 Tasks** with detailed completion criteria
 
@@ -198,8 +206,8 @@ node check-db.js
 - **4 Tenants**: Super Life Group, Super Realty Team, Super Enterprise Software, Super Insurance Carrier
 - **15 Teams**: Main teams + functional teams (Managers, Sales, Engineering)
 - **40 Users**: With multi-team memberships
-- **3 Programs**: Sales Development Onboarding, CodeStart Academy, New Agent School
-- **63 Program Users**: With various roles (EXECUTIVE, PROGRAM_MANAGER, PARTICIPANT, HIRING_MANAGER, SUPPORTER)
+- **4 Programs**: Sales Development Onboarding, CodeStart Academy, New Agent School (2 instances)
+- **50 Program Users**: With various roles (EXECUTIVE, PROGRAM_MANAGER, PARTICIPANT, HIRING_MANAGER, SUPPORTER)
 - **7 Stages**: Across all programs with structured learning paths
 - **21 Tasks**: Detailed tasks with completion criteria and resources
 
@@ -213,7 +221,7 @@ npm run dev
 
 #### 8. Start the Prisma Studio
 
-Prisma Studio is a visual editor for the data in your database. You can explore all entities including the new onboarding platform entities (Program, ProgramUser).
+Prisma Studio is a visual editor for the data in your database. You can explore all entities including the new onboarding platform entities (Program, ProgramUser, Stage, Task, UserProgress).
 
 ```bash
 npx prisma studio
