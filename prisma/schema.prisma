@@ -21,12 +21,7 @@ enum ProgramStatus {
   ARCHIVED
 }
 
-enum EnrollmentType {
-  AUTOMATIC
-  MANAGER_ASSIGNED
-  SELF_SELECT
-  SCHEDULED
-}
+
 
 enum OutcomeType {
   REVENUE_TARGET
@@ -224,13 +219,10 @@ model Program {
   teamId                String   // Which team owns this program
   status                ProgramStatus @default(DRAFT)
   
-  // Enrollment
-  enrollmentType        EnrollmentType @default(MANAGER_ASSIGNED)
-  enrollmentStartDate   DateTime?  // Keep DateTime for audit trail
-  enrollmentEndDate     DateTime?  // Keep DateTime for audit trail
-  publishDate           DateTime?  // Keep DateTime for audit trail
-  activeDate            DateTime?  // Keep DateTime for audit trail
-  endDate               DateTime?  // Keep DateTime for audit trail
+  // Program Lifecycle
+  publishDate           Date?  // When program becomes visible
+  activeDate            Date?  // When program starts accepting participants
+  endDate               Date?  // When program stops accepting participants
   
   // Outcomes
   expectedOutcomeType   OutcomeType?

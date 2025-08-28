@@ -206,7 +206,7 @@ async function main() {
     {
       name: 'New Agent School',
       teamName: 'Super Life Group',
-      enrollmentType: 'MANAGER_ASSIGNED' as any,
+
       expectedOutcomeType: 'REVENUE_TARGET' as any,
       timeExpectations: 156,
       measurementFrequency: 'DAILY' as any,
@@ -269,7 +269,7 @@ async function main() {
         description: 'Complete life insurance agent onboarding with field training and revenue generation.',
         teamId: team.id,
         status: programData.status,
-        enrollmentType: programData.enrollmentType,
+
         expectedOutcomeType: programData.expectedOutcomeType,
         expectedRevenueTarget: 1000,
         timeExpectations: programData.timeExpectations,
