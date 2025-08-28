@@ -293,16 +293,37 @@ async function main() {
       include: { user: true }
     });
 
-    for (const member of teamMembers) {
+    // Program user assignments based on seed_programs_programRoles.csv
+    const programUserData = [
+      { email: '1jin-soo.kim@mailinator.com', role: 'EXECUTIVE', status: 'ENROLLED', participantType: 'AGENCY_OWNER_FULL_TIME' },
+      { email: '1madison.henry@mailinator.com', role: 'PROGRAM_MANAGER', status: 'ENROLLED', participantType: 'EXPERIENCED_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1avery.lee@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1youseff.marrak@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1zeb.rowen@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1jordan.ortiz@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1gary.gunnison@mailinator.com', role: 'HIRING_MANAGER', status: 'ENROLLED', participantType: 'EXPERIENCED_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1alexis.torres@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1xiu.ying@mailinator.com', role: 'SUPPORTER', status: 'ENROLLED', participantType: 'INSURANCE_SUPPORT_STAFF_PART_TIME' },
+      { email: '1rajesh.kumar@mailinator.com', role: 'SUPPORTER', status: 'ENROLLED', participantType: 'INSURANCE_SUPPORT_STAFF_PART_TIME' }
+    ];
+
+    for (const userData of programUserData) {
+      const user = userMap.get(userData.email);
+      
+      if (!user) {
+        console.error(`❌ User not found: ${userData.email}`);
+        continue;
+      }
+
       await client.programUser.create({
         data: {
           programId: program.id,
-          userId: member.userId,
-          role: 'PARTICIPANT',
-          participantType: 'NEW_INSURANCE_AGENT_FULL_TIME',
-          status: 'ENROLLED',
+          userId: user.id,
+          role: userData.role as any,
+          participantType: userData.participantType as any,
+          status: userData.status as any,
           assignedBy: assigner.id,
-          notes: 'Auto-assigned during seed'
+          notes: 'Assigned based on seed_programs_programRoles.csv'
         }
       });
       totalProgramUsers++;
