@@ -7,7 +7,7 @@ export interface StageCompletionStatus {
   stageName: string;
   isCompleted: boolean;
   completionPercentage: number;
-  missingPrerequisites: string[];
+  missingDependencies: string[];
   unmetCriteria: string[];
 }
 
@@ -19,12 +19,12 @@ export interface OutcomeProgress {
 }
 
 /**
- * Check if a stage can be started based on prerequisites
+ * Check if a stage can be started based on dependencies
  */
 export async function canStartStage(
   programUserId: string, 
   stageId: string
-): Promise<{ canStart: boolean; missingPrerequisites: string[] }> {
+): Promise<{ canStart: boolean; missingDependencies: string[] }> {
   const stage = await client.stage.findUnique({
     where: { id: stageId },
     include: {
@@ -38,35 +38,35 @@ export async function canStartStage(
     }
   });
 
-  if (!stage || !stage.prerequisites) {
-    return { canStart: true, missingPrerequisites: [] };
+  if (!stage || !stage.dependencies) {
+    return { canStart: true, missingDependencies: [] };
   }
 
-  const prerequisites = stage.prerequisites as any;
-  const missingPrerequisites: string[] = [];
+  const dependencies = stage.dependencies as any;
+  const missingDependencies: string[] = [];
 
   // Check required stages
-  if (prerequisites.requiredStages && prerequisites.requiredStages.length > 0) {
-    for (const requiredStageName of prerequisites.requiredStages) {
+  if (dependencies.requiredStages && dependencies.requiredStages.length > 0) {
+    for (const requiredStageName of dependencies.requiredStages) {
       const requiredStage = stage.program.stages.find(s => s.name === requiredStageName);
       if (requiredStage) {
         const isCompleted = await isStageCompleted(programUserId, requiredStage.id);
         if (!isCompleted) {
-          missingPrerequisites.push(`Stage "${requiredStageName}" must be completed first`);
+          missingDependencies.push(`Stage "${requiredStageName}" must be completed first`);
         }
       }
     }
   }
 
   // Check required outcomes
-  if (prerequisites.requiredOutcomes && Object.keys(prerequisites.requiredOutcomes).length > 0) {
-    // Implementation for outcome-based prerequisites
+  if (dependencies.requiredOutcomes && Object.keys(dependencies.requiredOutcomes).length > 0) {
+    // Implementation for outcome-based dependencies
     // This would check if specific outcome targets were met in previous stages
   }
 
   return {
-    canStart: missingPrerequisites.length === 0,
-    missingPrerequisites
+    canStart: missingDependencies.length === 0,
+    missingDependencies
   };
 }
 
@@ -216,7 +216,7 @@ export async function getStageCompletionStatus(
     stageName: stage.name,
     isCompleted,
     completionPercentage,
-    missingPrerequisites: canStart.missingPrerequisites,
+    missingDependencies: canStart.missingDependencies,
     unmetCriteria: [] // Could be expanded to show specific unmet criteria
   };
 }

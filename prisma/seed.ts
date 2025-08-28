@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, StageStatus, TaskStatus, ProgramStatus, ProgramRole, ParticipantStatus } from '@prisma/client';
 import { hash } from 'bcryptjs';
 
 const client = new PrismaClient();
@@ -210,7 +210,7 @@ async function main() {
       expectedOutcomeType: 'REVENUE_TARGET' as any,
       timeExpectations: 156,
       measurementFrequency: 'DAILY' as any,
-      status: 'ACTIVE' as any,
+      status: ProgramStatus.ACTIVE,
       stages: [
         {
           name: 'Week 1: Foundation',
@@ -279,14 +279,14 @@ async function main() {
             name: stageData.name,
             order: stageData.order,
             timeExpectations: stageData.timeExpectations,
-            status: 'ACTIVE',
+            status: StageStatus.PUBLISHED,
             tasks: {
               create: stageData.tasks.map((taskData: any) => ({
                 name: taskData.name,
                 type: taskData.type,
                 order: taskData.order,
                 estimatedDuration: taskData.estimatedDuration,
-                status: 'ACTIVE'
+                status: TaskStatus.ACTIVE
               }))
             }
           }))
@@ -306,13 +306,13 @@ async function main() {
     // Only PARTICIPANT and SUPPORTER roles are actually enrolled in the program
     // participantType is used for scaling program expectations (null for supporters)
     const programUserData = [
-      { email: '1avery.lee@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
-      { email: '1youseff.marrak@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
-      { email: '1zeb.rowen@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
-      { email: '1jordan.ortiz@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
-      { email: '1alexis.torres@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
-      { email: '1xiu.ying@mailinator.com', role: 'SUPPORTER', status: 'ENROLLED', participantType: null },
-      { email: '1rajesh.kumar@mailinator.com', role: 'SUPPORTER', status: 'ENROLLED', participantType: null }
+      { email: '1avery.lee@mailinator.com', role: ProgramRole.PARTICIPANT, status: ParticipantStatus.ENROLLED, participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1youseff.marrak@mailinator.com', role: ProgramRole.PARTICIPANT, status: ParticipantStatus.ENROLLED, participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1zeb.rowen@mailinator.com', role: ProgramRole.PARTICIPANT, status: ParticipantStatus.ENROLLED, participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1jordan.ortiz@mailinator.com', role: ProgramRole.PARTICIPANT, status: ParticipantStatus.ENROLLED, participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1alexis.torres@mailinator.com', role: ProgramRole.PARTICIPANT, status: ParticipantStatus.ENROLLED, participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
+      { email: '1xiu.ying@mailinator.com', role: ProgramRole.SUPPORTER, status: ParticipantStatus.ENROLLED, participantType: null },
+      { email: '1rajesh.kumar@mailinator.com', role: ProgramRole.SUPPORTER, status: ParticipantStatus.ENROLLED, participantType: null }
     ];
 
     for (const userData of programUserData) {
@@ -327,9 +327,9 @@ async function main() {
         data: {
           programId: program.id,
           userId: user.id,
-          role: userData.role as any,
+          role: userData.role,
           participantType: userData.participantType as any,
-          status: userData.status as any,
+          status: userData.status,
           assignedBy: assigner.id,
           notes: 'Assigned based on seed_programs_programRoles.csv'
         }
