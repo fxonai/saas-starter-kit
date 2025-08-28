@@ -295,14 +295,15 @@ async function main() {
 
     // Program user assignments based on seed_programs_programRoles.csv
     // Only PARTICIPANT and SUPPORTER roles are actually enrolled in the program
+    // participantType is used for scaling program expectations (null for supporters)
     const programUserData = [
       { email: '1avery.lee@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
       { email: '1youseff.marrak@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
       { email: '1zeb.rowen@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
       { email: '1jordan.ortiz@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
       { email: '1alexis.torres@mailinator.com', role: 'PARTICIPANT', status: 'ENROLLED', participantType: 'NEW_INSURANCE_AGENT_FULL_TIME' },
-      { email: '1xiu.ying@mailinator.com', role: 'SUPPORTER', status: 'ENROLLED', participantType: 'INSURANCE_SUPPORT_STAFF_PART_TIME' },
-      { email: '1rajesh.kumar@mailinator.com', role: 'SUPPORTER', status: 'ENROLLED', participantType: 'INSURANCE_SUPPORT_STAFF_PART_TIME' }
+      { email: '1xiu.ying@mailinator.com', role: 'SUPPORTER', status: 'ENROLLED', participantType: null },
+      { email: '1rajesh.kumar@mailinator.com', role: 'SUPPORTER', status: 'ENROLLED', participantType: null }
     ];
 
     for (const userData of programUserData) {
