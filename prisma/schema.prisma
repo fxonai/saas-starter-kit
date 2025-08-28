@@ -59,6 +59,45 @@ enum ParticipantStatus {
   DROPPED
 }
 
+enum StageStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum TaskStatus {
+  DRAFT
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum TaskType {
+  READING
+  VIDEO
+  QUIZ
+  ASSIGNMENT
+  MEETING
+  SHADOWING
+  PRACTICE
+  CERTIFICATION
+  OTHER
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+}
+
 model Account {
   id                String  @id @default(uuid())
   userId            String
@@ -177,6 +216,7 @@ model Program {
   // Relations
   team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
   participants ProgramUser[] // Individual participants
+  stages Stage[] // Stages within this program
   
   @@index([teamId])
 }
@@ -197,11 +237,125 @@ model ProgramUser {
   program Program @relation(fields: [programId], references: [id], onDelete: Cascade)
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   assignedByUser User @relation("ProgramAssignment", fields: [assignedBy], references: [id])
+  userProgress UserProgress[] // Progress tracking for this program user
   
   @@unique([programId, userId])
   @@index([programId])
   @@index([userId])
   @@index([assignedBy])
+}
+
+model Stage {
+  id          String   @id @default(uuid())
+  name        String   // Stage name (e.g., "Week 1: Foundation")
+  description String?  // Stage description
+  order       Int      // Order within the program
+  status      StageStatus @default(DRAFT)
+  programId   String   // Which program this stage belongs to
+  
+  // Timeline
+  timeExpectations  Int?     // Duration in hours
+  startDate         DateTime?
+  endDate           DateTime?
+  
+  // Performance optimization
+  totalTasks        Int      @default(0) // Calculated field for performance
+  
+  // Completion criteria
+  completionCriteria Json?    // Structured JSON for completion rules
+  prerequisites      Json?    // Prerequisites for this stage
+  desiredOutcomes    String[] // Business goals and outcomes for this stage
+  
+  // Metadata
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  
+  // Relations
+  program Program @relation(fields: [programId], references: [id], onDelete: Cascade)
+  tasks   Task[]  // Tasks within this stage
+  userProgress UserProgress[] // Progress tracking for this stage
+  
+  @@index([programId])
+  @@index([order])
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  name        String   // Task name (e.g., "Complete CRM Training")
+  description String?  // Task description
+  order       Int      // Order within the stage
+  status      TaskStatus @default(DRAFT)
+  type        TaskType @default(OTHER)
+  priority    TaskPriority @default(MEDIUM)
+  stageId     String   // Which stage this task belongs to
+  
+  // Content and resources
+  instructions String?  // Detailed instructions
+  resources    Json?    // Links, documents, videos (structured JSON)
+  attachments  String[] // File attachments
+  
+  // Timeline and effort
+  estimatedDuration Int?     // Duration in minutes
+  dueDate          DateTime?
+  startDate        DateTime?
+  endDate          DateTime?
+  
+  // Completion and verification
+  completionCriteria Json?    // Structured JSON for completion rules
+  verificationMethod String?  // How completion is verified
+  autoComplete      Boolean  @default(false) // Can be auto-completed
+  
+  // Dependencies
+  prerequisites Json?    // Prerequisites for this task
+  dependencies  Json?    // Tasks that depend on this one
+  
+  // Metadata
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  
+  // Relations
+  stage Stage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  userProgress UserProgress[] // Progress tracking for this task
+  
+  @@index([stageId])
+  @@index([order])
+  @@index([type])
+  @@index([priority])
+}
+
+model UserProgress {
+  id            String   @id @default(uuid())
+  programUserId String   // Links to ProgramUser
+  stageId       String?  // Optional - for stage-level progress
+  taskId        String?  // Optional - for task-level progress
+  status        ProgressStatus @default(NOT_STARTED)
+  
+  // Timing
+  startedAt     DateTime?
+  completedAt   DateTime?
+  actualDuration Int?    // Actual duration in minutes (calculated)
+  
+  // Progress details
+  notes         String?  // Additional notes about progress
+  score         Int?     // For quizzes/assessments
+  feedback      String?  // Feedback from managers/reviewers
+  
+  // Metadata
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+  
+  // Relations
+  programUser ProgramUser @relation(fields: [programUserId], references: [id], onDelete: Cascade)
+  stage       Stage?      @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  task        Task?       @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+  @@unique([programUserId, stageId, taskId])
+  @@index([programUserId])
+  @@index([stageId])
+  @@index([taskId])
+  @@index([status])
 }
 
 model TeamMember {

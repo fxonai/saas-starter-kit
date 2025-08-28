@@ -47,8 +47,10 @@ This SaaS starter kit has been enhanced with comprehensive onboarding platform c
 - **40 Users** across multiple organizations
 - **15 Teams** (main + functional teams)
 - **84 Team Members** (multi-team memberships)
-- **4 Sample Programs**: Sales Development Onboarding, CodeStart Academy, License Launchpad, New Agent School
-- **79 Program Users** with role assignments
+- **3 Sample Programs**: Sales Development Onboarding, CodeStart Academy, New Agent School
+- **63 Program Users** with role assignments
+- **7 Stages** with structured learning paths
+- **21 Tasks** with detailed completion criteria
 
 ### 🔧 **Database Scripts**
 - `clear-db.js` - Clear all data for fresh starts
@@ -166,22 +168,40 @@ npx prisma db push
 
 The database comes with comprehensive sample data for testing the onboarding platform:
 
+**Main Seed Script:**
 ```bash
 npm run db:seed
 ```
 
-Or use the individual scripts for more control:
-
+**Complete Setup with Stages and Tasks:**
 ```bash
-# Clear all data
+npm run db:seed
+node add-stages-tasks-seed.js
+```
+
+**Individual Scripts for More Control:**
+```bash
+# Clear all data for fresh start
 node clear-db.js
 
-# Restore complete dataset
+# Restore base data (tenants, teams, users, programs)
 node restore-db.js
 
-# Check database state
+# Add stages and tasks to programs
+node add-stages-tasks-seed.js
+
+# Check current database state
 node check-db.js
 ```
+
+**Seed Data Includes:**
+- **4 Tenants**: Super Life Group, Super Realty Team, Super Enterprise Software, Super Insurance Carrier
+- **15 Teams**: Main teams + functional teams (Managers, Sales, Engineering)
+- **40 Users**: With multi-team memberships
+- **3 Programs**: Sales Development Onboarding, CodeStart Academy, New Agent School
+- **63 Program Users**: With various roles (EXECUTIVE, PROGRAM_MANAGER, PARTICIPANT, HIRING_MANAGER, SUPPORTER)
+- **7 Stages**: Across all programs with structured learning paths
+- **21 Tasks**: Detailed tasks with completion criteria and resources
 
 #### 8. Start the server
 
