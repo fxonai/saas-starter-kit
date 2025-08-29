@@ -13,6 +13,115 @@ enum Role {
   MEMBER
 }
 
+enum ProgramStatus {
+  DRAFT
+  PUBLISHED
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+
+
+enum OutcomeType {
+  REVENUE_TARGET
+  RESOURCE_TARGET
+}
+
+enum MeasurementFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  YEARLY
+}
+
+enum ProgramRole {
+  EXECUTIVE
+  PROGRAM_MANAGER
+  PARTICIPANT
+  HIRING_MANAGER
+  SUPPORTER
+}
+
+enum ParticipantType {
+  // Insurance Industry
+  NEW_INSURANCE_AGENT_FULL_TIME
+  NEW_INSURANCE_AGENT_PART_TIME
+  EXPERIENCED_INSURANCE_AGENT_FULL_TIME
+  EXPERIENCED_INSURANCE_AGENT_PART_TIME
+  AGENCY_OWNER_FULL_TIME
+  AGENCY_OWNER_CHAMPION_TIME
+  INSURANCE_SUPPORT_STAFF_PART_TIME
+  
+  // Real Estate Industry
+  NEW_REAL_ESTATE_AGENT_FULL_TIME
+  NEW_REAL_ESTATE_AGENT_PART_TIME
+  EXPERIENCED_REAL_ESTATE_AGENT_FULL_TIME
+  EXPERIENCED_REAL_ESTATE_AGENT_PART_TIME
+  REAL_ESTATE_BROKER_FULL_TIME
+  REAL_ESTATE_BROKER_CHAMPION_TIME
+  
+  // Software Industry
+  NEW_DEVELOPER_FULL_TIME
+  NEW_DEVELOPER_PART_TIME
+  SENIOR_DEVELOPER_FULL_TIME
+  SENIOR_DEVELOPER_PART_TIME
+  TEAM_LEAD_FULL_TIME
+  TEAM_LEAD_CHAMPION_TIME
+  
+  // Sales Function
+  NEW_SALES_REP_FULL_TIME
+  NEW_SALES_REP_PART_TIME
+  EXPERIENCED_SALES_REP_FULL_TIME
+  EXPERIENCED_SALES_REP_PART_TIME
+  SALES_MANAGER_FULL_TIME
+  SALES_MANAGER_CHAMPION_TIME
+}
+
+enum ParticipantStatus {
+  ENROLLED    // Signed up for the program
+  IN_PROGRESS // Started day 1 of the program
+  COMPLETED
+  DROPPED
+}
+
+enum StageStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum TaskStatus {
+  DRAFT
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum TaskType {
+  READING
+  VIDEO
+  QUIZ
+  ASSIGNMENT
+  MEETING
+  SHADOWING
+  PRACTICE
+  CERTIFICATION
+  OTHER
+}
+
+
+
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+}
+
+
+
 model Account {
   id                String  @id @default(uuid())
   userId            String
@@ -67,6 +176,8 @@ model User {
   accounts    Account[]
   sessions    Session[]
   invitations Invitation[]
+  programUsers ProgramUser[]
+  programAssignments ProgramUser[] @relation("ProgramAssigner")
 }
 
 model Team {
@@ -82,8 +193,193 @@ model Team {
   members         TeamMember[]
   invitations     Invitation[]
   apiKeys         ApiKey[]
+  programs        Program[]
 
   @@index([billingId])
+}
+
+model Program {
+  id                    String   @id @default(uuid())
+  name                  String   // Program name
+  subtitle              String?  // Program subtitle
+  description           String?  // Program description
+  teamId                String   // Which team owns this program
+  status                ProgramStatus @default(DRAFT)
+  
+  // Program Lifecycle (date-only, no time precision needed)
+  publishDate           DateTime?  // When program becomes visible (date only)
+  activeDate            DateTime?  // When program starts accepting participants (date only)
+  endDate               DateTime?  // When program stops accepting participants (date only)
+  
+  // Outcomes
+  outcomeType           OutcomeType?
+  outcomeTarget         Int?     // Target value (revenue, productivity, etc.)
+  productivityTarget    Json?    // Productivity metrics (e.g., commissions, points, clients helped)
+  
+  // Time
+  timeExpectations      Int?     // Duration in hours
+  measurementFrequency  MeasurementFrequency @default(DAILY)
+  
+  // Performance optimization
+  totalStages           Int      @default(0) // Calculated field for performance
+  
+  // Prerequisites
+  prerequisites         Json?    // Structured JSON requirements
+  
+
+  
+  // Lifecycle
+  isActive              Boolean  @default(true)
+  deletedAt             DateTime? // Soft delete timestamp
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @default(now())
+  
+  // Relations
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  participants ProgramUser[] // Individual participants
+  stages Stage[] // Stages within this program
+  
+  @@index([teamId])
+}
+
+model ProgramUser {
+  id          String   @id @default(uuid())
+  programId   String
+  userId      String
+  role        ProgramRole @default(PARTICIPANT)
+  participantType ParticipantType? // Type of participant (NEW_INSURANCE_AGENT_FULL_TIME, etc.)
+  status      ParticipantStatus @default(ENROLLED)
+  assignedBy  String   // Who assigned them (Program Manager, Hiring Manager, etc.)
+  assignedAt  DateTime @default(now())  // Keep DateTime for audit trail
+  startedAt   DateTime?  // Keep DateTime for audit trail
+  completedAt DateTime?  // Keep DateTime for audit trail
+  notes       String?  // Additional notes about participation
+  
+  // Relations
+  program Program @relation(fields: [programId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignedByUser User @relation("ProgramAssigner", fields: [assignedBy], references: [id])
+  userProgress UserProgress[] // Progress tracking for this program user
+  
+  @@unique([programId, userId])
+  @@index([programId])
+  @@index([userId])
+  @@index([assignedBy])
+}
+
+model Stage {
+  id          String   @id @default(uuid())
+  name        String   // Stage name (e.g., "Week 1: Foundation")
+  description String?  // Stage description
+  order       Int      // Order within the program
+  status      StageStatus @default(DRAFT)
+  programId   String   // Which program this stage belongs to
+  
+  // Timeline
+  timeExpectations  Int?     // Duration in hours (expected effort, not calendar dates)
+  
+  // Performance optimization
+  totalTasks        Int      @default(0) // Calculated field for performance
+  
+  // Dependencies
+  dependencies       Json?    // Dependencies for this stage
+  desiredOutcomes    String[] // Business goals and outcomes for this stage
+  
+  // Outcome tracking
+  outcomeTargets     Json?    // Target values (Y) - set at stage level
+  outcomeActuals     Json?    // Current actual values (X) - updated as progress happens
+  
+  // Metadata
+  isActive    Boolean  @default(true)
+  deletedAt   DateTime? // Soft delete timestamp
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  
+  // Relations
+  program Program @relation(fields: [programId], references: [id], onDelete: Cascade)
+  tasks   Task[]  // Tasks within this stage
+  userProgress UserProgress[] // Progress tracking for this stage
+  
+  @@index([programId])
+  @@index([order])
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  name        String   // Task name (e.g., "Complete CRM Training")
+  description String?  // Task description
+  order       Int      // Order within the stage
+  status      TaskStatus @default(DRAFT)
+  type        TaskType @default(OTHER)
+  stageId     String   // Which stage this task belongs to
+  
+  // Content and resources
+  instructions String?  // Detailed instructions
+  resources    Json?    // Links, documents, videos (structured JSON)
+  attachments  String[] // File attachments
+  
+  // Timeline and effort
+  estimatedDuration Int?     // Duration in minutes (expected effort, not calendar dates)
+  
+  // Completion and verification
+  autoComplete      Boolean  @default(false) // Can be auto-completed
+  
+
+  
+  // Outcome tracking
+  taskTarget Json? // Target values for this task (funnel progression or competency building)
+  taskActual Json? // Actual values achieved for this task
+  
+  // Metadata
+  isActive    Boolean  @default(true)
+  deletedAt   DateTime? // Soft delete timestamp
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  
+  // Relations
+  stage Stage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  userProgress UserProgress[] // Progress tracking for this task
+  
+  @@index([stageId])
+  @@index([order])
+  @@index([type])
+}
+
+model UserProgress {
+  id            String   @id @default(uuid())
+  programUserId String   // Links to ProgramUser
+  stageId       String?  // Optional - for stage-level progress
+  taskId        String?  // Optional - for task-level progress
+  status        ProgressStatus @default(NOT_STARTED)
+  
+  // Timing
+  startedAt     DateTime?
+  completedAt   DateTime?
+  actualDuration Int?    // Actual duration in minutes (calculated)
+  
+  // Progress details
+  notes         String?  // Additional notes about progress
+  score         Int?     // For quizzes/assessments
+  feedback      String?  // Feedback from managers/reviewers
+  
+  // Outcome tracking
+  outcomeActuals Json?   // Actual metrics achieved for this specific progress record
+  
+  // Metadata
+  deletedAt     DateTime? // Soft delete timestamp
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+  
+  // Relations
+  programUser ProgramUser @relation(fields: [programUserId], references: [id], onDelete: Cascade)
+  stage       Stage?      @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  task        Task?       @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+  @@unique([programUserId, stageId, taskId])
+  @@index([programUserId])
+  @@index([stageId])
+  @@index([taskId])
+  @@index([status])
 }
 
 model TeamMember {
@@ -91,6 +387,7 @@ model TeamMember {
   teamId    String
   userId    String
   role      Role     @default(MEMBER)
+  deletedAt DateTime? // Soft delete timestamp
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
