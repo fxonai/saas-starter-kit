@@ -111,12 +111,7 @@ enum TaskType {
   OTHER
 }
 
-enum TaskPriority {
-  LOW
-  MEDIUM
-  HIGH
-  CRITICAL
-}
+
 
 enum ProgressStatus {
   NOT_STARTED
@@ -125,14 +120,7 @@ enum ProgressStatus {
   SKIPPED
 }
 
-// Task verification methods
-enum VerificationMethod {
-  MANUAL
-  AUTO
-  QUIZ
-  SUBMISSION
-  APPROVAL
-}
+
 
 model Account {
   id                String  @id @default(uuid())
@@ -215,7 +203,6 @@ model Program {
   name                  String   // Program name
   subtitle              String?  // Program subtitle
   description           String?  // Program description
-  programLogo           String?  // Program logo image
   teamId                String   // Which team owns this program
   status                ProgramStatus @default(DRAFT)
   
@@ -225,22 +212,25 @@ model Program {
   endDate               DateTime?  // When program stops accepting participants (date only)
   
   // Outcomes
-  expectedOutcomeType   OutcomeType?
-  expectedRevenueTarget Int?     // Revenue target in dollars
-  expectedProductivityTarget Json? // Productivity metrics (e.g., commissions, points, clients helped)
+  outcomeType           OutcomeType?
+  outcomeTarget         Int?     // Target value (revenue, productivity, etc.)
+  productivityTarget    Json?    // Productivity metrics (e.g., commissions, points, clients helped)
   
   // Time
   timeExpectations      Int?     // Duration in hours
   measurementFrequency  MeasurementFrequency @default(DAILY)
   
-  // Eligibility & Prerequisites
-  eligibilityCriteria   Json?    // Structured JSON rules
+  // Performance optimization
+  totalStages           Int      @default(0) // Calculated field for performance
+  
+  // Prerequisites
   prerequisites         Json?    // Structured JSON requirements
   
 
   
   // Lifecycle
   isActive              Boolean  @default(true)
+  deletedAt             DateTime? // Soft delete timestamp
   createdAt             DateTime @default(now())
   updatedAt             DateTime @default(now())
   
@@ -291,8 +281,7 @@ model Stage {
   // Performance optimization
   totalTasks        Int      @default(0) // Calculated field for performance
   
-  // Completion criteria
-  completionCriteria Json?    // Structured JSON for completion rules
+  // Dependencies
   dependencies       Json?    // Dependencies for this stage
   desiredOutcomes    String[] // Business goals and outcomes for this stage
   
@@ -302,6 +291,7 @@ model Stage {
   
   // Metadata
   isActive    Boolean  @default(true)
+  deletedAt   DateTime? // Soft delete timestamp
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
   
@@ -321,7 +311,6 @@ model Task {
   order       Int      // Order within the stage
   status      TaskStatus @default(DRAFT)
   type        TaskType @default(OTHER)
-  priority    TaskPriority @default(MEDIUM)
   stageId     String   // Which stage this task belongs to
   
   // Content and resources
@@ -333,8 +322,6 @@ model Task {
   estimatedDuration Int?     // Duration in minutes (expected effort, not calendar dates)
   
   // Completion and verification
-  completionCriteria Json?    // Structured JSON for completion rules
-  verificationMethod VerificationMethod?  // How completion is verified
   autoComplete      Boolean  @default(false) // Can be auto-completed
   
 
@@ -345,6 +332,7 @@ model Task {
   
   // Metadata
   isActive    Boolean  @default(true)
+  deletedAt   DateTime? // Soft delete timestamp
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
   
@@ -355,7 +343,6 @@ model Task {
   @@index([stageId])
   @@index([order])
   @@index([type])
-  @@index([priority])
 }
 
 model UserProgress {
@@ -379,6 +366,7 @@ model UserProgress {
   outcomeActuals Json?   // Actual metrics achieved for this specific progress record
   
   // Metadata
+  deletedAt     DateTime? // Soft delete timestamp
   createdAt     DateTime @default(now())
   updatedAt     DateTime @default(now())
   
@@ -399,6 +387,7 @@ model TeamMember {
   teamId    String
   userId    String
   role      Role     @default(MEMBER)
+  deletedAt DateTime? // Soft delete timestamp
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
