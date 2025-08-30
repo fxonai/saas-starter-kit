@@ -297,9 +297,8 @@ model UserProgress {
   task        Task?       @relation(fields: [taskId], references: [id], onDelete: Cascade)
   
   // Constraints: Must have either stageId OR taskId, but not both
+  // Note: Validation handled at application level
   @@unique([programUserId, stageId, taskId])
-  @@check(stageId IS NOT NULL OR taskId IS NOT NULL)
-  @@check(NOT (stageId IS NOT NULL AND taskId IS NOT NULL))
   @@index([programUserId])
   @@index([stageId])
   @@index([taskId])
@@ -334,12 +333,7 @@ model AuditLog {
   @@index([createdAt])
   @@index([stageId])
   @@index([taskId])
-  // Constraints: Ensure appropriate fields are set based on action type
-  @@check(
-    (action IN ('TASK_STARTED', 'TASK_COMPLETED', 'TASK_SKIPPED') AND taskId IS NOT NULL AND stageId IS NULL) OR
-    (action IN ('STAGE_STARTED', 'STAGE_COMPLETED', 'STAGE_SKIPPED') AND stageId IS NOT NULL AND taskId IS NULL) OR
-    (action IN ('PROGRAM_ENROLLED', 'PROGRAM_STARTED', 'PROGRAM_COMPLETED', 'PROGRAM_DROPPED') AND stageId IS NULL AND taskId IS NULL)
-  )
+  // Note: Action validation handled at application level
 }
 
 model TeamMember {
