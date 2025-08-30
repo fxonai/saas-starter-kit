@@ -10,22 +10,22 @@ async function seedOnboardingPlatform() {
 
   // 1. Create the main tenant (team)
   const tenant = await createTenant();
-  
+
   // 2. Create users with specific roles
   const users = await createUsers();
-  
+
   // 3. Assign users to the tenant with roles
   await assignUsersToTenant(tenant, users);
-  
+
   // 4. Create onboarding program with hierarchy
   const program = await createOnboardingProgram(tenant);
-  
+
   // 5. Create tasks with hierarchy (Stages → Tasks → Subtasks → Actions)
-  await createTaskHierarchy(program);
-  
+  await createTaskHierarchy();
+
   // 6. Assign participants to the program
   await assignParticipantsToProgram(program, users);
-  
+
   console.log('✅ Onboarding Platform seeded successfully!');
 }
 
@@ -43,7 +43,7 @@ async function createTenant() {
 
 async function createUsers() {
   const users: any[] = [];
-  
+
   // Admin user
   const adminPassword = await hash('admin123', 12);
   const admin = await client.user.create({
@@ -55,7 +55,7 @@ async function createUsers() {
     },
   });
   users.push({ ...admin, role: 'ADMIN' });
-  
+
   // Program Manager
   const pmPassword = await hash('pm123', 12);
   const programManager = await client.user.create({
@@ -67,7 +67,7 @@ async function createUsers() {
     },
   });
   users.push({ ...programManager, role: 'MEMBER' });
-  
+
   // Hiring Manager
   const hmPassword = await hash('hm123', 12);
   const hiringManager = await client.user.create({
@@ -79,14 +79,26 @@ async function createUsers() {
     },
   });
   users.push({ ...hiringManager, role: 'MEMBER' });
-  
+
   // Participants (New Hires)
   const participants = [
-    { email: 'alex@acme-sales.com', name: 'Alex Thompson', password: 'newhire123' },
-    { email: 'jordan@acme-sales.com', name: 'Jordan Lee', password: 'newhire123' },
-    { email: 'taylor@acme-sales.com', name: 'Taylor Smith', password: 'newhire123' },
+    {
+      email: 'alex@acme-sales.com',
+      name: 'Alex Thompson',
+      password: 'newhire123',
+    },
+    {
+      email: 'jordan@acme-sales.com',
+      name: 'Jordan Lee',
+      password: 'newhire123',
+    },
+    {
+      email: 'taylor@acme-sales.com',
+      name: 'Taylor Smith',
+      password: 'newhire123',
+    },
   ];
-  
+
   for (const participant of participants) {
     const password = await hash(participant.password, 12);
     const user = await client.user.create({
@@ -99,14 +111,14 @@ async function createUsers() {
     });
     users.push({ ...user, role: 'MEMBER' });
   }
-  
+
   console.log('👥 Created users:', users.length);
   return users;
 }
 
 async function assignUsersToTenant(tenant: any, users: any[]) {
   const teamMembers: any[] = [];
-  
+
   for (const user of users) {
     const role = user.role === 'ADMIN' ? 'ADMIN' : 'MEMBER';
     const teamMember = await client.teamMember.create({
@@ -118,30 +130,33 @@ async function assignUsersToTenant(tenant: any, users: any[]) {
     });
     teamMembers.push(teamMember);
   }
-  
+
   console.log('🔗 Assigned users to tenant:', teamMembers.length);
 }
 
 async function createOnboardingProgram(tenant: any) {
   // Note: This will need to be updated once we add the Program model
   // For now, we'll create a placeholder
-  console.log('📋 Program creation will be implemented after database schema update');
-  
+  console.log(
+    '📋 Program creation will be implemented after database schema update'
+  );
+
   // Placeholder program object
   const program = {
     id: randomUUID(),
     name: 'Sales Representative Onboarding',
-    description: 'Comprehensive 30-60-90 day onboarding program for new sales representatives',
+    description:
+      'Comprehensive 30-60-90 day onboarding program for new sales representatives',
     teamId: tenant.id,
   };
-  
+
   return program;
 }
 
-async function createTaskHierarchy(program: any) {
+async function createTaskHierarchy() {
   // Note: This will need to be updated once we add the Task model
   // For now, we'll create a placeholder structure
-  
+
   const taskHierarchy = [
     {
       type: 'STAGE',
@@ -158,22 +173,46 @@ async function createTaskHierarchy(program: any) {
               name: 'Fill out I-9 Form',
               description: 'Complete employment eligibility verification',
               actions: [
-                { type: 'ACTION', name: 'Click link to I-9 form', description: 'Access the I-9 form in the HR portal' },
-                { type: 'ACTION', name: 'Upload driver\'s license', description: 'Provide government-issued ID' },
-                { type: 'ACTION', name: 'Submit form', description: 'Complete and submit the I-9 form' },
-              ]
+                {
+                  type: 'ACTION',
+                  name: 'Click link to I-9 form',
+                  description: 'Access the I-9 form in the HR portal',
+                },
+                {
+                  type: 'ACTION',
+                  name: "Upload driver's license",
+                  description: 'Provide government-issued ID',
+                },
+                {
+                  type: 'ACTION',
+                  name: 'Submit form',
+                  description: 'Complete and submit the I-9 form',
+                },
+              ],
             },
             {
               type: 'SUBTASK',
               name: 'Complete W-4 Form',
               description: 'Set up tax withholding preferences',
               actions: [
-                { type: 'ACTION', name: 'Access W-4 form', description: 'Open the W-4 form in the HR portal' },
-                { type: 'ACTION', name: 'Enter personal information', description: 'Fill in your personal details' },
-                { type: 'ACTION', name: 'Submit W-4', description: 'Complete and submit the form' },
-              ]
-            }
-          ]
+                {
+                  type: 'ACTION',
+                  name: 'Access W-4 form',
+                  description: 'Open the W-4 form in the HR portal',
+                },
+                {
+                  type: 'ACTION',
+                  name: 'Enter personal information',
+                  description: 'Fill in your personal details',
+                },
+                {
+                  type: 'ACTION',
+                  name: 'Submit W-4',
+                  description: 'Complete and submit the form',
+                },
+              ],
+            },
+          ],
         },
         {
           type: 'TASK',
@@ -185,14 +224,26 @@ async function createTaskHierarchy(program: any) {
               name: 'Watch Company Overview Video',
               description: 'Complete the company introduction video',
               actions: [
-                { type: 'ACTION', name: 'Open company video', description: 'Click the link to watch the overview video' },
-                { type: 'ACTION', name: 'Complete video', description: 'Watch the entire 15-minute video' },
-                { type: 'ACTION', name: 'Take quiz', description: 'Complete the post-video assessment' },
-              ]
-            }
-          ]
-        }
-      ]
+                {
+                  type: 'ACTION',
+                  name: 'Open company video',
+                  description: 'Click the link to watch the overview video',
+                },
+                {
+                  type: 'ACTION',
+                  name: 'Complete video',
+                  description: 'Watch the entire 15-minute video',
+                },
+                {
+                  type: 'ACTION',
+                  name: 'Take quiz',
+                  description: 'Complete the post-video assessment',
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
     {
       type: 'STAGE',
@@ -209,19 +260,31 @@ async function createTaskHierarchy(program: any) {
               name: 'Salesforce Basics',
               description: 'Learn fundamental CRM operations',
               actions: [
-                { type: 'ACTION', name: 'Access Salesforce training', description: 'Log into the training portal' },
-                { type: 'ACTION', name: 'Complete Module 1', description: 'Finish the basics module' },
-                { type: 'ACTION', name: 'Complete Module 2', description: 'Finish the intermediate module' },
-              ]
-            }
-          ]
-        }
-      ]
+                {
+                  type: 'ACTION',
+                  name: 'Access Salesforce training',
+                  description: 'Log into the training portal',
+                },
+                {
+                  type: 'ACTION',
+                  name: 'Complete Module 1',
+                  description: 'Finish the basics module',
+                },
+                {
+                  type: 'ACTION',
+                  name: 'Complete Module 2',
+                  description: 'Finish the intermediate module',
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
     {
       type: 'STAGE',
       name: 'Week 3: Sales Methodology',
-      description: 'Learn the company\'s sales process and methodology',
+      description: "Learn the company's sales process and methodology",
       tasks: [
         {
           type: 'TASK',
@@ -233,33 +296,46 @@ async function createTaskHierarchy(program: any) {
               name: 'SPIN Framework Overview',
               description: 'Learn the SPIN selling framework',
               actions: [
-                { type: 'ACTION', name: 'Read SPIN overview', description: 'Review the SPIN selling framework document' },
-                { type: 'ACTION', name: 'Watch SPIN video', description: 'Complete the SPIN methodology video' },
-                { type: 'ACTION', name: 'Practice scenarios', description: 'Complete 3 practice sales scenarios' },
-              ]
-            }
-          ]
-        }
-      ]
-    }
+                {
+                  type: 'ACTION',
+                  name: 'Read SPIN overview',
+                  description: 'Review the SPIN selling framework document',
+                },
+                {
+                  type: 'ACTION',
+                  name: 'Watch SPIN video',
+                  description: 'Complete the SPIN methodology video',
+                },
+                {
+                  type: 'ACTION',
+                  name: 'Practice scenarios',
+                  description: 'Complete 3 practice sales scenarios',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ];
-  
+
   console.log('📝 Created task hierarchy with', taskHierarchy.length, 'stages');
   console.log('   - Week 1: Foundation');
   console.log('   - Week 2: Sales Tools & CRM');
   console.log('   - Week 3: Sales Methodology');
-  
+
   return taskHierarchy;
 }
 
 async function assignParticipantsToProgram(program: any, users: any[]) {
   // Note: This will need to be updated once we add the Participant model
-  const participants = users.filter(user => 
-    user.email.includes('alex') || 
-    user.email.includes('jordan') || 
-    user.email.includes('taylor')
+  const participants = users.filter(
+    (user) =>
+      user.email.includes('alex') ||
+      user.email.includes('jordan') ||
+      user.email.includes('taylor')
   );
-  
+
   console.log('👤 Assigned participants to program:', participants.length);
   console.log('   - Alex Thompson (alex@acme-sales.com)');
   console.log('   - Jordan Lee (jordan@acme-sales.com)');
