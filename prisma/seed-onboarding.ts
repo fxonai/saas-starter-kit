@@ -21,7 +21,7 @@ async function seedOnboardingPlatform() {
   const program = await createOnboardingProgram(tenant);
   
   // 5. Create tasks with hierarchy (Stages → Tasks → Subtasks → Actions)
-  await createTaskHierarchy(program);
+  await createTaskHierarchy();
   
   // 6. Assign participants to the program
   await assignParticipantsToProgram(program, users);
@@ -138,7 +138,7 @@ async function createOnboardingProgram(tenant: any) {
   return program;
 }
 
-async function createTaskHierarchy(program: any) {
+async function createTaskHierarchy() {
   // Note: This will need to be updated once we add the Task model
   // For now, we'll create a placeholder structure
   
